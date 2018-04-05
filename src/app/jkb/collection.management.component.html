@@ -54,3 +54,27 @@
     </div>
 
 </div>
+
+<div class="row">
+  <div  class="col-md-12 main">
+    <h2>EZB-Datei-Upload</h2>
+    <p-fileUpload name="file" url="http://localhost:11855/files?module=ezbUpload" (onUpload)="onUpload($event)"
+                  accept="text/*" maxFileSize="100000000">
+    </p-fileUpload>
+    <table *ngIf="files" class="table table-hover">
+      <tbody>
+      <tr *ngFor="let file of files">
+        <td>
+          {{file.filename}}
+        </td>
+        <td>
+          <a [href]="file.link" >Ansehen</a>
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="runEzbAnalyzer(file)" >Einträge erzeugen</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

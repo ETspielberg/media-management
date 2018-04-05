@@ -1,0 +1,422 @@
+[ {
+  "identifier" : "icevl",
+  "status" : "CREATED",
+  "lastrun" : null,
+  "created" : "2018-01-17T06:17:47.805+0000",
+  "name" : "ICEVirtualLibrary",
+  "sushiURL" : "http://www.icevirtuallibrary.com/api/soap/analytics/SushiService",
+  "sushiRequestorID" : "UniDuE",
+  "sushiRequestorName" : "",
+  "sushiRequestorEmail" : "",
+  "sushiCustomerReferenceID" : "CC0738",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/icevl"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/icevl"
+    }
+  }
+}, {
+  "identifier" : "hogrefe",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-29T06:42:55.277+0000",
+  "created" : "2018-01-29T06:32:40.966+0000",
+  "name" : "Hogrefe",
+  "sushiURL" : "https://econtent.hogrefe.com/api/soap/analytics/SushiService/",
+  "sushiRequestorID" : "ubessen.admin",
+  "sushiRequestorName" : "Eike Spielberg",
+  "sushiRequestorEmail" : "eike.spielberg@uni-due.de",
+  "sushiCustomerReferenceID" : "WIB6249",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/hogrefe"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/hogrefe"
+    }
+  }
+}, {
+  "identifier" : "iop",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-29T07:11:28.278+0000",
+  "created" : "2018-01-29T07:11:22.951+0000",
+  "name" : "IOP",
+  "sushiURL" : "http://sushi.mpsinsight.com/counter_sushi4_0/services/SushiService/",
+  "sushiRequestorID" : "iopscience_3_485",
+  "sushiRequestorName" : "CarmenvonderBeeck",
+  "sushiRequestorEmail" : "ezb-anfrage@ub.uni-due.de",
+  "sushiCustomerReferenceID" : "iopscience_S198",
+  "sushiCustomerReferenceName" : "Essen Uni / Univ Duisburg Group",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/iop"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/iop"
+    }
+  }
+}, {
+  "identifier" : "cambridge",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-29T16:43:37.974+0000",
+  "created" : "2018-01-17T06:19:18.033+0000",
+  "name" : "Cambridge",
+  "sushiURL" : "http://sushi.cambridge.org/GetReport",
+  "sushiRequestorID" : "8a94020954110756015413979b0f2c04",
+  "sushiRequestorName" : "CarmenvonderBeeck",
+  "sushiRequestorEmail" : "ezb-anfrage(at)ub.uni-due.de",
+  "sushiCustomerReferenceID" : "8a94020954110756015413979b0f2c04",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/cambridge"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/cambridge"
+    }
+  }
+}, {
+  "identifier" : "euclid",
+  "status" : "FINISHED",
+  "lastrun" : "2018-02-06T09:08:39.966+0000",
+  "created" : "2018-01-29T06:19:35.095+0000",
+  "name" : "Euclid",
+  "sushiURL" : "https://projecteuclid.org/sushi/16/service.cgi/",
+  "sushiRequestorID" : "SUSHI_494f2d7c",
+  "sushiRequestorName" : "Carmen von der Beeck",
+  "sushiRequestorEmail" : "ezb-anfrage@ub.uni-due.de",
+  "sushiCustomerReferenceID" : "PE000183",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/euclid"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/euclid"
+    }
+  }
+}, {
+  "identifier" : "dah",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-26T14:14:39.454+0000",
+  "created" : "2018-01-22T06:22:56.097+0000",
+  "name" : "Duncker&amp;Humblot",
+  "sushiURL" : "http://ejournals.duncker-humblot.de/api/soap/analytics/SushiService",
+  "sushiRequestorID" : "ezb-anfrage@ub.uni-due.de",
+  "sushiRequestorName" : "Eike Spielberg",
+  "sushiRequestorEmail" : "eike.spielberg@uni-due.de",
+  "sushiCustomerReferenceID" : "OZ-00077",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/dah"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/dah"
+    }
+  }
+}, {
+  "identifier" : "acs",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-29T06:03:41.349+0000",
+  "created" : "2018-01-19T12:15:50.547+0000",
+  "name" : "AmericanChemicalSociety",
+  "sushiURL" : "http://pubs.acs.org/api/soap/analytics/SushiService",
+  "sushiRequestorID" : "UniDue",
+  "sushiRequestorName" : "Eike Spielberg",
+  "sushiRequestorEmail" : "Eike.Spielberg@uni-due.de",
+  "sushiCustomerReferenceID" : "2319109",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/acs"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/acs"
+    }
+  }
+}, {
+  "identifier" : "highwire",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-26T14:10:16.840+0000",
+  "created" : "2018-01-23T11:41:12.001+0000",
+  "name" : "Highwire",
+  "sushiURL" : "http://sushi.highwire.org/services/SushiService",
+  "sushiRequestorID" : "ezb-anfrage@ub.uni-duisburg-essen.de",
+  "sushiRequestorName" : "CarmenvonderBeeck",
+  "sushiRequestorEmail" : "ezb-anfrage@ub.uni-due.de",
+  "sushiCustomerReferenceID" : "ezb-anfrage@ub.uni-duisburg-essen.de|eljour",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/highwire"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/highwire"
+    }
+  }
+}, {
+  "identifier" : "degruyter",
+  "status" : "FINISHED",
+  "lastrun" : "2018-02-27T18:20:26.202+0000",
+  "created" : "2018-01-19T12:20:59.780+0000",
+  "name" : "deGruyter",
+  "sushiURL" : "https://ams.degruyter.com/1/services/SushiService",
+  "sushiRequestorID" : "752305",
+  "sushiRequestorName" : "CarmenvonderBeeck",
+  "sushiRequestorEmail" : "ezb-anfrage@ub.uni-due.de",
+  "sushiCustomerReferenceID" : "1658",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/degruyter"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/degruyter"
+    }
+  }
+}, {
+  "identifier" : "aps",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-23T10:27:55.267+0000",
+  "created" : "2018-01-17T05:56:46.239+0000",
+  "name" : "aps",
+  "sushiURL" : "http://sushi4.scholarlyiq.com/SushiService.svc",
+  "sushiRequestorID" : "f7ef5395-c5d3-42cd-971e-643f76c46e91",
+  "sushiRequestorName" : "",
+  "sushiRequestorEmail" : "",
+  "sushiCustomerReferenceID" : "UN418767",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/aps"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/aps"
+    }
+  }
+}, {
+  "identifier" : "oecd",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-26T15:21:21.459+0000",
+  "created" : "2018-01-17T06:16:59.215+0000",
+  "name" : "OECD",
+  "sushiURL" : "https://www.oecd-ilibrary.org/admin/statistics/sushiservice",
+  "sushiRequestorID" : "324dff6d97832f247e90b1f24bf2a069",
+  "sushiRequestorName" : "",
+  "sushiRequestorEmail" : "",
+  "sushiCustomerReferenceID" : "ocid57016100",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/oecd"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/oecd"
+    }
+  }
+}, {
+  "identifier" : "emerald",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-29T16:39:05.981+0000",
+  "created" : "2018-01-24T10:19:16.149+0000",
+  "name" : "Emerald",
+  "sushiURL" : "http://www.emeraldinsight.com/api/soap/analytics/SushiService",
+  "sushiRequestorID" : "11036070",
+  "sushiRequestorName" : "Daniela Schueler",
+  "sushiRequestorEmail" : "ezb-anfrage@ub.uni-duisburg-essen.de",
+  "sushiCustomerReferenceID" : "514549",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/emerald"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/emerald"
+    }
+  }
+}, {
+  "identifier" : "bioone",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-26T14:19:17.487+0000",
+  "created" : "2018-01-17T06:15:57.761+0000",
+  "name" : "BioOne",
+  "sushiURL" : "http://www.bioone.org/api/soap/analytics/SushiService",
+  "sushiRequestorID" : "ezb-anfrage@ub.uni-due.de",
+  "sushiRequestorName" : "CarmenvonderBeeck",
+  "sushiRequestorEmail" : "ez",
+  "sushiCustomerReferenceID" : "3330000527",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/bioone"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/bioone"
+    }
+  }
+}, {
+  "identifier" : "endosoc",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-26T14:26:01.254+0000",
+  "created" : "2018-01-22T06:57:05.119+0000",
+  "name" : "EndocrineSociety",
+  "sushiURL" : "http://press.endocrine.org/api/soap/analytics/SushiService",
+  "sushiRequestorID" : "ezb-anfrage@ub.uni-duisburg-essen.de",
+  "sushiRequestorName" : "Eike Spielberg",
+  "sushiRequestorEmail" : "eike.spielberg@uni-due.de",
+  "sushiCustomerReferenceID" : "251277",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/endosoc"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/endosoc"
+    }
+  }
+}, {
+  "identifier" : "sage",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-26T15:37:52.578+0000",
+  "created" : "2018-01-17T06:17:20.333+0000",
+  "name" : "Sage",
+  "sushiURL" : "http://journals.sagepub.com/api/soap/analytics/SushiService",
+  "sushiRequestorID" : "2740348",
+  "sushiRequestorName" : "CarmenvonderBeeck",
+  "sushiRequestorEmail" : "ezb-anfrage@ub.uni-due.de",
+  "sushiCustomerReferenceID" : "1000460706",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/sage"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/sage"
+    }
+  }
+}, {
+  "identifier" : "siam",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-29T17:14:11.533+0000",
+  "created" : "2018-01-17T06:17:05.323+0000",
+  "name" : "Siam",
+  "sushiURL" : "http://epubs.siam.org/api/soap/analytics/SushiService",
+  "sushiRequestorID" : "ezbanfrage",
+  "sushiRequestorName" : "CarmenvonderBeeck",
+  "sushiRequestorEmail" : "ezb-anfrage@ub.uni-due.de",
+  "sushiCustomerReferenceID" : "000086898",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/siam"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/siam"
+    }
+  }
+}, {
+  "identifier" : "taf",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-29T16:48:58.283+0000",
+  "created" : "2018-01-17T06:17:26.942+0000",
+  "name" : "Taylor&amp;Francis",
+  "sushiURL" : "http://www.tandfonline.com/api/soap/analytics/SushiService",
+  "sushiRequestorID" : "ezb-anfrage@ub.uni-duisburg-essen.de",
+  "sushiRequestorName" : "CarmenvonderBeeck",
+  "sushiRequestorEmail" : "ezb-anfrage@ub.uni-due.de",
+  "sushiCustomerReferenceID" : "1425409",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/taf"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/taf"
+    }
+  }
+}, {
+  "identifier" : "aea",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-29T07:18:38.767+0000",
+  "created" : "2018-01-17T06:18:07.021+0000",
+  "name" : "AmericanEconomicAssociation",
+  "sushiURL" : "http://pubs.aeaweb.org/api/soap/analytics/SushiService",
+  "sushiRequestorID" : "@uni-due.de",
+  "sushiRequestorName" : "",
+  "sushiRequestorEmail" : "",
+  "sushiCustomerReferenceID" : "000393589",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/aea"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/aea"
+    }
+  }
+}, {
+  "identifier" : "acm",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-26T12:49:05.793+0000",
+  "created" : "2018-01-17T06:13:34.526+0000",
+  "name" : "ACM",
+  "sushiURL" : "http://sushi4.scholarlyiq.com/SushiService.svc",
+  "sushiRequestorID" : "3433bb40-d651-4a42-84a4-96ff0cb9bd52",
+  "sushiRequestorName" : "",
+  "sushiRequestorEmail" : "",
+  "sushiCustomerReferenceID" : "0430637",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/acm"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/acm"
+    }
+  }
+}, {
+  "identifier" : "informs",
+  "status" : "FINISHED",
+  "lastrun" : "2018-01-29T07:23:38.226+0000",
+  "created" : "2018-01-29T07:19:45.055+0000",
+  "name" : "Informs",
+  "sushiURL" : "https://pubsonline.informs.org/api/soap/analytics/SushiService/",
+  "sushiRequestorID" : "dschueler",
+  "sushiRequestorName" : "",
+  "sushiRequestorEmail" : "",
+  "sushiCustomerReferenceID" : "1050051",
+  "sushiCustomerReferenceName" : "",
+  "sushiRelease" : 4,
+  "_links" : {
+    "self" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/informs"
+    },
+    "sushiprovider" : {
+      "href" : "https://lib-intel.ub.uni-due.de/api/settings/sushiprovider/informs"
+    }
+  }
+}
+]

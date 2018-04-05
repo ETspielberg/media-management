@@ -1,0 +1,119 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>SUSHI Accounts</h1>
+    <p>Eingerichtete SUSHI-Provider.</p>
+    <p>
+      <button pButton type="button" class="ui-button" [routerLink]="['sushiprovider','newSushiprovider']"
+              label="Neues Profil erstellen" icon="fa-plus"></button>
+      <button pButton type="button" class="ui-button" [routerLink]="['counterupload']"
+              label="Nutzungsdaten hochladen" icon="fa-upload"></button>
+    </p>
+  </div>
+</div>
+<div *ngIf="sushiproviders" class="container">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-table [value]="sushiproviders" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Name</th>
+            <th>Infos</th>
+            <th>Aktionen</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sushiprovider>
+          <tr>
+            <th>
+              {{sushiprovider.name}}
+            </th>
+            <th>
+              <button pButton type="button" class="ui-button" icon="fa-search" label="Details"
+                      (click)="showDialogForSushiprovider(sushiprovider)"></button>
+            </th>
+            <th>
+              <button pButton type="button" class="ui-button-danger" (click)="deleteSushiprovider(sushiprovider)"
+                      label="Löschen" icon="fa-trash"></button>
+              <button pButton type="button" class="ui-button-warning" [routerLink]="['sushi', sushiprovider.name]"
+                      label="Bearbeiten" icon="fa-edit"></button>
+            </th>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<p-dialog *ngIf="selectedSushiprovider" #panel header="{{selectedSushiprovider.name}}" [(visible)]="showDialog"
+          [responsive]="true" [width]="800" [minWidth]="500">
+  <table class="table table-hover">
+    <tr>
+      <td>
+        SUSHI-URL
+      </td>
+      <td>
+        {{selectedSushiprovider.sushiURL}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Customer Reference ID
+      </td>
+      <td>
+        {{selectedSushiprovider.sushiCustomerReferenceID}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Customer Reference Name
+      </td>
+      <td>
+        {{selectedSushiprovider.sushiCustomerReferenceName}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Requestor ID
+      </td>
+      <td>
+        {{selectedSushiprovider.sushiRequestorID}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Requestor Name
+      </td>
+      <td>
+        {{selectedSushiprovider.sushiRequestorName}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Requestor E-Mail
+      </td>
+      <td>
+        {{selectedSushiprovider.sushiRequestorEmail}}
+      </td>
+    </tr>
+  </table>
+  <p-footer>
+    <div class="ui-g">
+      <div class="ui-g-4">
+        <select [(ngModel)]="reportType" class="form-control">
+          <option *ngFor="let m of reportTypes" value="{{m}}">{{'report.type.' + m | translate}}</option>
+        </select>
+      </div>
+      <div class="ui-g-3">
+        <select [(ngModel)]="selectedMonth" class="form-control">
+          <option *ngFor="let m of months" value="{{m}}">{{'month.' + m | translate}}</option>
+        </select>
+      </div>
+      <div class="ui-g-3">
+        <input [(ngModel)]="year" type="number" pInputText />
+      </div>
+      <div class="ui-g-2">
+        <button pButton type="button" icon="fa-search" label="Statistiken holen"
+                (click)="collectSushiData(selectedSushiprovider)"></button>
+      </div>
+    </div>
+  </p-footer>
+</p-dialog>

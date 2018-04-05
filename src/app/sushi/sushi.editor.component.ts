@@ -1,26 +1,26 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, Router}   from '@angular/router';
-import { Location }  from '@angular/common';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
-import {SushiproviderService} from "../services/sushiprovider.service";
-import {Sushiprovider} from "../model/Sushiprovider";
+import {SushiproviderService} from '../service/sushiprovider.service';
+import {Sushiprovider} from '../model/Sushiprovider';
 
 
 @Component({
-    selector: 'sushiprovider-editor',
+    selector: 'app-sushiprovider-editor',
     templateUrl: 'sushi.editor.component.html',
     providers: [SushiproviderService]
 })
 export class SushiEditorComponent  implements OnInit {
 
-    sushiprovider : Sushiprovider;
+    sushiprovider: Sushiprovider;
 
     constructor(
-        private sushiproviderService : SushiproviderService,
-        private route : ActivatedRoute,
-        private location : Location,
-        private router : Router
-    ){}
+        private sushiproviderService: SushiproviderService,
+        private route: ActivatedRoute,
+        private location: Location,
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
         this.route.params
@@ -32,8 +32,8 @@ export class SushiEditorComponent  implements OnInit {
         this.location.back();
     }
 
-    save(sushiprovider : Sushiprovider) {
-        if (sushiprovider.identifier == 'newSushiprovider') {
+    save(sushiprovider: Sushiprovider) {
+        if (sushiprovider.identifier === 'newSushiprovider') {
             this.sushiproviderService.create(sushiprovider).subscribe(
                 data => this.sushiprovider = data);
         } else {

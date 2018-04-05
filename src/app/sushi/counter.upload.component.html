@@ -1,0 +1,33 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>COUNTER Upload</h1>
+    <p>Upload Counter statistics.</p>
+    <p>
+    </p>
+  </div>
+</div>
+
+
+<div class="row">
+  <div  class="col-md-12 main">
+    <h2>Counter-Upload</h2>
+    <p-fileUpload name="file" url="/files?module=counterbuilder" (onUpload)="onUpload($event)"
+                  maxFileSize="100000000">
+    </p-fileUpload>
+    <table *ngIf="files" class="table table-hover">
+      <tbody>
+      <tr *ngFor="let file of files">
+        <td>
+          {{file.filename}}
+        </td>
+        <td>
+          <a [href]="file.link" >Ansehen</a>
+        </td>
+        <td>
+          <button pButton type="button" label="add Counter data" icon="fa-plus" (click)="addCounter(file)" ></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
