@@ -2,7 +2,6 @@ export class Sushiprovider  {
 
     constructor(
         public identifier: string,
-        public status: string,
         public name: string,
         public sushiURL: string,
         public sushiRequestorID: string,
@@ -10,6 +9,8 @@ export class Sushiprovider  {
         public sushiRequestorEmail: string,
         public sushiCustomerReferenceID: string,
         public sushiCustomerReferenceName: string,
-        public sushiRelease: number
+        public reportTypes: string[],
+        public sushiRelease: number,
+        public status: string
     ) { }
 }

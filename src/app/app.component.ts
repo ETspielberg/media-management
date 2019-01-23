@@ -3,7 +3,7 @@ import {Message} from 'primeng/primeng';
 import {FileWithLink} from './model/FileWithLink';
 import {FileService} from './service/file.service';
 import {HttpClient} from '@angular/common/http';
-import {AuthentificationService} from "./service/authentification.service";
+import {AuthentificationService} from './service/authentification.service';
 
 @Component({
     selector: 'app-root',
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   logout() {
     this.authenticationService.logout().subscribe(
       () => {
-        window.location.href = '/lgoin';
+        window.location.href = '/login';
       }
     );
   }

@@ -9,20 +9,6 @@ export class AuthentificationService {
 
   constructor(private http: HttpClient) { }
 
-  public principal: Principal;
-
-  updatePrincipal(): Observable<Principal> {
-    const observable  = this.http.get<Principal>('/activeuser');
-    observable.subscribe(
-      data => this.principal = data
-    );
-    return observable;
-  }
-
-  hasRole(role: string): boolean {
-    return this.principal.roles && (this.principal.roles.indexOf('ROLE_' + role.toUpperCase()) > -1);
-  }
-
   logout(): Observable<string> {
     return this.http.post('/logout', {}, {responseType: 'text'});
   }

@@ -10,7 +10,11 @@ export class FileService {
     constructor(private http: HttpClient) {
     }
 
-    listAllFiles(module : string) : Observable<FileWithLink[]> {
-        return this.http.get<FileWithLink[]>(appGlobals.filesUrl + '?module=' + module);
+    listAllFiles(module: string): Observable<FileWithLink[]> {
+        return this.http.get<FileWithLink[]>(appGlobals.filesUrl + '/' + module);
+    }
+
+    deleteFile(file: FileWithLink, module: string): Observable<boolean> {
+      return this.http.delete<boolean>(appGlobals.filesUrl + '/' + module + '/' + file.filename);
     }
 }

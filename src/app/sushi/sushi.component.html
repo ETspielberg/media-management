@@ -3,22 +3,28 @@
     <h1>SUSHI Accounts</h1>
     <p>Eingerichtete SUSHI-Provider.</p>
     <p>
-      <button pButton type="button" class="ui-button" [routerLink]="['sushiprovider','newSushiprovider']"
+      <button pButton type="button" class="ui-button" (click)="createNewSushiprovider()"
               label="Neues Profil erstellen" icon="fa-plus"></button>
       <button pButton type="button" class="ui-button" [routerLink]="['counterupload']"
               label="Nutzungsdaten hochladen" icon="fa-upload"></button>
     </p>
   </div>
 </div>
-<div *ngIf="sushiproviders" class="container">
+<div *ngIf="sushiprovidersLoaded" class="container">
   <div class="ui-g">
     <div class="ui-g-12">
-      <p-table [value]="sushiproviders" [paginator]="true" [rows]="10">
+      <p-table #dt [value]="sushiproviders" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="caption">
+          <div style="text-align: left">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Filter" (input)="dt.filter($event.target.value, 'name','contains')" style="width:auto">
+          </div>
+        </ng-template>
         <ng-template pTemplate="header">
           <tr>
-            <th>Name</th>
+            <th [pSortableColumn]="'name'">Name</th>
             <th>Infos</th>
-            <th>Aktionen</th>
+            <th>Counter</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-sushiprovider>
@@ -27,14 +33,17 @@
               {{sushiprovider.name}}
             </th>
             <th>
-              <button pButton type="button" class="ui-button" icon="fa-search" label="Details"
-                      (click)="showDialogForSushiprovider(sushiprovider)"></button>
+              <p>
+                <button pButton type="button" class="ui-button-warning" icon="fa-edit" label="Bearbeiten"
+                        (click)="showDialogForSushiprovider(sushiprovider)"></button>
+                <button pButton type="button" class="ui-button-danger" (click)="confirmDeletion(sushiprovider)"
+                        label="Löschen" icon="fa-trash"></button>
+              </p>
             </th>
             <th>
-              <button pButton type="button" class="ui-button-danger" (click)="deleteSushiprovider(sushiprovider)"
-                      label="Löschen" icon="fa-trash"></button>
-              <button pButton type="button" class="ui-button-warning" [routerLink]="['sushi', sushiprovider.name]"
-                      label="Bearbeiten" icon="fa-edit"></button>
+              <button pButton type="button" class="ui-button" (click)="getCounterLogs(sushiprovider)"
+                      label="Daten" icon="fa-table"></button>
+              <p-progressSpinner [style]="{width: '20px', height: '20px'}" *ngIf="activeProfiles.has(sushiprovider.identifier)"></p-progressSpinner>
             </th>
           </tr>
         </ng-template>
@@ -43,77 +52,204 @@
   </div>
 </div>
 
+<p-growl baseZIndex="10" [value]="messages"></p-growl>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+
 <p-dialog *ngIf="selectedSushiprovider" #panel header="{{selectedSushiprovider.name}}" [(visible)]="showDialog"
-          [responsive]="true" [width]="800" [minWidth]="500">
+          [responsive]="true" [width]="800" [minWidth]="500" showEffect="fade" [modal]="true">
   <table class="table table-hover">
     <tr>
       <td>
-        SUSHI-URL
+        <label for="name">Name</label>
       </td>
       <td>
-        {{selectedSushiprovider.sushiURL}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Customer Reference ID
-      </td>
-      <td>
-        {{selectedSushiprovider.sushiCustomerReferenceID}}
+        <p>
+          <input size="60" pInputText type="text" style="border: none;" id="name"
+                 [(ngModel)]="selectedSushiprovider.name"/>
+        </p>
       </td>
     </tr>
     <tr>
       <td>
-        Customer Reference Name
+        <label for="reportTypes">Report Types</label>
       </td>
       <td>
-        {{selectedSushiprovider.sushiCustomerReferenceName}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Requestor ID
-      </td>
-      <td>
-        {{selectedSushiprovider.sushiRequestorID}}
+        <p-multiSelect [maxSelectedLabels]="1" id="reportTypes" [defaultLabel]="'click to choose'" [options]="reportOptions" [(ngModel)]="selectedSushiprovider.reportTypes"></p-multiSelect>
       </td>
     </tr>
     <tr>
       <td>
-        Requestor Name
+        <label for="sushiUrl">SUSHI-URL</label>
       </td>
       <td>
-        {{selectedSushiprovider.sushiRequestorName}}
+        <p>
+          <input size="60" pInputText type="text" style="border: none;" id="sushiUrl"
+                 [(ngModel)]="selectedSushiprovider.sushiURL"/>
+        </p>
       </td>
     </tr>
     <tr>
       <td>
-        Requestor E-Mail
+        <label for="sushiCustomerReferenceID">Customer Reference ID</label>
       </td>
       <td>
-        {{selectedSushiprovider.sushiRequestorEmail}}
+        <input size="60" pInputText type="text" style="border: none;" id="sushiCustomerReferenceID"
+               [(ngModel)]="selectedSushiprovider.sushiCustomerReferenceID"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="sushiCustomerReferenceName">Customer Reference Name</label>
+      </td>
+      <td>
+        <input size="60" pInputText type="text" style="border: none;" id="sushiCustomerReferenceName"
+               [(ngModel)]="selectedSushiprovider.sushiCustomerReferenceName"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="sushiRequestorID">Requestor ID</label>
+      </td>
+      <td>
+        <input size="60" pInputText type="text" style="border: none;" id="sushiRequestorID"
+               [(ngModel)]="selectedSushiprovider.sushiRequestorID"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="sushiRequestorName">Requestor Name</label>
+      </td>
+      <td>
+        <input size="60" pInputText type="text" style="border: none;" id="sushiRequestorName"
+               [(ngModel)]="selectedSushiprovider.sushiRequestorName"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="sushiRequestorEmail">Requestor E-Mail</label>
+      </td>
+      <td>
+        <input size="60" pInputText type="text" style="border: none;" id="sushiRequestorEmail"
+               [(ngModel)]="selectedSushiprovider.sushiRequestorEmail"/>
+      </td>
+    </tr>
+  </table>
+  <p-footer>
+    <button pButton type="button" icon="fa-save" label="speichern"
+            (click)="saveSushiprovider()"></button>
+  </p-footer>
+</p-dialog>
+
+<p-dialog *ngIf="counterlogs && selectedSushiprovider" #panel header="{{selectedSushiprovider.name}}"
+          [(visible)]="showCounterLogs"
+          [responsive]="true" [width]="1000" [minWidth]="500" showEffect="fade" [modal]="true">
+  <table class="table table-hover">
+    <tr>
+      <td *ngFor="let date of monthOptions">
+        {{'month.' + date | translate}}
+      </td>
+    </tr>
+    <tr *ngFor="let year of counterlogsYears">
+      <td>
+        {{year}}
+      </td>
+      <td *ngFor="let month of months">
+        <div *ngFor="let type of counterlogsReportTypes">
+          <a [routerLink]="" *ngIf="isPresent(year,month,type)" [ngStyle]="{'color': getStatus(year,month,type)}" (click)="showCounterLogDetails(year, month, type)">{{counterlogs.get(year + '-' + month + '-' + type).reportType}}
+          </a>
+          <a [routerLink]="" *ngIf="!isPresent(year,month,type)">n.a.</a>
+        </div>
       </td>
     </tr>
   </table>
   <p-footer>
     <div class="ui-g">
+      <div class="ui-g-12">
+        <button pButton type="button" icon="fa-refresh" label="load All"
+                (click)="getAllCounterStats()" [disabled]="selectedSushiprovider.status=='RUNNING'"></button>
+        <button pButton type="button" icon="fa-close" label="schließen"
+                (click)="hideCounterLogs()"></button>
+      </div>
       <div class="ui-g-4">
-        <select [(ngModel)]="reportType" class="form-control">
+        <select [(ngModel)]="selectedReport" class="form-control">
           <option *ngFor="let m of reportTypes" value="{{m}}">{{'report.type.' + m | translate}}</option>
         </select>
       </div>
       <div class="ui-g-3">
         <select [(ngModel)]="selectedMonth" class="form-control">
-          <option *ngFor="let m of months" value="{{m}}">{{'month.' + m | translate}}</option>
+          <option *ngFor="let m of monthOptions" value="{{m}}">{{'month.' + m | translate}}</option>
         </select>
       </div>
       <div class="ui-g-3">
-        <input [(ngModel)]="year" type="number" pInputText />
+        <input [(ngModel)]="selectedYear" type="number" pInputText/>
       </div>
       <div class="ui-g-2">
-        <button pButton type="button" icon="fa-search" label="Statistiken holen"
-                (click)="collectSushiData(selectedSushiprovider)"></button>
+        <button pButton type="button" icon="fa-download" label="abrufen"
+                (click)="collectSushiData(selectedSushiprovider)" [disabled]="selectedSushiprovider.status=='RUNNING'"></button>
       </div>
     </div>
   </p-footer>
+</p-dialog>
+
+<p-dialog *ngIf="showCounterlog" [closable]="false" #counterlogPanel header="{{selectedCounterlog.sushiprovider}}"
+          [(visible)]="showCounterLogs"
+          [responsive]="true" [width]="800" [minWidth]="500" showEffect="fade" [modal]="true">
+  <table class="table table-hover">
+    <tr>
+    <td>
+      Report Type
+    </td>
+    <td>
+      <p>
+        {{selectedCounterlog.reportType}}
+      </p>
+    </td>
+    </tr>
+    <tr>
+      <td>
+        Datum
+      </td>
+      <td>
+        <p>
+          {{'month.' + selectedCounterlog.month| translate}} - {{selectedCounterlog.year}}
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Status
+      </td>
+      <td>
+        <p>
+          {{selectedCounterlog.status}}
+        </p>
+      </td>
+    </tr>
+    <tr *ngIf="selectedCounterlog.status === 'SUCCESS'">
+      <td>
+        Kommentar
+      </td>
+      <td>
+        <p>
+          {{selectedCounterlog.comment}}
+        </p>
+      </td>
+    </tr>
+    <tr *ngIf="selectedCounterlog.status === 'ERROR'">
+      <td>
+        Fehler
+      </td>
+      <td>
+        <p>
+          {{selectedCounterlog.error}}
+        </p>
+      </td>
+  </tr>
+  </table>
+  <p-footer>
+    <button pButton type="button" icon="fa-close" label="schließen"
+            (click)="hideCounterLogDetails()"></button>
+  </p-footer>
+
 </p-dialog>

@@ -13,10 +13,10 @@ import {HttpClientModule} from '@angular/common/http';
 import {DataService} from './service/data.service';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {TranslateModule} from "./translate/translate.module";
-import {ButtonModule, DialogModule, InputTextModule, SpinnerModule} from "primeng/primeng";
-import {TableModule} from "primeng/table";
-import {AuthentificationService} from "./service/authentification.service";
+import {TranslateModule} from './translate/translate.module';
+import {ButtonModule, DialogModule, InputTextModule, SpinnerModule} from 'primeng/primeng';
+import {TableModule} from 'primeng/table';
+import {AuthentificationService} from './service/authentification.service';
 
 
 @NgModule({

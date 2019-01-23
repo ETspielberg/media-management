@@ -21,7 +21,7 @@
   }
 }, {
   "identifier" : "hogrefe",
-  "status" : "FINISHED",
+  "status" : "CREATED",
   "lastrun" : "2018-01-29T06:42:55.277+0000",
   "created" : "2018-01-29T06:32:40.966+0000",
   "name" : "Hogrefe",
@@ -42,7 +42,7 @@
   }
 }, {
   "identifier" : "iop",
-  "status" : "FINISHED",
+  "status" : "RUNNING",
   "lastrun" : "2018-01-29T07:11:28.278+0000",
   "created" : "2018-01-29T07:11:22.951+0000",
   "name" : "IOP",
@@ -63,7 +63,7 @@
   }
 }, {
   "identifier" : "cambridge",
-  "status" : "FINISHED",
+  "status" : "RUNNING",
   "lastrun" : "2018-01-29T16:43:37.974+0000",
   "created" : "2018-01-17T06:19:18.033+0000",
   "name" : "Cambridge",

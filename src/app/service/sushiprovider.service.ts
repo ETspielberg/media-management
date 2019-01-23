@@ -12,37 +12,36 @@ import * as appGlobals from '../app.globals';
 
 @Injectable()
 export class SushiproviderService {
-    private sushiproviderUrl: string = appGlobals.settingsUrl + '/sushiprovider';
+  private sushiproviderUrl: string = appGlobals.counterUrl + '/sushiprovider';
 
-    constructor (private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
-    getAll(): Observable<Sushiprovider[]> {
-        return this.http.get<Sushiprovider[]>(
-        'assets/data/example_sushiprovider.json'
-          //  this.sushiproviderUrl
-        );
-    }
+  getAll(): Observable<Sushiprovider[]> {
+    return this.http.get<Sushiprovider[]>(
+      this.sushiproviderUrl + '/all'
+    // 'assets/data/example_sushiprovider.json'
+    );
+  }
 
-    getSushiprovider(identifier: String): Observable<Sushiprovider> {
-        const url = `${this.sushiproviderUrl}/${identifier}`;
-        return this.http.get<Sushiprovider>(url);
-    }
+  getRunningSushiproviders(): Observable<string[]> {
+    return this.http.get<string[]>(this.sushiproviderUrl + '/running');
+  }
 
-    deleteSushiprovider(identifier: string) {
-        const url = this.sushiproviderUrl + '/' + identifier;
-        return this.http.delete(url, {headers: appGlobals.headers});
-    }
+  getSushiprovider(identifier: String): Observable<Sushiprovider> {
+    const url = `${this.sushiproviderUrl}/${identifier}`;
+    return this.http.get<Sushiprovider>(url);
+  }
 
-    create(sushiprovider: Sushiprovider): Observable<Sushiprovider> {
-        return this.http
-            .post<Sushiprovider>(this.sushiproviderUrl, JSON.stringify(
-                sushiprovider),
-                {headers: appGlobals.headers});
-    }
+  deleteSushiprovider(identifier: string) {
+    const url = this.sushiproviderUrl + '/' + identifier;
+    return this.http.delete(url, {headers: appGlobals.headers});
+  }
 
-    update(sushiprovider: Sushiprovider): Observable<Sushiprovider> {
-        const url = `${this.sushiproviderUrl}/${sushiprovider.identifier}`;
-        return this.http
-            .put<Sushiprovider>(url, JSON.stringify(sushiprovider), {headers: appGlobals.headers});
-    }
+  create(sushiprovider: Sushiprovider): Observable<Sushiprovider> {
+    return this.http
+      .post<Sushiprovider>(this.sushiproviderUrl, JSON.stringify(
+        sushiprovider),
+        {headers: appGlobals.headers});
+  }
 }

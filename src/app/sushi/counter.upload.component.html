@@ -11,7 +11,7 @@
 <div class="row">
   <div  class="col-md-12 main">
     <h2>Counter-Upload</h2>
-    <p-fileUpload name="file" url="/files?module=counterbuilder" (onUpload)="onUpload($event)"
+    <p-fileUpload name="file" url="//localhost:8082/files/?module=counterbuilder" (onUpload)="onUpload($event)"
                   maxFileSize="100000000">
     </p-fileUpload>
     <table *ngIf="files" class="table table-hover">
@@ -24,7 +24,11 @@
           <a [href]="file.link" >Ansehen</a>
         </td>
         <td>
-          <button pButton type="button" label="add Counter data" icon="fa-plus" (click)="addCounter(file)" ></button>
+          <button pButton type="button" label="Counter-Daten hinzufügen" icon="fa-plus" (click)="addCounter(file)" ></button>
+          <span *ngIf="analyzing"><p-progressSpinner [style]="{width: '10px', height: '10px'}"></p-progressSpinner></span>
+        </td>
+        <td>
+          <button pButton type="button" label="Datei löschen" icon="fa-trash" class="ui-button-danger" (click)="deleteFile(file)" ></button>
         </td>
       </tr>
       </tbody>

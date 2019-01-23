@@ -1,53 +1,70 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SushiproviderService} from '../service/sushiprovider.service';
 import {HttpClient} from '@angular/common/http';
 import * as appGlobals from '../app.globals';
-import {FileService} from "../service/file.service";
-import {FileWithLink} from "../model/FileWithLink";
-import {Message} from "primeng/api";
+import {FileService} from '../service/file.service';
+import {FileWithLink} from '../model/FileWithLink';
+import {Message} from 'primeng/api';
 
 @Component({
-    selector: 'app-counter-upload',
-    templateUrl: 'counter.upload.component.html',
-    providers: [SushiproviderService]
+  selector: 'app-counter-upload',
+  templateUrl: 'counter.upload.component.html',
+  providers: [SushiproviderService]
 })
 export class CounterUploadComponent implements OnInit {
-
-  uploadedFiles: any[] = [];
 
   files: FileWithLink[];
 
   messages: Message[];
 
-    public busy: boolean;
+  public busy: boolean;
 
-    constructor(private fileService: FileService, private http: HttpClient) {
-    }
+  public analyzing: boolean;
 
-    ngOnInit(): void {
-      this.busy = true;
-      this.getAllFiles()
-    }
+  constructor(private fileService: FileService, private http: HttpClient) {
+  }
 
-    addCounter(file: FileWithLink) {
-      const url =  appGlobals.batchUrl + '/counterbuilder?filename=' + file.filename;
-      this.http.get(url).subscribe();
-    }
+  ngOnInit(): void {
+    this.analyzing = false;
+    this.busy = true;
+    this.getAllFiles();
+  }
+
+  addCounter(file: FileWithLink) {
+    this.analyzing = true;
+    const url = appGlobals.counterretrievalUrl + '/counterbuilder?filename=' + file.filename;
+    this.http.get<String>(url).subscribe(
+      data => this.analyzing = false
+    );
+  }
 
   getAllFiles() {
     this.fileService.listAllFiles('counterbuilder').subscribe(
-      res => {
-        this.files = res;
+      data => {
+        this.files = data;
         this.busy = false;
       }
     );
   }
 
   onUpload(event) {
-    for (const file of event.files) {
-      this.uploadedFiles.push(file);
-    }
+    this.getAllFiles();
     this.messages = [];
-    this.messages.push({severity: 'info', summary: 'File Uploaded', detail: ''});
+    this.messages.push({severity: 'info', summary: 'Datei wurde hochgeladen', detail: ''});
+  }
+
+  deleteFile(file: FileWithLink) {
+    this.fileService.deleteFile(file, 'counterbuilder').subscribe(
+      () => {
+        this.messages = [];
+        this.messages.push({severity: 'info', summary: 'Datei wurde gelöscht', detail: ''});
+        console.log(' file ' + file.filename + ' deleted!');
+        this.getAllFiles();
+      },
+       error => {
+          this.messages.push({severity: 'danger', summary: 'Datei konnte nicht gelöscht werden', detail: ''});
+          console.log(' file ' + file.filename + ' not deleted!');
+        }
+    );
   }
 }

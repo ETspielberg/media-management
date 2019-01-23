@@ -1,0 +1,133 @@
+<div class="jumbotron">
+  <div class="container-fluid">
+    <h1>{{'title.stats.' + media | translate}}</h1>
+    <form (submit)="getCounterStats()" (keyup.enter)="getCounterStats()">
+      <div class="ui-g">
+        <div class="ui-g-3">
+          <label for="aggregator">{{'label.stats.aggregator' | translate}}</label>
+          <p-dropdown id="aggregator" [options]="aggregatorOptions" [(ngModel)]="aggregator"
+                      [ngModelOptions]="{standalone: true}"></p-dropdown>
+        </div>
+        <div class="ui-g-3">
+          <label for="media">{{'label.stats.media' | translate}}</label>
+          <p-dropdown id="media" [options]="mediaOptions" [(ngModel)]="media"
+                      [ngModelOptions]="{standalone: true}"></p-dropdown>
+
+        </div>
+        <div class="ui-g-3">
+          <label for="identifier">{{'label.stats.identifier' | translate}}</label>
+          <input id="identifier" type="text" size="30" pInputText [(ngModel)]="identifier"
+                 [ngModelOptions]="{standalone: true}" autofocus>
+
+        </div>
+        <div class="ui-g-3">
+          <button pButton type="button" label="Abfragen" (click)="getCounterStats()" class="ui-button-success"
+                  icon="fa-chart-line"></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<p-messages [(value)]="messages" [closable]="false"></p-messages>
+
+<p-dialog header="Daten werden abgerufen" [modal]="true" [closable]="false" [(visible)]="busy">
+  <img src="/files/custom/loading.gif" alt="Loading..." style="width:304px;height:228px;">
+</p-dialog>
+
+<div *ngIf="messages.length === 0 && collected">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <div class="tile">
+        <h2>{{'usage.per.month' | translate}}</h2>
+        <div>
+          <chart [options]="options" style="height: 500px; display: block"></chart>
+        </div>
+        <div style="text-align: center;">
+          <p-toggleButton [(ngModel)]="showTable" [style]="{'width':'200px'}" onLabel="Tabelle ausblenden"
+                          offLabel="Tabelle einblenden"></p-toggleButton>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showTable" class="ui-g">
+    <div class="ui-g-12">
+      <div class="tile">
+        <p-table #dt [value]="counterStats" [columns]="cols" [paginator]="true" [rows]="12"
+                 [rowsPerPageOptions]="[12,24]"
+                 sortMode="multiple">
+          <ng-template pTemplate="caption">
+            <div class="ui-helper-clearfix">
+              <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export csv"
+                      (click)="dt.exportCSV()"
+                      style="float:left"></button>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+            </tr>
+            <tr>
+              <th *ngFor="let col of columns">
+                <input pInputText type="text"
+                       (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="statsOptions && collected" class="tile">
+  <h2>{{'usage.per.year' | translate}}</h2>
+  <div class="ui-g">
+    <div class="ui-g-6">
+      <p-table #dty [value]="yearlyData" [columns]="colsYears" [paginator]="true" [rows]="10"
+               [rowsPerPageOptions]="[10,20]"
+               sortMode="multiple">
+        <ng-template pTemplate="caption">
+          <div class="ui-helper-clearfix">
+            <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export csv"
+                    (click)="dty.exportCSV()"
+                    style="float:left"></button>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+          </tr>
+          <tr>
+            <th *ngFor="let col of columns">
+              <input pInputText type="text"
+                     (input)="dty.filter($event.target.value, col.field, col.filterMatchMode)">
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td *ngFor="let col of columns">
+              {{rowData[col.field]}}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="ui-g-6">
+      <chart [options]="statsOptions" style="display: block"></chart>
+    </div>
+  </div>
+</div>
