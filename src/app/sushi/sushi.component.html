@@ -25,6 +25,7 @@
             <th [pSortableColumn]="'name'">Name</th>
             <th>Infos</th>
             <th>Counter</th>
+            <th></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-sushiprovider>
@@ -43,8 +44,8 @@
             <th>
               <button pButton type="button" class="ui-button" (click)="getCounterLogs(sushiprovider)"
                       label="Daten" icon="fa-table"></button>
-              <p-progressSpinner [style]="{width: '20px', height: '20px'}" *ngIf="activeProfiles.has(sushiprovider.identifier)"></p-progressSpinner>
             </th>
+            <th><p-progressSpinner [style]="{width: '20px', height: '20px'}" *ngIf="activeProfiles.has(sushiprovider.identifier)"></p-progressSpinner></th>
           </tr>
         </ng-template>
       </p-table>

@@ -21,6 +21,8 @@ export class CounterUploadComponent implements OnInit {
 
   public analyzing: boolean;
 
+  error: any;
+
   constructor(private fileService: FileService, private http: HttpClient) {
   }
 
@@ -33,8 +35,17 @@ export class CounterUploadComponent implements OnInit {
   addCounter(file: FileWithLink) {
     this.analyzing = true;
     const url = appGlobals.counterretrievalUrl + '/counterbuilder?filename=' + file.filename;
-    this.http.get<String>(url).subscribe(
-      data => this.analyzing = false
+    this.http.get<any>(url).subscribe(
+      data => {
+        this.analyzing = false;
+      },
+      error => {
+        this.analyzing = false;
+        this.error = error;
+      },
+      () => {
+        this.analyzing = false;
+      }
     );
   }
 
@@ -61,10 +72,10 @@ export class CounterUploadComponent implements OnInit {
         console.log(' file ' + file.filename + ' deleted!');
         this.getAllFiles();
       },
-       error => {
-          this.messages.push({severity: 'danger', summary: 'Datei konnte nicht gelöscht werden', detail: ''});
-          console.log(' file ' + file.filename + ' not deleted!');
-        }
+      error => {
+        this.messages.push({severity: 'danger', summary: 'Datei konnte nicht gelöscht werden', detail: ''});
+        console.log(' file ' + file.filename + ' not deleted!');
+      }
     );
   }
 }
