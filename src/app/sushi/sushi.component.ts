@@ -9,9 +9,6 @@ import {ConfirmationService, Message, SelectItem} from 'primeng/api';
 import {TranslateService} from '../translate';
 import {CounterLogSercvice} from '../service/counter.log.sercvice';
 import {UUID} from 'angular2-uuid';
-import {IntervalObservable} from 'rxjs/observable/IntervalObservable';
-import * as Stomp from 'stompjs';
-import * as SockJS from 'sockjs-client';
 
 
 @Component({
@@ -88,7 +85,6 @@ export class SushiComponent implements OnInit {
     this.reportTypes.forEach(
       value => this.reportOptions.push({label: this.translateService.instant('report.type.' + value), value: value})
     );
-    this.timer = IntervalObservable.create(2000).subscribe(() =>   this.updateRunningSushiproviders());
   }
 
   getSushiproviders() {

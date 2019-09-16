@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 import {JournalTitle} from '../model/JournalTitle';
 import {HttpClient} from '@angular/common/http';
 import * as appGlobals from '../app.globals';

@@ -1,0 +1,20 @@
+[
+  {
+    "host": "onlinelibrary.wiley.com",
+    "serviceproviderSibbolethUrl": "https://onlinelibrary.wiley.com/action/ssostart",
+    "spSideWayfless": true,
+    "entityIdString": "",
+    "targetString": "",
+    "shire": "",
+    "providerId": ""
+  },
+  {
+    "host": "doi.wiley.com",
+    "serviceproviderSibbolethUrl": "https://onlinelibrary.wiley.com/action/ssostart",
+    "spSideWayfless": true,
+    "entityIdString": "idp",
+    "targetString": "redirectUri",
+    "shire": "",
+    "providerId": ""
+  }
+]

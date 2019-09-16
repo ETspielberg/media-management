@@ -3,9 +3,7 @@
  */
 
 import {Injectable} from '@angular/core';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 import {Sushiprovider} from '../model/Sushiprovider';
 import {HttpClient} from '@angular/common/http';
 import * as appGlobals from '../app.globals';

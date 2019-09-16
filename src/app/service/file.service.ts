@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {FileWithLink} from "../model/FileWithLink";
-import {Observable} from "rxjs/Observable";
-import {HttpClient} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {FileWithLink} from '../model/FileWithLink';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 import * as appGlobals from '../app.globals';
 
 @Injectable()

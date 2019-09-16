@@ -3,11 +3,10 @@
  */
 
 import {Injectable} from '@angular/core';
-import 'rxjs/add/operator/map';
-import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import * as appGlobals from '../app.globals';
 import {CounterStats} from '../model/CounterStats';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class DataService {

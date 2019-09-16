@@ -1,0 +1,124 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>Shibboleth-Einstellugnen</h1>
+    <p>Konfigurationen, aus denen der Linksolver-Wrapper WAYFless URLs für Shibboleth-Zugänge erzeugen kann</p>
+    <p>
+      <button pButton type="button" class="ui-button" (click)="createNewShibbolethData()"
+              label="Neue Konfiguration erstellen" icon="pi pi-plus"></button>
+    </p>
+  </div>
+</div>
+
+<div *ngIf="shibbolethDataList" class="container">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-table #dt [value]="shibbolethDataList" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="caption">
+          <div style="text-align: left">
+            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Filter"
+                   (input)="dt.filter($event.target.value, 'host','contains')" style="width:auto">
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th [pSortableColumn]="'host'">Name</th>
+            <th>SP-side WAYFless?</th>
+            <th>Aktionen</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-shibbolethData>
+          <tr>
+            <th>
+              {{shibbolethData.host}}
+            </th>
+            <th>
+              {{shibbolethData.spSideWayfless}}
+            </th>
+            <th>
+                <span>
+                  <button pButton type="button" class="ui-button-warning" icon="pi pi-edit" label="Bearbeiten"
+                        (click)="showDialogForSushiprovider(shibbolethData)"></button>
+                </span>
+                <span>
+                  <button pButton type="button" class="ui-button-danger" (click)="confirmDeletion(shibbolethData)"
+                          label="Löschen" icon="pi pi-trash"></button>
+                </span>
+            </th>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<p-growl baseZIndex="10" [value]="messages"></p-growl>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+
+<p-dialog *ngIf="selectedShibbolethData" #panel header="{{selectedShibbolethData.host}}" [(visible)]="showDialog"
+          [responsive]="true" [width]="800" [minWidth]="500" showEffect="fade" [modal]="true">
+  <table class="table table-hover">
+    <tr>
+      <td>
+        <label for="host">Host</label>
+      </td>
+      <td>
+        <p>
+          <input size="60" pInputText type="text" style="border: none;" id="host"
+                 [(ngModel)]="selectedShibbolethData.host"/>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="isSpSideWayfless">SP-side WAYFless?</label>
+      </td>
+      <td>
+        <p-inputSwitch id="isSpSideWayfless" [(ngModel)]="selectedShibbolethData.spSideWayfless"></p-inputSwitch>
+      </td>
+    </tr>
+    <tr *ngIf="selectedShibbolethData.spSideWayfless">
+      <td>
+        <label for="entityIdString">Name des EntityID-Paramters</label>
+      </td>
+      <td>
+        <p>
+          <input size="60" pInputText type="text" style="border: none;" id="entityIdString"
+                 [(ngModel)]="selectedShibbolethData.entityIdString"/>
+        </p>
+      </td>
+    </tr>
+    <tr *ngIf="selectedShibbolethData.spSideWayfless">
+      <td>
+        <label for="targetString">Name des Target-Paramaters</label>
+      </td>
+      <td>
+        <input size="60" pInputText type="text" style="border: none;" id="targetString"
+               [(ngModel)]="selectedShibbolethData.targetString"/>
+      </td>
+    </tr>
+    <tr *ngIf="!selectedShibbolethData.spSideWayfless">
+      <td>
+        <label for="shire"> Shibboleth-URL des Service-Providers</label>
+      </td>
+      <td>
+        <input size="60" pInputText type="text" style="border: none;" id="shire"
+               [(ngModel)]="selectedShibbolethData.shire"/>
+      </td>
+    </tr>
+    <tr *ngIf="!selectedShibbolethData.spSideWayfless">
+      <td>
+        <label for="providerId">ID des Service-Providers</label>
+      </td>
+      <td>
+        <input size="60" pInputText type="text" style="border: none;" id="providerId"
+               [(ngModel)]="selectedShibbolethData.providerId"/>
+      </td>
+    </tr>
+  </table>
+  <p-footer>
+    <button pButton type="button" icon="fa-save" label="speichern"
+            (click)="saveShibbolethData()"></button>
+  </p-footer>
+</p-dialog>

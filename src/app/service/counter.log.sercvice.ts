@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import * as appGlobals from '../app.globals';
 import {HttpClient} from '@angular/common/http';
 import {CounterLog} from '../model/CounterLog';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 
 @Injectable()
 export class CounterLogSercvice {
