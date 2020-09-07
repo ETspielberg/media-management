@@ -5,7 +5,7 @@ import {Sushiprovider} from '../model/Sushiprovider';
 import {HttpClient} from '@angular/common/http';
 import * as appGlobals from '../app.globals';
 import {CounterLog} from '../model/CounterLog';
-import {ConfirmationService, Message, SelectItem} from 'primeng/api';
+import {ConfirmationService, Message, MessageService, SelectItem} from 'primeng/api';
 import {TranslateService} from '../translate';
 import {CounterLogSercvice} from '../service/counter.log.sercvice';
 import {UUID} from 'angular2-uuid';
@@ -17,7 +17,6 @@ import {UUID} from 'angular2-uuid';
   providers: [SushiproviderService]
 })
 export class SushiComponent implements OnInit {
-  public serverUrl = '/api/counterretrieval/comm';
 
   public sushiproviders: Sushiprovider[];
 
@@ -47,8 +46,6 @@ export class SushiComponent implements OnInit {
 
   public showCounterLogs: boolean;
 
-  public messages: Message[];
-
   public counterlogsYears: Set<number>;
 
   public counterlogsReportTypes: Set<string>;
@@ -61,14 +58,13 @@ export class SushiComponent implements OnInit {
 
   public activeProfiles: Set<string>;
 
-  private timer: any;
-
   constructor(private sushiproviderService: SushiproviderService,
               private router: Router,
               private http: HttpClient,
               private confirmationService: ConfirmationService,
               private translateService: TranslateService,
-              private counterLogService: CounterLogSercvice) {
+              private counterLogService: CounterLogSercvice,
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -146,7 +142,7 @@ export class SushiComponent implements OnInit {
       message: this.translateService.instant('confirm.delete.sushiprovider'),
       accept: () => {
         this.deleteSushiprovider(sushiprovider);
-        this.messages = [{severity: 'info', summary: 'Confirmed', detail: 'Sushiprovider deleted'}];
+        this.messageService.add({severity: 'info', summary: 'Confirmed', detail: 'Sushiprovider deleted'});
       }
     });
   }

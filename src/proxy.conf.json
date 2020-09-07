@@ -1,0 +1,14 @@
+{
+  "/api/settings/shibbolethData/all": {
+    "target": "http://localhost:11921/shibbolethData/all",
+    "secure": false
+  },
+  "/api/resources": {
+    "target": ",/api/resources",
+    "secure": false
+  },
+  "/api/counterretrieval": {
+    "target": "http://localhost:11877",
+    "secure": false
+  }
+}

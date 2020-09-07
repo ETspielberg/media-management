@@ -2,10 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {
-  ConfirmDialogModule, DropdownModule, FileUploadModule, GrowlModule, InputTextModule, MultiSelectModule,
-  ProgressSpinnerModule, ToggleButtonModule
-} from 'primeng/primeng';
+
 import {FileService} from '../service/file.service';
 import {JournalCollectionService} from '../service/journal.collection.service';
 import {JournalService} from '../service/journal.service';
@@ -24,6 +21,13 @@ import * as highcharts from 'highcharts';
 import HighchartsExporting from 'highcharts/modules/exporting.src';
 import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 import {CardModule} from 'primeng/card';
+import {InputTextModule} from 'primeng/inputtext';
+import {FileUploadModule} from 'primeng/fileupload';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {DropdownModule} from 'primeng/dropdown';
+import {ToggleButtonModule} from 'primeng/togglebutton';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
 export function highchartsFactory() {
@@ -40,7 +44,6 @@ export function highchartsFactory() {
     InputTextModule,
     FormsModule,
     FileUploadModule,
-    GrowlModule,
     CardModule,
     TableModule,
     MultiSelectModule,

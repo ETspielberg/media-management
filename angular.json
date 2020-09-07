@@ -11,7 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "C:\\Development\\workspace\\media-frontend\\src\\main\\resources\\static",
+            "outputPath": "C:\\Development\\workspace\\web-apps\\media",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
@@ -21,18 +21,15 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "src/assets/css/bootstrap.css",
-              "src/assets/css/ie10-viewport-bug-workaround.css",
-              "src/assets/css/jumbotron.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/css/styles.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/font-awesome/css/font-awesome.css",
-              "node_modules/primeng/resources/themes/omega/theme.css",
               "node_modules/primeng/resources/primeng.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
-              "src/assets/js/bootstrap.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
@@ -50,6 +47,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/assets/css/styles.css",
+                  "with": "src/assets/css/styles.prod.css"
                 }
               ]
             }
@@ -58,7 +59,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "media:build"
+            "browserTarget": "media:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -148,5 +150,8 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

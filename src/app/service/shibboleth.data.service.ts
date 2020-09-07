@@ -11,7 +11,6 @@ export class ShibbolethDataService {
   }
 
   getAll(): Observable<ShibbolethData[]> {
-    // return this.http.get<ShibbolethData[]>('assets/data/example_shibbolethData.json');
     return this.http.get<ShibbolethData[]>(appGlobals.shibbolethDataUrl + '/all');
   }
 

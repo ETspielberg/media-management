@@ -9,14 +9,18 @@ import {FileService} from './service/file.service';
 import {JournalCollectionService} from './service/journal.collection.service';
 import {JournalService} from './service/journal.service';
 import {JournalTitleService} from './service/journal.title.service';
-import {HttpClientModule} from '@angular/common/http';
 import {DataService} from './service/data.service';
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateModule} from './translate/translate.module';
-import {ButtonModule, DialogModule, InputTextModule, SpinnerModule} from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 import {AuthentificationService} from './service/authentification.service';
+import {ButtonModule} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
+import {InputTextModule} from 'primeng/inputtext';
+import {SpinnerModule} from 'primeng/spinner';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 
 @NgModule({

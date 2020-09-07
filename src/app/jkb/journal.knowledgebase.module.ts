@@ -3,7 +3,7 @@ import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {CommonModule, DecimalPipe} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {FileUploadModule, GrowlModule} from 'primeng/primeng';
+import {FileUploadModule} from 'primeng/fileupload';
 import {FileService} from '../service/file.service';
 import {JournalCollectionService} from '../service/journal.collection.service';
 import {JournalService} from '../service/journal.service';
@@ -20,7 +20,6 @@ import {CollectionManagementComponent} from './collection.management.component';
     CommonModule,
     FormsModule,
     FileUploadModule,
-    GrowlModule,
     TableModule,
     DialogModule,
     TranslateModule,
