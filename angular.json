@@ -43,6 +43,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "outputPath": "../../web-apps",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
