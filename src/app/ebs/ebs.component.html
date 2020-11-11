@@ -8,20 +8,28 @@
         <div class="tile centered">
           <h2>Neues Modell</h2>
           <p>Bitte einen kurzen Bezeichner ohne Leerzeichen eingeben</p>
-          <span class="ui-float-label">
-        <input id="username-input" type="text" size="30" pInputText [(ngModel)]="new_project"
-               [ngModelOptions]="{standalone: true}" autofocus class="form-control">
-        <label for="username-input">verlag_jahr</label>
-        <button pButton type="button" label="Erstellen" class="ui-button-success" (click)="createProject()"></button>
-      </span>
+          <div style="height: 5em;" class="ui-g">
+            <label for="username-input">EBS-Modell-Bezeichner</label>
+            <input id="username-input" type="text" size="30" pInputText [(ngModel)]="new_project"
+                   [ngModelOptions]="{standalone: true}" autofocus class="form-control">
+          </div>
+          <div style="padding-top: 10px;">
+            <button pButton type="button" label="Erstellen" class="btn btn-success" (click)="createProject()"></button>
+          </div>
         </div>
       </div>
       <div class="ui-g-5" *ngIf="ebsProjectList.length > 0">
         <div class="tile centered">
           <h2>Bestehendes Modell bearbeiten</h2>
           <p>Bitte eins der bestehenden Projekte auswählen.</p>
-          <p-dropdown filter="true" [options]="ebsProjectList" [(ngModel)]="ebsProjectService.activeProject" placeholder="Projekt wählen" optionLabel="project_id" [showClear]="true" (onChange)="router.navigate(['/ebs/project', ebsProjectService.activeProject.project_id])"></p-dropdown>
-          <button pButton type="button" label="Zum Projekt" class="ui-button-success" [routerLink]="['/ebs/project', ebsProjectService.activeProject.project_id]"></button>
+          <div style="height: 5em;" class="ui-g">
+          <p-dropdown filter="true" [options]="ebsProjectList" [(ngModel)]="ebsProjectService.activeProject"
+                      placeholder="Projekt wählen" optionLabel="project_id"
+                      (onChange)="router.navigate(['/ebs/project', ebsProjectService.activeProject.project_id])"></p-dropdown>
+          </div>
+
+              <button pButton type="button" label="Zum Projekt" class="btn btn-success"
+                      [routerLink]="['/ebs/project', ebsProjectService.activeProject.project_id]"></button>
         </div>
       </div>
     </div>

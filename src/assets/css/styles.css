@@ -6,6 +6,20 @@ body {
   background-color: darkblue;
 }
 
+.ui-dropdown-items-wrapper {
+  background-color: #dfe4f2;
+}
+
+.ui-toast-message {
+  opacity: 0.2;
+}
+
+
+.ui-toast-message-warn{ background: rgb(235, 235, 145); }
+.ui-toast-message-error{ background: rgb(235, 145, 145); }
+.ui-toast-message-success{ background: rgb(156, 235, 145); }
+.ui-toast-message-info{ background: rgb(145, 199, 235); }
+
 .tile {
   background-color: #dfe4f2;
   float: left;
@@ -16,9 +30,8 @@ body {
   width: 100%;
   padding: 15px;
   vertical-align: middle;
-  text-align:left;
+  text-align: left;
   position: relative;
-
 }
 
 .bg-dark {
