@@ -1,0 +1,29 @@
+<div class="content-start">
+  <div class="jumbotron">
+    <h1>EBS-Modelle managen</h1>
+  </div>
+  <div class="container-fluid">
+    <div *ngIf="!busy" class="ui-g">
+      <div class="ui-g-5 ui-g-offset-1">
+        <div class="tile centered">
+          <h2>Neues Modell</h2>
+          <p>Bitte einen kurzen Bezeichner ohne Leerzeichen eingeben</p>
+          <span class="ui-float-label">
+        <input id="username-input" type="text" size="30" pInputText [(ngModel)]="new_project"
+               [ngModelOptions]="{standalone: true}" autofocus class="form-control">
+        <label for="username-input">verlag_jahr</label>
+        <button pButton type="button" label="Erstellen" class="ui-button-success" (click)="createProject()"></button>
+      </span>
+        </div>
+      </div>
+      <div class="ui-g-5">
+        <div class="tile centered">
+          <h2>Bestehendes Modell bearbeiten</h2>
+          <p>Bitte eins der bestehenden Projekte auswählen.</p>
+          <p-dropdown filter="true" [options]="ebsProjectList" [(ngModel)]="ebsProjectService.activeProject" placeholder="Projekt wählen" optionLabel="project_id" [showClear]="true" (onChange)="router.navigate(['/ebs/project', ebsProjectService.activeProject.project_id])"></p-dropdown>
+          <button pButton type="button" label="Zum Projekt" class="ui-button-success" [routerLink]="['/ebs/project', ebsProjectService.activeProject.project_id]"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  activeuser: '/assets/data/example_user.json'
+  activeuser: '/assets/data/example_user.json',
+  scriptServerAddress: 'http://localhost:5000'
 };
