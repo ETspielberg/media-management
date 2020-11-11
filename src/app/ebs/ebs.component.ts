@@ -31,12 +31,12 @@ export class EbsComponent implements OnInit {
     );
   }
 
-  createProject(project_id: string) {
-    this.ebsProjectService.activeProject = new EbsProject(project_id,
+  createProject() {
+    this.ebsProjectService.activeProject = new EbsProject(this.new_project,
       '',
       10000,
       'price_normalized_percentiles');
     this.ebsProjectService.saveActiveProject().subscribe(
-      () => this.router.navigate(['/queries', this.ebsProjectService.activeProject.project_id]));
+      () => this.router.navigate(['/ebs/project', this.ebsProjectService.activeProject.project_id]));
   }
 }
