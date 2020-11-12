@@ -16,10 +16,18 @@ body {
   width: 100%;
   padding: 15px;
   vertical-align: middle;
-  text-align:center;
+  text-align:left;
   position: relative;
-
 }
+
+.centered {
+  text-align:center;
+}
+
+.ui-toast-message-warn{ background: rgb(235, 235, 145); }
+.ui-toast-message-error{ background: rgb(235, 145, 145); }
+.ui-toast-message-success{ background: rgb(156, 235, 145); }
+.ui-toast-message-info{ background: rgb(145, 199, 235); }
 
 .bg-dark {
   background-color: black !important;
