@@ -16,7 +16,7 @@
               <span class="ui-float-label">
                 <input id="username-input" type="number" size="30" pInputText
                        [(ngModel)]="ebsProjectService.activeProject.limit"
-                       [ngModelOptions]="{standalone: true}" autofocus class="form-control">
+                       [ngModelOptions]="{standalone: true}" (input)="saveChanges()" autofocus class="form-control">
              </span>
             </div>
           </div>
@@ -29,7 +29,7 @@
             <div class="ui-g-4">
               <label for="mode">Methode</label>
               <p-dropdown id="mode" [options]="modeOptions" [(ngModel)]="ebsProjectService.activeProject.mode"
-                          placeholder="Bitte eine Methode auswählen"></p-dropdown>
+                         (onChange)="saveChanges()" placeholder="Bitte eine Methode auswählen"></p-dropdown>
             </div>
           </div>
 

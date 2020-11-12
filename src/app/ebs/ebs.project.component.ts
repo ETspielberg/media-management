@@ -79,7 +79,10 @@ export class EbsProjectComponent implements OnInit {
   }
 
   downloadFile() {
-    console.log(environment.scriptServerAddress + '/ebs/project/download/' + this.project_id);
     window.open(environment.scriptServerAddress + '/ebs/project/download/' + this.project_id, '_blank');
+  }
+
+  saveChanges() {
+    this.ebsProjectService.saveActiveProject().subscribe();
   }
 }
