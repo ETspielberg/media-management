@@ -1,0 +1,144 @@
+<div class="content-start" *ngIf="!busy">
+  <p-toast></p-toast>
+  <div class="jumbotron">
+    <h1>Aussonderungsprojekt "{{deletionProjectService.activeProject.project_id}}"</h1>
+    <p *ngIf="status">{{status.status}}</p>
+  </div>
+  <div class="container-fluid">
+    <div class="ui-g">
+      <div class="ui-g-10 ui-g-offset-1">
+        <div class="tile">
+
+
+          <h2>Rahmendaten</h2>
+          <h4>Dateiliste</h4>
+          <div class="ui-g">
+            <div class="ui-g-8">
+              <p>Bitte eine Excel-Datei mit den Nutzungsdaten hochladen. Diese Datei muss ein Tabellenblatt "Auswertung"
+                enthalten, das mnindestens folgende Spalten enthält: "ADM", "ADM_Ex", "Signatur", "Titel", "Verfasser",
+                "Jahr" und "Aktion". Weitere Spalten können
+                mitgegeben werden, diese erscheinen dann in der erstellten Auswahl.
+              </p>
+
+            </div>
+            <div class="ui-g-4">
+              <div *ngIf="deletionProjectService.activeProject.input_files">
+                aktuelle Dateien:
+                <ul>
+                  <li *ngFor="let file of deletionProjectService.activeProject.input_files">
+                    {{file.filename}}
+                    <button class="btn btn-danger" label="X" pButton type="button"
+                            (click)="deleteExcelFromFile(file.filename)"></button>
+                  </li>
+                </ul>
+
+              </div>
+              <p-fileUpload [disabled]="importing" [auto]="true" mode="basic" name="excel-file" url="{{uploadUrl}}"
+                            accept=".xlsx"
+                            chooseLabel="Upload" (onBeforeUpload)="importing=true;"
+                            (onUpload)="uploadFile(); "></p-fileUpload>
+            </div>
+          </div>
+
+          <h4>Anzahl an Header-Zeilen</h4>
+          <div class="ui-g">
+            <div class="ui-g-8">
+              <p>Bitte die Anzahl an Header-Zeilen angeben, bevor die Tabellenüberschriften kommen (Überschriften in
+                Zeile 3: Bitte 2 eintragen)
+              </p>
+
+            </div>
+            <div style="height: 5em;" class="ui-g">
+              <label for="projectId-input">Anzahl an Header-Zeilen</label>
+              <p-inputNumber [(ngModel)]="deletionProjectService.activeProject.initial_lines" [showButtons]="true"
+                             (ngModelChange)="saveChanges()"
+                             inputId="projectId-input" mode="decimal">
+              </p-inputNumber>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="deletionProjectService.activeProject.input_files.length > 0" class="ui-g-10 ui-g-offset-1">
+        <div class="tile">
+          <h2>Validierung</h2>
+          <p>In einigen Fällen ist es zu Problemem gekommen, dass die Spalten ab Spalte drei anders sortiert waren als
+            die ersten zwei. Im folgenden wird anhand 10 zufällig ausgewählter Einträge geprüft, ob die Zuordnung von
+            ADM-Exemplarnummern und Siganturen korrekt ist.</p>
+
+          <button pButton class="btn btn-success" type="button" label="Alle Dateien validieren"
+                  (click)="checkValidity()"></button>
+
+          <div class="ui-g" *ngIf="validating">
+            <p-progressSpinner [style]="{width: '100px', height: '100px'}" styleClass="libintel-spinner" strokeWidth="2"
+                               fill="#EEEEEE" animationDuration="1s"></p-progressSpinner>
+          </div>
+          <table *ngIf="!validating" class="table table-borderless">
+            <thead>
+            <tr>
+              <th>
+                Dateiname
+              </th>
+              <th>
+                Validieren
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let file of deletionProjectService.activeProject.input_files" [ngSwitch]="file.is_sane">
+              <td>{{file.filename}}
+              </td>
+              <td>
+                <div *ngSwitchCase="true">
+                  <button pButton class="btn btn-success" type="button" label="valide"></button>
+                </div>
+                <div *ngSwitchCase="false">
+                  <button pButton class="btn btn-danger" type="button" label="nicht valide"></button>
+                </div>
+                <div *ngSwitchCase="null">
+                  nicht geprüft
+                </div>
+                <div *ngSwitchCaseDefault>
+                  nicht geprüft
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div *ngIf="deletionProjectService.activeProject.all_files_validated" class="ui-g-10 ui-g-offset-1">
+        <div class="tile">
+
+          <h2>Analyse</h2>
+          <p> Durch einen Klick auf den Button "Analyse starten" werden die zur Verfügung gestellten Daten
+            analysiert.</p>
+          <div class="ui-g">
+            <div class="ui-g-3">
+              <button pButton [disabled]="analyzing" type="button" class="btn btn-success" (click)="runAnalysis()"
+                      label="Analyse starten"></button>
+              <p *ngIf="status">
+                Status = {{status.status}}
+              </p>
+            </div>
+            <div class="ui-g-3" *ngIf="status">
+              <div class="ui-g">
+                <h4>Fortschritt Dateien</h4>
+                <div style="height: 4em; align-content: center;">
+                Es wurden {{status.files_processed}} von {{status.files_total}} Dateien analysiert.
+                </div>
+              </div>
+            </div>
+            <div class="ui-g-3" *ngIf="status">
+              <div class="ui-g">
+                <h4>Fortschritt Einträge</h4>
+                <div style="height: 4em;">
+                  Es wurden {{status.entries_processed}} von {{status.entries_total}} Dateien analysiert.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

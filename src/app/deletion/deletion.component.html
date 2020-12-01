@@ -1,0 +1,70 @@
+<div class="content-start">
+  <div class="jumbotron">
+    <h1>automatische Bearbeitung von Aussonderungsprojekten</h1>
+  </div>
+  <div class="container-fluid">
+    <div *ngIf="!busy" class="ui-g">
+      <div class="ui-g-4">
+        <div class="tile centered">
+          <h2>Neues Projekt</h2>
+          <p>Bitte einen kurzen Bezeichner ohne Leerzeichen eingeben</p>
+          <div style="height: 5em;" class="ui-g">
+            <label for="projectId-input">Aussonderungs-Modell-Bezeichner</label>
+            <input id="projectId-input" type="text" size="30" pInputText [(ngModel)]="new_project"
+                   [ngModelOptions]="{standalone: true}" autofocus class="form-control">
+          </div>
+          <div style="padding-top: 10px;">
+            <button pButton type="button" label="Erstellen" class="btn btn-success" (click)="createProject()"></button>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-4" *ngIf="deletionProjectList.length > 0">
+        <div class="tile centered">
+          <h2>Bestehendes Projekt bearbeiten</h2>
+          <p>Bitte eins der bestehenden Projekte auswählen.</p>
+          <div style="height: 5em;" class="ui-g">
+            <p-dropdown filter="true" [options]="deletionProjectList" [(ngModel)]="deletionProjectService.activeProject"
+                        placeholder="Projekt wählen" optionLabel="project_id"
+                        (onChange)="router.navigate(['/ebs/project', deletionProjectService.activeProject.project_id])"></p-dropdown>
+          </div>
+
+          <button pButton type="button" label="Zum Projekt" class="btn btn-success"
+                  [routerLink]="['/deletion/projects', deletionProjectService.activeProject.project_id]"></button>
+        </div>
+      </div>
+      <div class="ui-g-4">
+        <div class="tile centered">
+          <h2>Blacklist hinterlegen</h2>
+          <div *ngIf="blacklistFiles">
+          <p>Aktuell hinterlegt sind: </p>
+          <ul>
+            <li *ngFor="let blacklistFile of blacklistFiles">
+              {{blacklistFile}}
+            </li>
+          </ul>
+          </div>
+          <div style="height: 5em;" class="ui-g">
+            <p-fileUpload [auto]="true" mode="basic" name="excel-file" url="{{blacklistUploadUrl}}"
+                          accept=".txt" (onUpload)="updateBlacklistfiles()"
+                          chooseLabel="Upload"></p-fileUpload>
+          </div>
+
+        </div>
+      </div>
+      <div class="ui-g-4">
+        <div class="tile centered">
+          <h2>Sigel Score hinterlegen</h2>
+          <div *ngIf="isSigellist">
+            <p>Sigel-Score-Datei liegt vor.</p>
+          </div>
+          <div style="height: 5em;" class="ui-g">
+            <p-fileUpload [auto]="true" mode="basic" name="sigellist-file" url="{{sigellistUploadUrl}}"
+                          accept=".txt" (onUpload)="checkSigellist()"
+                          chooseLabel="Upload"></p-fileUpload>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
