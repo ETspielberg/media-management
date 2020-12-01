@@ -1,0 +1,75 @@
+<div class="content-start" *ngIf="!busy">
+  <p-toast></p-toast>
+  <div class="jumbotron">
+    <h1>TA-Listen Filter "{{listfilterService.activeListFilter.filter_id}}"</h1>
+  </div>
+  <div class="container-fluid">
+    <div class="p-grid">
+      <div class="p-col-10 p-offset-1">
+        <div class="tile">
+
+
+          <h2>Format</h2>
+          <div class="p-grid">
+            <div class="p-col-8">
+              <p>Bitte das Format der Eingabedatei auswählen.</p>
+            </div>
+            <div class="p-col-4">
+              <label for="method">Methode</label>
+              <p-dropdown id="method" [options]="formatOptions" [(ngModel)]="listfilterService.activeListFilter.format"
+                          (onChange)="saveChanges()" placeholder="Bitte ein Format auswählen"></p-dropdown>
+            </div>
+          </div>
+
+          <h2>Medientyp</h2>
+          <div class="p-grid">
+            <div class="p-col-8">
+              <p>Bitte den Medientyp der Ausgabedatei angeben.</p>
+            </div>
+            <div class="p-col-4">
+              <label for="recordType">Medientyp</label>
+              <p-dropdown id="recordType" [options]="recordTypeOptions" [(ngModel)]="listfilterService.activeListFilter.record_type"
+                          (onChange)="saveChanges()" placeholder="Bitte einen Medientyp auswählen"></p-dropdown>
+            </div>
+          </div>
+
+          <h2>Eingabedatei</h2>
+          <div class="p-grid">
+            <div class="p-col-8">
+              <p>Bitte eine Text-Datei mit den Titelaufnahmen hochladen.
+              </p>
+            </div>
+            <div class="p-col-4">
+              <p *ngIf="listfilterService.activeListFilter.filename">
+                aktuelle Datei: {{listfilterService.activeListFilter.filename}}
+              </p>
+              <p-fileUpload [disabled]="importing" [auto]="true" mode="basic" name="source-file" url="{{uploadUrl}}"
+                            chooseLabel="Upload" (onBeforeUpload)="importing=true;"
+                            (onUpload)="uploadFile($event); "></p-fileUpload>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-10 p-offset-1">
+        <div class="tile">
+
+          <h2>Analyse</h2>
+          <p> Durch einen Klick auf den Button "Analyse starten" werden die zur Verfügung gestellten Daten analysiert
+            und ein Tabellenblatt "Auswahl" erstellt.
+            Eventuell bestehnde Blätter mit diesem Namen werden gelöscht.</p>
+          <div class="p-grid">
+            <div class="p-col-3">
+              <button pButton type="button" class="btn btn-success" (click)="runAnalysis()" label="Analyse starten"></button>
+            </div>
+            <div class="p-col-3">
+              <button pButton type="button" class="btn btn-success" (click)="downloadFile()" label="Datei herunterladen"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
