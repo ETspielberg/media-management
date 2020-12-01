@@ -10,8 +10,8 @@
 </div>
 
 <div *ngIf="shibbolethDataList" class="container">
-  <div class="ui-g">
-    <div class="ui-g-12">
+  <div class="p-grid">
+    <div class="p-col-12">
       <p-table #dt [value]="shibbolethDataList" [paginator]="true" [rows]="10">
         <ng-template pTemplate="caption">
           <div style="text-align: left">

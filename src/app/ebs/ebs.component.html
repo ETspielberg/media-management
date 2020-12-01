@@ -3,12 +3,12 @@
     <h1>EBS-Modelle managen</h1>
   </div>
   <div class="container-fluid">
-    <div *ngIf="!busy" class="ui-g">
-      <div class="ui-g-5 ui-g-offset-1">
+    <div *ngIf="!busy" class="p-grid">
+      <div class="p-col-5 p-offset-1">
         <div class="tile centered">
           <h2>Neues Modell</h2>
           <p>Bitte einen kurzen Bezeichner ohne Leerzeichen eingeben</p>
-          <div style="height: 5em;" class="ui-g">
+          <div style="height: 5em;" class="p-grid">
             <label for="username-input">EBS-Modell-Bezeichner</label>
             <input id="username-input" type="text" size="30" pInputText [(ngModel)]="new_project"
                    [ngModelOptions]="{standalone: true}" autofocus class="form-control">
@@ -18,11 +18,11 @@
           </div>
         </div>
       </div>
-      <div class="ui-g-5" *ngIf="ebsProjectList.length > 0">
+      <div class="p-col-5" *ngIf="ebsProjectList.length > 0">
         <div class="tile centered">
           <h2>Bestehendes Modell bearbeiten</h2>
           <p>Bitte eins der bestehenden Projekte auswählen.</p>
-          <div style="height: 5em;" class="ui-g">
+          <div style="height: 5em;" class="p-grid">
           <p-dropdown filter="true" [options]="ebsProjectList" [(ngModel)]="ebsProjectService.activeProject"
                       placeholder="Projekt wählen" optionLabel="project_id"
                       (onChange)="router.navigate(['/ebs/project', ebsProjectService.activeProject.project_id])"></p-dropdown>

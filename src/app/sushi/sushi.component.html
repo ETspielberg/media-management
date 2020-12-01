@@ -11,8 +11,8 @@
   </div>
 </div>
 <div *ngIf="sushiprovidersLoaded" class="container">
-  <div class="ui-g">
-    <div class="ui-g-12">
+  <div class="p-grid">
+    <div class="p-col-12">
       <p-table #dt [value]="sushiproviders" [paginator]="true" [rows]="10">
         <ng-template pTemplate="caption">
           <div style="text-align: left">
@@ -165,27 +165,27 @@
     </tr>
   </table>
   <p-footer>
-    <div class="ui-g">
-      <div class="ui-g-12">
+    <div class="p-grid">
+      <div class="p-col-12">
         <button pButton type="button" icon="fa-refresh" label="load All"
                 (click)="getAllCounterStats()" [disabled]="selectedSushiprovider.status=='RUNNING'"></button>
         <button pButton type="button" icon="fa-close" label="schließen"
                 (click)="hideCounterLogs()"></button>
       </div>
-      <div class="ui-g-4">
+      <div class="p-col-4">
         <select [(ngModel)]="selectedReport" class="form-control">
           <option *ngFor="let m of reportTypes" value="{{m}}">{{'report.type.' + m | translate}}</option>
         </select>
       </div>
-      <div class="ui-g-3">
+      <div class="p-col-3">
         <select [(ngModel)]="selectedMonth" class="form-control">
           <option *ngFor="let m of monthOptions" value="{{m}}">{{'month.' + m | translate}}</option>
         </select>
       </div>
-      <div class="ui-g-3">
+      <div class="p-col-3">
         <input [(ngModel)]="selectedYear" type="number" pInputText/>
       </div>
-      <div class="ui-g-2">
+      <div class="p-col-2">
         <button pButton type="button" icon="fa-download" label="abrufen"
                 (click)="collectSushiData(selectedSushiprovider)" [disabled]="selectedSushiprovider.status=='RUNNING'"></button>
       </div>

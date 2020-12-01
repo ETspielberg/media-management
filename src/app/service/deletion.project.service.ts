@@ -51,4 +51,8 @@ export class DeletionProjectService {
   getStatus(projectId: string): Observable<DeletionProjectStatus> {
     return this.http.get<DeletionProjectStatus>(environment.scriptServerAddress + '/stockmanagement/deletion/status/' + projectId);
   }
+
+  generateFiles(): Observable<any> {
+    return this.http.post(this.deletionUrl + '/generateFiles/' + this.activeProject.project_id, {}, {responseType: 'text'});
+  }
 }

@@ -28,11 +28,13 @@ export class DeletionProjectComponent implements OnInit {
 
   public status: DeletionProjectStatus;
 
-  public file_progress = 50;
+  public file_progress = 0;
 
-  public entry_progress = 50;
+  public entry_progress = 0;
 
   private subscription: any;
+
+  private filesGenerated = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -42,6 +44,8 @@ export class DeletionProjectComponent implements OnInit {
 
 
   ngOnInit() {
+    this.file_progress = 0;
+    this.entry_progress = 0;
     this.importing = false;
     this.validating = false;
     this.busy = true;
@@ -55,7 +59,6 @@ export class DeletionProjectComponent implements OnInit {
             data => {
               this.deletionProjectService.activeProject = data;
               this.busy = false;
-              console.log(data.input_files[0].is_sane);
             }
           );
         }
@@ -80,10 +83,15 @@ export class DeletionProjectComponent implements OnInit {
         this.messageService.add({severity: 'success', summary: 'Fertig', detail: data});
         this.analyzing = false;
         this.subscription.unsubscribe();
+        this.getStatus();
+        this.deletionProjectService.getProject(this.project_id).subscribe(
+          project => this.deletionProjectService.activeProject = project
+        );
       },
       error => {
         this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Ein Fehler ist aufgetreten'});
         console.log(error);
+        this.subscription.unsubscribe();
         this.analyzing = false;
       }
     );
@@ -93,7 +101,7 @@ export class DeletionProjectComponent implements OnInit {
   }
 
   downloadFile() {
-    window.open(environment.scriptServerAddress + '/ebs/project/download/' + this.project_id, '_blank');
+    window.open(environment.scriptServerAddress + '/stockmanagement/deletion/downloadFiles/' + this.project_id, '_blank');
   }
 
   saveChanges() {
@@ -148,30 +156,41 @@ export class DeletionProjectComponent implements OnInit {
 
   getStatus() {
     this.deletionProjectService.getStatus(this.project_id).subscribe(
-      data => this.status = data,
+      data => {
+        this.status = data;
+        if (data.files_processed && data.files_total) {
+          this.file_progress = Math.round(data.files_processed / data.files_total * 100);
+        } else {
+          this.file_progress = 0;
+        }
+        if (data.entries_processed && data.entries_to_be_analyzed && data.entries_to_be_analyzed !== 0) {
+          this.entry_progress = Math.round(data.entries_processed / data.entries_to_be_analyzed * 100);
+        } else {
+          this.entry_progress = 0;
+        }
+        if (this.status.status === 'RUNNING') {
+          this.analyzing = true;
+        } else if (this.status.status === 'FINISHED') {
+          this.analyzing = false;
+        } else {
+          this.analyzing = false;
+        }
+      },
       error => console.log(error)
     );
-    if (this.status) {
-      if (this.status.files_processed && this.status.files_total) {
-        this.file_progress = Math.round(this.status.files_processed / this.status.files_total * 100);
-      } else {
-        this.file_progress = 0.1;
-      }
-      if (this.status.entries_processed && this.status.entries_total) {
-        this.entry_progress = Math.round(this.status.entries_processed / this.status.entries_total * 100);
-      } else {
-        this.entry_progress = 0.1;
-      }
-      if (this.status.status === 'RUNNING') {
-        this.subscription = interval(2000).subscribe(() => {
-          this.getStatus();
+  }
+
+  generateLists() {
+    this.deletionProjectService.generateFiles().subscribe(
+      data => {
+        this.filesGenerated = true;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Erstellung erfolgreich',
+          detail: 'Alle Listen konnten erfolgreich erstellt werden.'
         });
-        this.analyzing = true;
-      } else {
-        this.subscription.unsubscribe();
-        this.analyzing = false;
       }
-    }
+    );
   }
 
 }

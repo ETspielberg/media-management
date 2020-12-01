@@ -5,15 +5,15 @@
     <p *ngIf="status">{{status.status}}</p>
   </div>
   <div class="container-fluid">
-    <div class="ui-g">
-      <div class="ui-g-10 ui-g-offset-1">
+    <div class="p-grid">
+      <div class="p-col-10 p-offset-1">
         <div class="tile">
 
 
           <h2>Rahmendaten</h2>
           <h4>Dateiliste</h4>
-          <div class="ui-g">
-            <div class="ui-g-8">
+          <div class="p-grid">
+            <div class="p-col-8">
               <p>Bitte eine Excel-Datei mit den Nutzungsdaten hochladen. Diese Datei muss ein Tabellenblatt "Auswertung"
                 enthalten, das mnindestens folgende Spalten enthält: "ADM", "ADM_Ex", "Signatur", "Titel", "Verfasser",
                 "Jahr" und "Aktion". Weitere Spalten können
@@ -21,7 +21,7 @@
               </p>
 
             </div>
-            <div class="ui-g-4">
+            <div class="p-col-4">
               <div *ngIf="deletionProjectService.activeProject.input_files">
                 aktuelle Dateien:
                 <ul>
@@ -41,14 +41,14 @@
           </div>
 
           <h4>Anzahl an Header-Zeilen</h4>
-          <div class="ui-g">
-            <div class="ui-g-8">
+          <div class="p-grid">
+            <div class="p-col-8">
               <p>Bitte die Anzahl an Header-Zeilen angeben, bevor die Tabellenüberschriften kommen (Überschriften in
                 Zeile 3: Bitte 2 eintragen)
               </p>
 
             </div>
-            <div style="height: 5em;" class="ui-g">
+            <div style="height: 5em;" class="p-grid">
               <label for="projectId-input">Anzahl an Header-Zeilen</label>
               <p-inputNumber [(ngModel)]="deletionProjectService.activeProject.initial_lines" [showButtons]="true"
                              (ngModelChange)="saveChanges()"
@@ -56,9 +56,28 @@
               </p-inputNumber>
             </div>
           </div>
+          <h4>Kriterium für automatisierte Aussonderung</h4>
+          <div class="p-grid">
+            <div class="p-col-8">
+              <p>
+                Bitte den minimalen Fernleih-Score angeben, ab dem eine automatisierte Aussonderung erfolgen kann.
+                Der Fernleihscore für eine einzelne Bibliothek gibt die Verfügbarkeit und Verlässlichkeit einzelner
+                Fernleihpartner an.
+                Eine entsprechende Datei kann in der Aussonderungsübersichtsseite hochgeladen werden.
+              </p>
+
+            </div>
+            <div style="height: 5em;" class="p-grid">
+              <label for="threshold-score-input">Anzahl an Header-Zeilen</label>
+              <p-inputNumber [(ngModel)]="deletionProjectService.activeProject.threshold_score" [showButtons]="true"
+                             (ngModelChange)="saveChanges()"
+                             inputId="threshold-score-input" mode="decimal">
+              </p-inputNumber>
+            </div>
+          </div>
         </div>
       </div>
-      <div *ngIf="deletionProjectService.activeProject.input_files.length > 0" class="ui-g-10 ui-g-offset-1">
+      <div *ngIf="deletionProjectService.activeProject.input_files.length > 0" class="p-col-10 p-offset-1">
         <div class="tile">
           <h2>Validierung</h2>
           <p>In einigen Fällen ist es zu Problemem gekommen, dass die Spalten ab Spalte drei anders sortiert waren als
@@ -68,7 +87,7 @@
           <button pButton class="btn btn-success" type="button" label="Alle Dateien validieren"
                   (click)="checkValidity()"></button>
 
-          <div class="ui-g" *ngIf="validating">
+          <div class="p-grid" *ngIf="validating">
             <p-progressSpinner [style]="{width: '100px', height: '100px'}" styleClass="libintel-spinner" strokeWidth="2"
                                fill="#EEEEEE" animationDuration="1s"></p-progressSpinner>
           </div>
@@ -79,7 +98,7 @@
                 Dateiname
               </th>
               <th>
-                Validieren
+                valide?
               </th>
             </tr>
             </thead>
@@ -106,37 +125,98 @@
           </table>
         </div>
       </div>
-      <div *ngIf="deletionProjectService.activeProject.all_files_validated" class="ui-g-10 ui-g-offset-1">
+      <div *ngIf="deletionProjectService.activeProject.all_files_validated" class="p-col-10 p-offset-1">
         <div class="tile">
 
           <h2>Analyse</h2>
           <p> Durch einen Klick auf den Button "Analyse starten" werden die zur Verfügung gestellten Daten
             analysiert.</p>
-          <div class="ui-g">
-            <div class="ui-g-3">
+          <div class="p-grid">
+            <div class="p-col-3">
               <button pButton [disabled]="analyzing" type="button" class="btn btn-success" (click)="runAnalysis()"
                       label="Analyse starten"></button>
               <p *ngIf="status">
                 Status = {{status.status}}
               </p>
             </div>
-            <div class="ui-g-3" *ngIf="status">
-              <div class="ui-g">
+            <div class="p-col-3" *ngIf="status">
+              <div class="p-grid">
                 <h4>Fortschritt Dateien</h4>
                 <div style="height: 4em; align-content: center;">
-                Es wurden {{status.files_processed}} von {{status.files_total}} Dateien analysiert.
+                  <p-progressBar [value]="file_progress"></p-progressBar>
+                  Es wurden {{status.files_processed}} von {{status.files_total}} Dateien analysiert.
                 </div>
               </div>
             </div>
-            <div class="ui-g-3" *ngIf="status">
-              <div class="ui-g">
+            <div class="p-col-3" *ngIf="status">
+              <div class="p-grid">
                 <h4>Fortschritt Einträge</h4>
                 <div style="height: 4em;">
-                  Es wurden {{status.entries_processed}} von {{status.entries_total}} Dateien analysiert.
+                  <p-progressBar [value]="entry_progress"></p-progressBar>
+                  Es wurden {{status.entries_processed}} von {{status.entries_to_be_analyzed}} Einträgen analysiert.
                 </div>
               </div>
             </div>
           </div>
+          <div class="p-grid">
+            <table *ngIf="status.status === 'FINISHED'" class="table table-borderless">
+              <thead>
+              <tr>
+                <th>
+                  Dateiname
+                </th>
+                <th>
+                  Titel zur Aussonderung
+                </th>
+                <th>
+                  Titel auf Blacklist
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let file of deletionProjectService.activeProject.input_files" [ngSwitch]="file.is_sane">
+                <td>{{file.filename}}
+                </td>
+                <td>
+                  {{file.items_to_be_analyzed}}
+                </td>
+                <td>
+                  {{file.items_blacklisted}}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="deletionProjectService.activeProject.all_files_validated" class="p-col-10 p-offset-1">
+        <div class="tile">
+          <h2>Erzeugung von Bearbeitungsdateien</h2>
+          <p>Anhand der angegebenen Kriterien zur automatisierten Löschung werden pro Eingabedatei drei Listen
+            erstellt:</p>
+          <ul>
+            <li>
+              Eine Liste an IDs für die Einträge, die gemäß den Kriterien automatisiert gelöscht werden können,
+            </li>
+            <li>
+              Eine Liste mit Signaturen und Standorten, anhand derer die Mitarbeiter*innen die
+            </li>
+            <li>
+              Eine Liste der Einträge, die manuell nachgeprüft werden müssen, da sie die Kriterien für eine
+              automatisierte Löschung nicht erfüllen.
+            </li>
+          </ul>
+          <button pButton class="btn btn-success" type="button" label="Listen generieren"
+                  (click)="generateLists()"></button>
+        </div>
+      </div>
+      <div *ngIf="filesGenerated" class="p-col-10 p-offset-1">
+        <div class="tile">
+          <h2>Dateien herunterladen</h2>
+          <p>Nach erfolgter Analyse können hier die Ausgabedatei, die Liste zur automatisierten Löschung sowie die Titel
+            zur manuellen nachprüfung heruntergeladen werden</p>
+          <button pButton type="button" class="btn btn-success" (click)="downloadFile()"
+                  label="Datei herunterladen"></button>
         </div>
       </div>
     </div>

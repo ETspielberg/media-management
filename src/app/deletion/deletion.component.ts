@@ -71,7 +71,8 @@ export class DeletionComponent implements OnInit {
     this.deletionProjectService.activeProject = new DeletionProject(this.new_project,
       [],
       0,
-      false);
+      false,
+      5);
     this.deletionProjectService.saveActiveProject().subscribe(
       () => this.router.navigate(['/deletion/projects', this.deletionProjectService.activeProject.project_id]));
   }

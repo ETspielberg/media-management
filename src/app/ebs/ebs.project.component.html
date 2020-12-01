@@ -4,15 +4,15 @@
     <h1>EBS-Modell "{{ebsProjectService.activeProject.project_id}}"</h1>
   </div>
   <div class="container-fluid">
-    <div class="ui-g">
-      <div class="ui-g-10 ui-g-offset-1">
+    <div class="p-grid">
+      <div class="p-col-10 p-offset-1">
         <div class="tile">
           <h2>Betrag</h2>
-          <div class="ui-g">
-            <div class="ui-g-8">
+          <div class="p-grid">
+            <div class="p-col-8">
               <p>Bitte den Nettopreis eingeben, der zur Auswahl zur Verfügung steht.</p>
             </div>
-            <div class="ui-g-4">
+            <div class="p-col-4">
               <span class="ui-float-label">
                 <input id="username-input" type="number" size="30" pInputText
                        [(ngModel)]="ebsProjectService.activeProject.limit"
@@ -22,11 +22,11 @@
           </div>
 
           <h2>Methode</h2>
-          <div class="ui-g">
-            <div class="ui-g-8">
+          <div class="p-grid">
+            <div class="p-col-8">
               <p>Bitte die Methode wählen, die zur Analyse verwendet werden soll.</p>
             </div>
-            <div class="ui-g-4">
+            <div class="p-col-4">
               <label for="mode">Methode</label>
               <p-dropdown id="mode" [options]="modeOptions" [(ngModel)]="ebsProjectService.activeProject.mode"
                          (onChange)="saveChanges()" placeholder="Bitte eine Methode auswählen"></p-dropdown>
@@ -34,8 +34,8 @@
           </div>
 
           <h2>Nutzungsdaten</h2>
-          <div class="ui-g">
-            <div class="ui-g-8">
+          <div class="p-grid">
+            <div class="p-col-8">
               <p>Bitte eine Excel-Datei mit den Nutzungsdaten hochladen. Diese Datei muss ein Tabellenblatt "Auswertung"
                 enthalten, dass mnindestens folgende Spalten enthält: "ISBN", "Preis", "Nutzung". Weitere Spalten können
                 mitgegeben werden, diese erscheinen dann in der erstellten Auswahl.
@@ -45,7 +45,7 @@
                 Die Spalte muss den Titel "ISBN" tragen.
               </p>
             </div>
-            <div class="ui-g-4">
+            <div class="p-col-4">
               <p *ngIf="ebsProjectService.activeProject.filename">
                 aktuelle Datei: {{ebsProjectService.activeProject.filename}}
               </p>
@@ -60,11 +60,11 @@
           <p> Durch einen Klick auf den Button "Analyse starten" werden die zur Verfügung gestellten Daten analysiert
             und ein Tabellenblatt "Auswahl" erstellt.
             Eventuell bestehnde Blätter mit diesem Namen werden gelöscht.</p>
-          <div class="ui-g">
-            <div class="ui-g-3">
+          <div class="p-grid">
+            <div class="p-col-3">
               <button pButton type="button" class="btn btn-success" (click)="runAnalysis()" label="Analyse starten"></button>
             </div>
-            <div class="ui-g-3">
+            <div class="p-col-3">
               <button pButton type="button" class="btn btn-success" (click)="downloadFile()" label="Datei herunterladen"></button>
             </div>
           </div>
