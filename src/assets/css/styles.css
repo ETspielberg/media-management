@@ -33,6 +33,10 @@ body {
   position: relative;
 }
 
+.centered {
+  text-align: center;
+}
+
 .bg-dark {
   background-color: black !important;
   color: #efe4bf;

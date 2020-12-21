@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="p-grid">
+    <div class="p-col-12 p-md-6 p-lg-6">
+      <div class="tile">
+        <h3 style="height: 1.2em;">{{ "bubi.outbox" | translate}}</h3>
+        <p style="height: 3em;">{{ "bubi.outbox.short" | translate}}</p>
+        <div style="padding:10px;">
+          <button style="width: 100%" [routerLink]="['/bubi/orderline/new']"
+                  class="btn btn-primary">{{"bubi.order.line.new" | translate}}</button>
+        </div>
+        <div style="padding:10px;">
+          <button style="width: 100%" [routerLink]="['/bubi/orderlines']" type="button"
+                  class="btn btn-primary"> {{ "bubi.order.line.overview" | translate}}</button>
+        </div>
+        <div style="padding:10px;">
+          <button style="width: 100%" [routerLink]="['/bubi/orderlines/new']" [queryParams]="{status: 'NEW'}" type="button"
+                  class="btn btn-primary">{{ "bubi.new.order.open" | translate}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-6">
+      <div class="tile">
+        <h3 style="height: 1.2em;">{{ "bubi.inbox" | translate}}</h3>
+        <p style="height: 3em;">{{ "bubi.inbox.short" | translate}}</p>
+        <div style="padding:10px;">
+          <button style="width: 100%" [routerLink]="['/bubi/inbox']" type="button" class="btn btn-primary">{{ "bubi.inbox" | translate}}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-col-12 p-md-6 p-lg-6">
+      <div class="tile">
+        <h3 style="height: 1.2em;">{{ "bubi.coredata" | translate}}</h3>
+        <p style="height: 3em;">{{ "bubi.coredata.short" | translate}}</p>
+        <div style="padding:10px;">
+            <button style="width: 100%" [routerLink]="['/bubi/coredata']" type="button" class="btn btn-primary">{{ "bubi.coredata.overview" | translate}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-6">
+      <div class="tile">
+        <h3 style="height: 1.2em;">{{ "bubi.data" | translate}}</h3>
+        <p style="height: 3em;">{{ "bubi.data.edit.short" | translate}}</p>
+        <div style="padding:10px;">
+            <button style="width: 100%" [routerLink]="['data']" type="button" class="btn btn-primary">{{ "bubi.data.overview" | translate}}</button>
+        </div>
+        <div style="padding:10px;">
+            <button style="width: 100%" [routerLink]="['data/new']" type="button" class="btn btn-primary">{{ "bubi.data.new" | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p-grid">
+    <div class="p-col-12">
+      <div class="tile centered">
+          <button [routerLink]="['/start']" class="btn btn-primary">Zurück</button>
+      </div>
+    </div>
+  </div>
+</div>
