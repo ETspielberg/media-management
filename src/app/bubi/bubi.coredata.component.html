@@ -1,133 +1,146 @@
+<div class="jumbotron">
+  <h1>{{"bubi.coredata.overview" | translate}}</h1>
+  <p>{{"bubi.coredata.overview.short" | translate}}</p>
+</div>
+
 <div class="container-fluid">
-  <p-dialog *ngIf="activeCoredata" header="Stammdaten bearbeiten" [(visible)]="showEditor" [responsive]="true"
+  <p-dialog *ngIf="bubiService.activeCoredata" header="Stammdaten bearbeiten" [(visible)]="showEditor" [responsive]="true"
             [style]="{width: '75vw', height: '90vh'}" [modal]="true">
     <h4>{{"bubi.coredata.for.item" | translate}}</h4>
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col">
         <label for="collection">{{"collection" | translate}}</label>
-        <input id="collection" type="text" pInputText [(ngModel)]="activeCoredata.collection"/>
+        <input id="collection" type="text" pInputText [(ngModel)]="bubiService.activeCoredata.collection"/>
       </div>
       <div class="p-field p-col">
         <label for="shelfmark">{{"shelfmark" | translate}}</label>
-        <input id="shelfmark" type="text" pInputText [(ngModel)]="activeCoredata.shelfmark"/>
+        <input id="shelfmark" type="text" pInputText [(ngModel)]="bubiService.activeCoredata.shelfmark"/>
       </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col">
         <label for="almaMmsId">{{"alma.mms.id" | translate}}</label>
-        <input pInputText id="almaMmsId" type="text" [(ngModel)]="activeCoredata.almaMmsId">
+        <input pInputText id="almaMmsId" type="text" [(ngModel)]="bubiService.activeCoredata.almaMmsId">
       </div>
       <div class="p-field p-col">
         <label for="almaHoldingId">{{"alma.holding.id" | translate}}</label>
-        <input pInputText id="almaHoldingId" type="text" [(ngModel)]="activeCoredata.almaHoldingId">
+        <input pInputText id="almaHoldingId" type="text" [(ngModel)]="bubiService.activeCoredata.almaHoldingId">
       </div>
     </div>
     <h4>{{"bubi.coredata.for.order" | translate}}</h4>
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col">
         <label for="active">{{"active" | translate}}</label>
-        <p-checkbox id="active" [(ngModel)]="activeCoredata.active" [binary]="true"></p-checkbox>
+        <p-checkbox id="active" [(ngModel)]="bubiService.activeCoredata.active" [binary]="true"></p-checkbox>
       </div>
       <div class="p-field p-col">
         <label for="isFf">{{"is.ff" | translate}}</label>
-        <p-checkbox id="isFf" [(ngModel)]="activeCoredata.isFf" [binary]="true"></p-checkbox>
+        <p-checkbox id="isFf" [(ngModel)]="bubiService.activeCoredata.isFf" [binary]="true"></p-checkbox>
       </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col">
         <label for="minting">{{"minting" | translate}}</label>
-        <input pInputText id="minting" [(ngModel)]="activeCoredata.minting">
+        <input pInputText id="minting" [(ngModel)]="bubiService.activeCoredata.minting">
       </div>
       <div class="p-field p-col">
         <label for="title">{{"title" | translate}}</label>
-        <input pInputText id="title" [(ngModel)]="activeCoredata.title">
+        <input pInputText id="title" [(ngModel)]="bubiService.activeCoredata.title">
       </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col">
         <label for="color">{{"color" | translate}}</label>
-        <input pInputText id="color" type="text" [(ngModel)]="activeCoredata.color">
+        <input pInputText id="color" type="text" [(ngModel)]="bubiService.activeCoredata.color">
       </div>
       <div class="p-field p-col">
         <label for="binding">{{"binding" | translate}}</label>
-        <input pInputText id="binding" type="text" [(ngModel)]="activeCoredata.binding">
+        <input pInputText id="binding" type="text" [(ngModel)]="bubiService.activeCoredata.binding">
       </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col">
         <label for="year">{{"year" | translate}}</label>
-        <input pInputText id="year" type="text" [(ngModel)]="activeCoredata.year">
+        <input pInputText id="year" type="text" [(ngModel)]="bubiService.activeCoredata.year">
       </div>
       <div class="p-field p-col">
         <label for="volume">{{"volume" | translate}}</label>
-        <input pInputText id="volume" type="text" [(ngModel)]="activeCoredata.volume">
+        <input pInputText id="volume" type="text" [(ngModel)]="bubiService.activeCoredata.volume">
       </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col">
         <label for="issue">{{"issue" | translate}}</label>
-        <input pInputText id="issue" type="text" [(ngModel)]="activeCoredata.issue">
+        <input pInputText id="issue" type="text" [(ngModel)]="bubiService.activeCoredata.issue">
       </div>
       <div class="p-field p-col">
         <label for="edition">{{"edition" | translate}}</label>
-        <input pInputText id="edition" type="text" [(ngModel)]="activeCoredata.edition">
+        <input pInputText id="edition" type="text" [(ngModel)]="bubiService.activeCoredata.edition">
       </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col">
         <label for="part">{{"part" | translate}}</label>
-        <input pInputText id="part" type="text" [(ngModel)]="activeCoredata.part">
+        <input pInputText id="part" type="text" [(ngModel)]="bubiService.activeCoredata.part">
       </div>
       <div class="p-field p-col">
         <label for="bindingsFollow">{{"bindings.follow" | translate}}</label>
-        <input pInputText id="bindingsFollow" type="text" [(ngModel)]="activeCoredata.bindingsFollow">
+        <input pInputText id="bindingsFollow" type="text" [(ngModel)]="bubiService.activeCoredata.bindingsFollow">
       </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col">
         <label for="cover">{{"cover" | translate}}</label>
-        <input pInputText id="cover" type="text" [(ngModel)]="activeCoredata.cover">
+        <input pInputText id="cover" type="text" [(ngModel)]="bubiService.activeCoredata.cover">
       </div>
       <div class="p-field p-col">
         <label for="bubiData">{{"bubi" | translate}}</label>
-        <p-dropdown id="bubiData" [options]="bubiList" [(ngModel)]="activeCoredata.vendorId" optionLabel="name"
+        <p-dropdown id="bubiData" [options]="bubiList" [(ngModel)]="bubiService.activeCoredata.vendorId" optionLabel="name"
                     optionValue="vendorId"></p-dropdown>
       </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col">
         <label for="comment">{{"comment" | translate}}</label>
-        <textarea pInputTextarea [cols]="80" [rows]="3" id="comment" [(ngModel)]="activeCoredata.comment"></textarea>
+        <textarea pInputTextarea [cols]="80" [rows]="3" id="comment" [(ngModel)]="bubiService.activeCoredata.comment"></textarea>
       </div>
     </div>
     <p-footer>
       <button pButton type="button" icon="fa-save" label="speichern"
-              (click)="saveCoredata(activeCoredata)"></button>
+              (click)="saveCoredata(bubiService.activeCoredata)"></button>
     </p-footer>
   </p-dialog>
 
   <div class="p-grid">
     <div class="p-col-12">
       <div class="tile">
-        <h3 style="height:1.2em;">{{"bubi.coredata.overview" | translate}}</h3>
-        <p>{{"bubi.coredata.overview.short" | translate}}</p>
         <p-table #datatable [value]="coredataList" [paginator]="false"
                  currentPageReportTemplate="Zeige {first} bis {last} von allen {totalRecords} Stammdaten"
                  [globalFilterFields]="['shelfmark','collection','vendorId','status']">
           <ng-template pTemplate="caption">
-            <div class="p-d-flex">
+            <div class="p-grid">
+              <div class="p-col">
+              <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-plus"></i>
+                    <button pButton type="button" icon="fa-save" label="Neue Stammdaten anlegen"
+                            (click)="newCoredata()"></button>
+                </span>
+              </div>
+              <div class="p-col">
                 <span class="p-input-icon-left p-mr-auto">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="datatable.filterGlobal($event.target.value, 'contains')"
                            placeholder="Search keyword"/>
                 </span>
+              </div>
             </div>
           </ng-template>
           <ng-template pTemplate="header">
             <tr>
-              <th>Aktiv?</th>
+              <th>{{"is.active" | translate}}</th>
               <th>{{"collection" | translate}}</th>
               <th>{{"shelfmark" | translate}}</th>
+              <th>{{"is.ff" | translate}}</th>
               <th>{{"minting" | translate}}</th>
               <th>{{"color" | translate}}</th>
               <th>{{"alma.mms.id" | translate}}</th>
@@ -140,10 +153,14 @@
           <ng-template pTemplate="body" let-coredata>
             <tr>
               <td>
-                <p-checkbox [(ngModel)]="coredata.active" [binary]="true" (click)="saveCoredata(coredata)"></p-checkbox>
+                <p-inputSwitch [(ngModel)]="coredata.active" (onChange)="saveCoredata(coredata)"></p-inputSwitch>
               </td>
+
               <td>{{coredata.collection}}</td>
               <td>{{coredata.shelfmark}}</td>
+              <td>
+                <p-checkbox [(ngModel)]="coredata.isFf" [binary]="true" (click)="saveCoredata(coredata)"></p-checkbox>
+              </td>
               <td>{{coredata.minting}}</td>
               <td>{{coredata.color}}</td>
               <td>{{coredata.almaMmsId}}</td>
@@ -152,10 +169,11 @@
               <td>
                 <button pButton type="button" class="btn btn-warning" (click)="editCoredata(coredata)"
                         label="Bearbeiten"></button>
+                <button pButton type="button" class="btn btn-warning" (click)="fromExisting(coredata)"
+                        label="Klonen"></button>
               </td>
               <td>
-                <button [routerLink]="['/bubi/orderline/fromShelfmark']"
-                        [queryParams]="{collection: coredata.collection, shelfmark: coredata.shelfmark}"
+                <button (click)="this.bubiService.activeCoredata = coredata;" [routerLink]="['/bubi/orderline/new']" [queryParams]="{mode: 'coredata'}"
                         class="btn btn-success">{{"bubi.new.order" | translate}}</button>
               </td>
             </tr>
@@ -166,8 +184,10 @@
     </div>
   </div>
   <div class="p-grid">
-    <div class="p-col-12 centered">
-      <div class="tile centered">
+    <div class="p-col-12">
+      <div class="tile">
+        <h4>{{"bubi.coredata.upload" | translate}}</h4>
+        <p>{{"bubi.coredata.upload.short" | translate}}</p>
         <p-fileUpload name="almaCoredataUploadUrl}}" url="./upload.php"></p-fileUpload>
       </div>
     </div>

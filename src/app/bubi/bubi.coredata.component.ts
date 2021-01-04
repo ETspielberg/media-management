@@ -19,9 +19,7 @@ export class BubiCoredataComponent implements OnInit {
 
   public showEditor = false;
 
-  public activeCoredata: Coredata;
-
-  constructor(private bubiService: BubiService, private messageService: MessageService) {
+  constructor(public bubiService: BubiService, private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -42,7 +40,7 @@ export class BubiCoredataComponent implements OnInit {
   }
 
   editCoredata(coredata: Coredata) {
-    this.activeCoredata = coredata;
+    this.bubiService.activeCoredata = coredata;
     this.showEditor = true;
   }
 
@@ -55,5 +53,18 @@ export class BubiCoredataComponent implements OnInit {
         this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Konnte Stammdaten nicht speichern.'});
       }
     );
+  }
+
+  newCoredata() {
+    this.bubiService.activeCoredata = new Coredata('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', false, '', '', '', false, '', '');
+    this.showEditor = true;
+  }
+
+  fromExisting(coredata: Coredata) {
+    this.bubiService.activeCoredata = Object.create(coredata);
+    this.bubiService.activeCoredata.collection = '';
+    this.bubiService.activeCoredata.shelfmark = '';
+    this.bubiService.activeCoredata.comment = '';
+    this.showEditor = true;
   }
 }
