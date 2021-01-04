@@ -20,6 +20,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {BubiDataComponent} from './bubi.data.component';
 import {BubiOrderlineComponent} from './bubi.orderline. component';
 import {BubiOrderlineNewComponent} from './bubi.orderline.new.component';
+import {InputSwitchModule} from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [BubiComponent, BubiCoredataComponent, BubiDataComponent, BubiOrderlineComponent, BubiOrderlineNewComponent],
@@ -32,6 +33,7 @@ import {BubiOrderlineNewComponent} from './bubi.orderline.new.component';
     InputTextModule,
     DropdownModule,
     CheckboxModule,
+    InputSwitchModule,
     InputNumberModule,
     InputTextModule,
     InputTextareaModule,
