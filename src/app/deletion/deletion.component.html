@@ -25,7 +25,7 @@
           <div style="height: 5em;" class="p-grid">
             <p-dropdown filter="true" [options]="deletionProjectList" [(ngModel)]="deletionProjectService.activeProject"
                         placeholder="Projekt wählen" optionLabel="project_id"
-                        (onChange)="router.navigate(['/deletion/project', deletionProjectService.activeProject.project_id])"></p-dropdown>
+                        (onChange)="router.navigate(['/deletion/projects', deletionProjectService.activeProject.project_id])"></p-dropdown>
           </div>
 
           <button pButton type="button" label="Zum Projekt" class="btn btn-success"
