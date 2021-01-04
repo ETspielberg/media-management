@@ -8,7 +8,6 @@ export class Coredata {
     public color: string,
     public binding: string,
     public partDescription: string,
-    public volumen: string,
     public cover: string,
     public partTitle: string,
     public edition: string,
