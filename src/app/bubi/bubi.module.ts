@@ -18,12 +18,11 @@ import {DropdownModule} from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {BubiDataComponent} from './bubi.data.component';
-import {BubiOrderlineComponent} from './bubi.orderline. component';
-import {BubiOrderlineNewComponent} from './bubi.orderline.new.component';
+import {BubiOrderlineComponent} from './bubi.orderline.component';
 import {InputSwitchModule} from 'primeng/inputswitch';
 
 @NgModule({
-  declarations: [BubiComponent, BubiCoredataComponent, BubiDataComponent, BubiOrderlineComponent, BubiOrderlineNewComponent],
+  declarations: [BubiComponent, BubiCoredataComponent, BubiDataComponent, BubiOrderlineComponent, BubiOrderlineComponent],
   imports: [
     CommonModule,
     FileUploadModule,

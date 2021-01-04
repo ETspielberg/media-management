@@ -1,4 +1,4 @@
-import {BubiOrderline} from './bubiOrderline';
+import {BubiOrderline} from './BubiOrderline';
 
 export class BubiOrder {
 

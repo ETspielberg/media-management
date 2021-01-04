@@ -8,7 +8,7 @@
         <h3 style="height: 1.2em;">{{ "bubi.outbox" | translate}}</h3>
         <p style="height: 3em;">{{ "bubi.outbox.short" | translate}}</p>
         <div style="padding:10px;">
-          <button style="width: 100%" [routerLink]="['/bubi/orderline/new']"
+          <button style="width: 100%" [routerLink]="['/bubi/orderline']" [queryParams]="{mode: 'form'}"
                   class="btn btn-primary">{{"bubi.order.line.new" | translate}}</button>
         </div>
         <div style="padding:10px;">

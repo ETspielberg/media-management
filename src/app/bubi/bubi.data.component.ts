@@ -20,7 +20,7 @@ export class BubiDataComponent implements OnInit {
 
   public campus;
 
-  constructor(private bubiService: BubiService, private messageService: MessageService) {
+  constructor(public bubiService: BubiService, private messageService: MessageService) {
   }
 
   ngOnInit() {

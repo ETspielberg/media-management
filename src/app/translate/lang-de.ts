@@ -287,4 +287,6 @@ export const LANG_DE_TRANS = {
   'bubi.coredata.edit': 'Stammdaten bearbeiten',
   'bubi.coredata.for.item': 'Angaben zum Exemplar',
   'bubi.coredata.for.order': 'Angaben zum Auftrag',
+  'bubi.orderline.new': 'Neuen Buchbinderauftrag anlegen',
+  'bubi.orderline.new.short': 'Basierend auf den Stammdaten oder als Kopie eines existierenden einen neuen Auftragsposten anlegen.'
 };

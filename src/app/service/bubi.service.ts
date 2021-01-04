@@ -5,7 +5,7 @@ import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import * as appGlobals from '../app.globals';
 import {Bubidata} from '../model/bubi/Bubidata';
-import {BubiOrderline} from '../model/bubi/bubiOrderline';
+import {BubiOrderline} from '../model/bubi/BubiOrderline';
 
 @Injectable()
 export class BubiService {
@@ -45,10 +45,14 @@ export class BubiService {
 
 
   orderlineFromShelfmark(collection: string, shelfmark: string): Observable<BubiOrderline> {
-    return this.http.get<BubiOrderline>(this.bubiOrderLineUrl + '/fromShelfmark&shelfmark=' + shelfmark + '&collection=' + collection);
+    return this.http.get<BubiOrderline>(environment.almaConnectorAddress + '/bubi/orderline/fromShelfmark?shelfmark=' + shelfmark + '&collection=' + collection);
   }
 
   orderlineFromCoredata(): Observable<BubiOrderline> {
-    return this.http.get<BubiOrderline>(this.bubiOrderLineUrl + '/fromShelfmark&shelfmark=' + this.activeCoredata.shelfmark + '&collection=' + this.activeCoredata.collection);
+    return this.http.get<BubiOrderline>(environment.almaConnectorAddress + '/bubi/orderline/fromShelfmark?shelfmark=' + this.activeCoredata.shelfmark + '&collection=' + this.activeCoredata.collection);
+  }
+
+  saveActiveOrderline() {
+    return this.http.post<BubiOrderline>(environment.almaConnectorAddress + '/bubi/orderline/save', JSON.stringify(this.activeOrderline), {headers: appGlobals.headers});
   }
 }
