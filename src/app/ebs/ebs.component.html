@@ -5,13 +5,15 @@
   <div class="container-fluid">
     <div *ngIf="!busy" class="p-grid">
       <div class="p-col-5 p-offset-1">
-        <div class="tile centered">
+        <div class="tile">
           <h2>Neues Modell</h2>
           <p>Bitte einen kurzen Bezeichner ohne Leerzeichen eingeben</p>
-          <div style="height: 5em;" class="p-grid">
-            <label for="username-input">EBS-Modell-Bezeichner</label>
-            <input id="username-input" type="text" size="30" pInputText [(ngModel)]="new_project"
+          <div class="p-fluid">
+            <div class="p-field">
+            <label for="ebs-modell-input">EBS-Modell-Bezeichner</label>
+            <input id="ebs-modell-input" type="text" size="30" pInputText [(ngModel)]="new_project"
                    [ngModelOptions]="{standalone: true}" autofocus class="form-control">
+          </div>
           </div>
           <div style="padding-top: 10px;">
             <button pButton type="button" label="Erstellen" class="btn btn-success" (click)="createProject()"></button>
@@ -19,17 +21,21 @@
         </div>
       </div>
       <div class="p-col-5" *ngIf="ebsProjectList.length > 0">
-        <div class="tile centered">
+        <div class="tile">
           <h2>Bestehendes Modell bearbeiten</h2>
           <p>Bitte eins der bestehenden Projekte auswählen.</p>
-          <div style="height: 5em;" class="p-grid">
-          <p-dropdown filter="true" [options]="ebsProjectList" [(ngModel)]="ebsProjectService.activeProject"
+          <div class="p-fluid">
+            <div class="p-field">
+              <label for="ebs-modell-select">Bezeichner wählen:</label>
+          <p-dropdown id="ebs-modell-select" filter="true" [options]="ebsProjectList" [(ngModel)]="ebsProjectService.activeProject"
                       placeholder="Projekt wählen" optionLabel="project_id"
                       (onChange)="router.navigate(['/ebs/project', ebsProjectService.activeProject.project_id])"></p-dropdown>
           </div>
-
+          </div>
+          <div style="padding-top: 10px;">
               <button pButton type="button" label="Zum Projekt" class="btn btn-success"
                       [routerLink]="['/ebs/project', ebsProjectService.activeProject.project_id]"></button>
+          </div>
         </div>
       </div>
     </div>
