@@ -1,0 +1,113 @@
+<div class="content-start" *ngIf="!busy">
+  <p-toast></p-toast>
+  <div class="jumbotron">
+    <h1>HBZ-Prüfung "{{checkNrwProjectService.activeProject.project_id}}"</h1>
+    <p *ngIf="status">{{status.status}}</p>
+  </div>
+  <div class="container-fluid">
+    <div class="p-grid">
+      <div class="p-col-10 p-offset-1">
+        <div class="tile">
+          <h2>Prüflisten</h2>
+          <div class="p-grid">
+            <div class="p-col-8">
+              <p>Bitte Excel-Dateien mit den Titellisten hochladen. Das Tabellenblatt sollte keine Überschriften
+                haben und nur eine Spalte mit ADM-Nummern und eine mit HT-Nummern enthalten.
+              </p>
+
+            </div>
+            <div class="p-col-4">
+              <div *ngIf="checkNrwProjectService.activeProject.input_files">
+                aktuelle Dateien:
+                <ul>
+                  <li *ngFor="let file of checkNrwProjectService.activeProject.input_files">
+                    {{file.filename}}
+                    <button class="p-button-rounded p-button-danger" label="X" pButton type="button"
+                            (click)="deleteExcelFromFile(file.filename)"></button>
+                  </li>
+                </ul>
+
+              </div>
+              <p-fileUpload [disabled]="importing" [auto]="true" mode="basic" name="excel-file" url="{{uploadUrl}}"
+                            accept=".xlsx"
+                            chooseLabel="Upload" (onBeforeUpload)="importing=true;"
+                            (onUpload)="uploadFile(); "></p-fileUpload>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="checkNrwProjectService.activeProject.input_files.length > 0" class="p-col-10 p-offset-1">
+        <div class="tile">
+
+          <h2>Analyse</h2>
+          <p> Durch einen Klick auf den Button "Analyse starten" werden die zur Verfügung gestellten Daten
+            analysiert.</p>
+          <div class="p-grid">
+            <div class="p-col-3">
+              <button pButton [disabled]="analyzing" type="button" class="btn btn-success" (click)="runAnalysis()"
+                      label="Analyse starten"></button>
+              <p *ngIf="status">
+                Status = {{status.status}}
+              </p>
+            </div>
+            <div class="p-col-3" *ngIf="status">
+              <div class="p-grid">
+                <h4>Fortschritt Dateien</h4>
+                <div style="height: 4em; align-content: center;">
+                  <p-progressBar [value]="file_progress"></p-progressBar>
+                  Es wurden {{status.files_processed}} von {{status.files_total}} Dateien analysiert.
+                </div>
+              </div>
+            </div>
+            <div class="p-col-3" *ngIf="status">
+              <div class="p-grid">
+                <h4>Fortschritt Einträge</h4>
+                <div style="height: 4em;">
+                  <p-progressBar [value]="entry_progress"></p-progressBar>
+                  Es wurden {{status.entries_processed}} von {{status.entries_to_be_analyzed}} Einträgen analysiert.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-grid">
+            <table *ngIf="status.status === 'FINISHED'" class="table table-borderless">
+              <thead>
+              <tr>
+                <th>
+                  Dateiname
+                </th>
+                <th>
+                  Titel mit Bestand
+                </th>
+                <th>
+                  Titel ohne Bestand
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let file of checkNrwProjectService.activeProject.input_files">
+                <td>{{file.filename}}
+                </td>
+                <td>
+                  {{file.items_to_be_checked}}
+                </td>
+                <td>
+                  {{file.items_to_be_deleted}}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="status.status === 'FINISHED'" class="p-col-10 p-offset-1">
+        <div class="tile">
+          <h2>Dateien herunterladen</h2>
+          <p>Nach erfolgter Analyse können hier die Ausgabedateien heruntergeladen werden</p>
+          <button pButton type="button" class="btn btn-success" (click)="downloadFile()"
+                  label="Datei herunterladen"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,6 +14,7 @@ const routes: Routes = [
   {path: 'counter', loadChildren: 'app/sushi/sushi.module#SushiModule'},
   {path: 'ebs', loadChildren: 'app/ebs/ebs.module#EbsModule'},
   {path: 'deletion', loadChildren: 'app/deletion/deletion.module#DeletionModule'},
+  {path: 'check_nrw', loadChildren: 'app/checknrw/check.nrw.module#CheckNrwModule'},
   {path: 'listfilter', loadChildren: 'app/listfilter/list.filter.module#ListFilterModule'},
   {path: 'bubi', loadChildren: 'app/bubi/bubi.module#BubiModule'}
 ];

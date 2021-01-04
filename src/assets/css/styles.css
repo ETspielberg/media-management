@@ -37,11 +37,14 @@ body {
   text-align: center;
 }
 
+.clickable {
+  cursor:pointer;
+}
+
 .bg-dark {
   background-color: black !important;
   color: #efe4bf;
 }
-
 
 .button-link {
   position: absolute;

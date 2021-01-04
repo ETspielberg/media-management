@@ -1,0 +1,37 @@
+<div class="content-start">
+  <div class="jumbotron">
+    <h1>automatische Prüfung auf leere Titelaufnahmen im HBZ</h1>
+  </div>
+  <div class="container-fluid">
+    <div *ngIf="!busy" class="p-grid">
+      <div class="p-col-12 p-md-6 p-lg-4">
+        <div class="tile">
+          <h2>Neues Projekt</h2>
+          <p>Bitte einen kurzen Bezeichner ohne Leerzeichen eingeben</p>
+          <div style="height: 5em;" class="p-grid">
+            <label for="projectId-input">check-NRW-Modell-Bezeichner</label>
+            <input id="projectId-input" type="text" size="30" pInputText [(ngModel)]="new_project"
+                   [ngModelOptions]="{standalone: true}" autofocus class="form-control">
+          </div>
+          <div style="padding-top: 10px;">
+            <button pButton type="button" label="Erstellen" class="btn btn-success" (click)="createProject()"></button>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-12 p-md-6 p-lg-4" *ngIf="checkNrwProjectList.length > 0">
+        <div class="tile centered">
+          <h2>Bestehendes Projekt bearbeiten</h2>
+          <p>Bitte eins der bestehenden Projekte auswählen.</p>
+          <div style="height: 5em;" class="p-grid">
+            <p-dropdown filter="true" [options]="checkNrwProjectList" [(ngModel)]="checkNrwProjectService.activeProject"
+                        placeholder="Projekt wählen" optionLabel="project_id"
+                        (onChange)="router.navigate(['/check_nrw/project', checkNrwProjectService.activeProject.project_id])"></p-dropdown>
+          </div>
+
+          <button pButton type="button" label="Zum Projekt" class="btn btn-success"
+                  [routerLink]="['/check_nrw/projects', checkNrwProjectService.activeProject.project_id]"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
