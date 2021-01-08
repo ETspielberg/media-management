@@ -1,163 +1,183 @@
+<p-toast></p-toast>
+
 <div class="jumbotron">
   <h1>{{"bubi.orderline.new" | translate}}</h1>
   <p>{{"bubi.orderline.new.short" | translate}}</p>
 </div>
 
 <div class="container-fluid">
-  <div *ngIf="!showForm"  class="tile">
-    <h4>{{"bubi.coredata.for.item" | translate}}</h4>
-    <div class="p-fluid p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="collection">{{"collection" | translate}}</label>
-        <input id="collection" type="text" pInputText [(ngModel)]="bubiService.activeOrderline.collection"/>
-      </div>
-      <div class="p-field p-col">
-        <label for="shelfmark">{{"shelfmark" | translate}}</label>
-        <input id="shelfmark" type="text" pInputText [(ngModel)]="bubiService.activeOrderline.shelfmark"/>
-      </div>
-    </div>
-    <div class="p-fluid p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="almaMmsId">{{"alma.mms.id" | translate}}</label>
-        <input pInputText id="almaMmsId" type="text" [(ngModel)]="bubiService.activeOrderline.almaMmsId">
-      </div>
-      <div class="p-field p-col">
-        <label for="almaHoldingId">{{"alma.holding.id" | translate}}</label>
-        <input pInputText id="almaHoldingId" type="text" [(ngModel)]="bubiService.activeOrderline.almaHoldingId">
-      </div>
-    </div>
-    <h4>{{"bubi.coredata.for.order" | translate}}</h4>
-    <div class="p-fluid p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="isFf">{{"is.ff" | translate}}</label>
-        <p-checkbox id="isFf" [(ngModel)]="bubiService.activeOrderline.isFf" [binary]="true"></p-checkbox>
-      </div>
-    </div>
-    <div class="p-fluid p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="minting">{{"minting" | translate}}</label>
-        <input pInputText id="minting" [(ngModel)]="bubiService.activeOrderline.minting">
-      </div>
-      <div class="p-field p-col">
-        <label for="title">{{"title" | translate}}</label>
-        <input pInputText id="title" [(ngModel)]="bubiService.activeOrderline.title">
-      </div>
-    </div>
-    <div class="p-fluid p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="color">{{"color" | translate}}</label>
-        <input pInputText id="color" type="text" [(ngModel)]="bubiService.activeOrderline.color">
-      </div>
-      <div class="p-field p-col">
-        <label for="binding">{{"binding" | translate}}</label>
-        <input pInputText id="binding" type="text" [(ngModel)]="bubiService.activeOrderline.binding">
-      </div>
-    </div>
-    <div class="p-fluid p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="year">{{"year" | translate}}</label>
-        <input pInputText id="year" type="text" [(ngModel)]="bubiService.activeOrderline.year">
-      </div>
-      <div class="p-field p-col">
-        <label for="volume">{{"volume" | translate}}</label>
-        <input pInputText id="volume" type="text" [(ngModel)]="bubiService.activeOrderline.volume">
-      </div>
-    </div>
-    <div class="p-fluid p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="issue">{{"issue" | translate}}</label>
-        <input pInputText id="issue" type="text" [(ngModel)]="bubiService.activeOrderline.issue">
-      </div>
-      <div class="p-field p-col">
-        <label for="edition">{{"edition" | translate}}</label>
-        <input pInputText id="edition" type="text" [(ngModel)]="bubiService.activeOrderline.edition">
-      </div>
-    </div>
-    <div class="p-fluid p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="part">{{"part" | translate}}</label>
-        <input pInputText id="part" type="text" [(ngModel)]="bubiService.activeOrderline.part">
-      </div>
-      <div class="p-field p-col">
-        <label for="bindingsFollow">{{"bindings.follow" | translate}}</label>
-        <input pInputText id="bindingsFollow" type="text" [(ngModel)]="bubiService.activeOrderline.bindingsFollow">
-      </div>
-    </div>
-    <div class="p-fluid p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="cover">{{"cover" | translate}}</label>
-        <input pInputText id="cover" type="text" [(ngModel)]="bubiService.activeOrderline.cover">
-      </div>
-      <div class="p-field p-col">
-        <label for="bubiData">{{"bubi" | translate}}</label>
-        <p-dropdown id="bubiData" [options]="bubiList" [(ngModel)]="bubiService.activeOrderline.vendorId" optionLabel="name"
-                    optionValue="vendorId"></p-dropdown>
-      </div>
-    </div>
-    <div class="p-fluid p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="fund">{{"fund" | translate}}</label>
-        <p-dropdown>
+  <div id="editor" *ngIf="!showForm">
+    <div *ngIf="!loading" class="tile">
+      <h4>{{"bubi.coredata.for.item" | translate}}</h4>
+      <div class="p-fluid p-formgrid p-grid">
 
-        </p-dropdown>
-        <input pInputText id="fund" [(ngModel)]="bubiService.activeOrderline.minting">
+        <div class="p-field p-col">
+          <label for="collection">{{"collection" | translate}}</label>
+          <input id="collection" type="text" pInputText [(ngModel)]="bubiService.activeOrderline.collection"/>
+        </div>
+        <div class="p-field p-col">
+          <label for="shelfmark">{{"shelfmark" | translate}}</label>
+          <input id="shelfmark" type="text" pInputText [(ngModel)]="bubiService.activeOrderline.shelfmark"/>
+        </div>
+        <div class="p-field p-col">
+          <label for="title">{{"title" | translate}}</label>
+          <input pInputText id="title" [(ngModel)]="bubiService.activeOrderline.title">
+        </div>
       </div>
-      <div class="p-field p-col">
-        <label for="title">{{"title" | translate}}</label>
-        <input pInputText id="title" [(ngModel)]="bubiService.activeOrderline.title">
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="almaMmsId">{{"alma.mms.id" | translate}}</label>
+          <input pInputText id="almaMmsId" type="text" [(ngModel)]="bubiService.activeOrderline.almaMmsId">
+        </div>
+        <div class="p-field p-col">
+          <label for="almaHoldingId">{{"alma.holding.id" | translate}}</label>
+          <input pInputText id="almaHoldingId" type="text" [(ngModel)]="bubiService.activeOrderline.almaHoldingId">
+        </div>
       </div>
-    </div>
-    <div class="p-fluid p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="comment">{{"comment" | translate}}</label>
-        <textarea pInputTextarea [cols]="80" [rows]="3" id="comment" [(ngModel)]="bubiService.activeCoredata.comment"></textarea>
+      <h4>{{"bubi.coredata.for.order" | translate}}</h4>
+      <div class="p-fluid p-formgrid p-grid">
+        <div *ngIf="bubiList" class="p-field p-col">
+          <label for="bubiData">{{"bubi" | translate}}</label>
+          <p-dropdown id="bubiData" [options]="bubiList" [(ngModel)]="bubiService.activeOrderline.vendorId"
+                      optionLabel="name"
+                      optionValue="vendorId"></p-dropdown>
+        </div>
+        <div class="p-field p-col">
+          <label for="fund">{{"bubi.order.line.fund" | translate}}</label>
+          <p-dropdown id="fund" [options]="fundList" [(ngModel)]="bubiService.activeOrderline.fund" optionLabel="name"
+                      optionValue="fund">
+          </p-dropdown>
+        </div>
+        <div class="p-field p-col">
+          <label for="price">{{"bubi.order.line.price" | translate}}</label>
+          <p-inputNumber id="price" [(ngModel)]="bubiService.activeOrderline.price" [showButtons]="true"
+                         inputId="stacked">
+          </p-inputNumber>
+        </div>
+        <div class="p-field p-col">
+          <label for="isFf">{{"is.ff" | translate}}</label>
+          <p-inputSwitch id="isFf" [(ngModel)]="bubiService.activeOrderline.isFf"></p-inputSwitch>
+        </div>
       </div>
-    </div>
-    <p-footer>
-      <button pButton type="button" icon="fa-save" label="speichern"
-              (click)="saveOrderline()"></button>
-    </p-footer>
-  </div>
+      <h4>{{"bubi.coredata.for.execution" | translate}}</h4>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="minting">{{"minting" | translate}}</label>
+          <input pInputText id="minting" [(ngModel)]="bubiService.activeOrderline.minting">
+        </div>
 
-  <div class="p-grid">
-    <div *ngIf="showForm" class="p-col-12 p-md-12 p-lg-12" >
-      <div class="tile" style="text-align: left;">
-        <h2 style="height:1.2em;">{{"bubi.order.line.new" | translate}}</h2>
-        <p>{{"bubi.order.line.new.short" | translate}}</p>
-        <h4>{{"bubi.order.line.new.from.collection" | translate}}</h4>
-          <div class="p-grid p-fluid">
-            <div class="p-col-2">
-              <label for="collection">{{"collection-input" | translate}}</label>: <label for="shelfmark-input">{{"shelfmark" | translate}}</label>
-            </div>
-            <div class="p-col-1">
-              <input id="collection-input" [(ngModel)]="collection" pInputText>
-            </div>
-            <div class="p-col-3">
-              <input id="shelfmark-input" [(ngModel)]="shelfmark" pInputText>
-            </div>
-            <div class="p-col-4">
-              <button pButton type="button" (click)="getFromShelfmark()" [label]="'bubi.order.line.new.build' | translate"></button>
-            </div>
-          </div>
-        <h4>{{"bubi.order.line.new.from.barcode" | translate}}</h4>
-          <div class="p-grid p-fluid">
-            <div class="p-col-2">
-              <label for="barcode">{{"barcode" | translate}}</label>
-            </div>
-            <div class="p-col-4">
-              <input pInputText [(ngModel)]="barcode" id="barcode">
-            </div>
-            <div class="p-col-4">
-              <button pButton type="button" (click)="getFromBarcode()" [label]="'bubi.order.line.new.build' | translate"></button>
-            </div>
-          </div>
       </div>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="color">{{"color" | translate}}</label>
+          <input pInputText id="color" type="text" [(ngModel)]="bubiService.activeOrderline.color">
+        </div>
+        <div class="p-field p-col">
+          <label for="binding">{{"binding" | translate}}</label>
+          <p-dropdown id="binding" [options]="bindingList" [(ngModel)]="bubiService.activeOrderline.binding"
+                      optionLabel="name" optionValue="binding"></p-dropdown>
+        </div>
+      </div>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="year">{{"year" | translate}}</label>
+          <input pInputText id="year" type="text" [(ngModel)]="bubiService.activeOrderline.year">
+        </div>
+        <div class="p-field p-col">
+          <label for="volume">{{"volume" | translate}}</label>
+          <input pInputText id="volume" type="text" [(ngModel)]="bubiService.activeOrderline.volume">
+        </div>
+      </div>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="issue">{{"issue" | translate}}</label>
+          <input pInputText id="issue" type="text" [(ngModel)]="bubiService.activeOrderline.issue">
+        </div>
+        <div class="p-field p-col">
+          <label for="edition">{{"edition" | translate}}</label>
+          <input pInputText id="edition" type="text" [(ngModel)]="bubiService.activeOrderline.edition">
+        </div>
+      </div>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="part">{{"part" | translate}}</label>
+          <input pInputText id="part" type="text" [(ngModel)]="bubiService.activeOrderline.part">
+        </div>
+        <div class="p-field p-col">
+          <label for="bindingsFollow">{{"bindings.follow" | translate}}</label>
+          <input pInputText id="bindingsFollow" type="text" [(ngModel)]="bubiService.activeOrderline.bindingsFollow">
+        </div>
+      </div>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="cover">{{"cover" | translate}}</label>
+          <p-dropdown id="cover" [options]="coverList" [(ngModel)]="bubiService.activeOrderline.cover"
+                      optionLabel="name" optionValue="cover"></p-dropdown>
+        </div>
+
+      </div>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="comment">{{"comment" | translate}}</label>
+          <textarea pInputTextarea [cols]="80" [rows]="3" id="comment"
+                    [(ngModel)]="bubiService.activeOrderline.comment"></textarea>
+        </div>
+      </div>
+      <p-footer>
+        <button pButton type="button" icon="fa-save" label="speichern"
+                (click)="saveOrderline()"></button>
+      </p-footer>
     </div>
   </div>
+  <div id="form" *ngIf="showForm">
+    <div class="tile">
+      <h2 style="height:1.2em;">{{"bubi.order.line.new" | translate}}</h2>
+      <p>{{"bubi.order.line.new.short" | translate}}</p>
+      <h4>{{"bubi.order.line.new.from.collection" | translate}}</h4>
+      <div class="p-grid p-fluid">
+        <div class="p-col-2">
+          <label for="collection">{{"collection-input" | translate}}</label>: <label
+          for="shelfmark-input">{{"shelfmark" | translate}}</label>
+        </div>
+        <div class="p-col-1">
+          <input id="collection-input" [(ngModel)]="collection" pInputText>
+        </div>
+        <div class="p-col-3">
+          <input id="shelfmark-input" [(ngModel)]="shelfmark" pInputText>
+        </div>
+        <div class="p-col-4">
+          <button pButton type="button" (click)="getFromShelfmark()"
+                  [label]="'bubi.order.line.new.build' | translate"></button>
+        </div>
+      </div>
+      <h4>{{"bubi.order.line.new.from.barcode" | translate}}</h4>
+      <div class="p-grid p-fluid">
+        <div class="p-col-2">
+          <label for="barcode">{{"barcode" | translate}}</label>
+        </div>
+        <div class="p-col-4">
+          <input pInputText [(ngModel)]="barcode" id="barcode">
+        </div>
+        <div class="p-col-4">
+          <button pButton type="button" (click)="getFromBarcode()"
+                  [label]="'bubi.order.line.new.build' | translate"></button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="p-grid">
-    <div class="p-col-12 p-md-12 p-lg-12">
+    <div class="p-col-10 p-offset-1">
       <div class="tile centered">
-          <button [routerLink]="['/bubi/start']" pButton type="button" [label]="'back' | translate" class="btn btn-primary"></button>
+        <button (click)="reset()" pButton type="button" [label]="'neue Anfrage' | translate"
+                class="btn btn-primary"></button>
+      </div>
+    </div>
+  </div>
+  <div class="p-grid">
+    <div class="p-col-10 p-offset-1">
+      <div class="tile centered">
+        <button [routerLink]="['/bubi/start']" pButton type="button" [label]="'back' | translate"
+                class="btn btn-primary"></button>
       </div>
     </div>
   </div>

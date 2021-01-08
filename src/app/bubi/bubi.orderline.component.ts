@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BubiService} from '../service/bubi.service';
 import {BubiOrderline} from '../model/bubi/BubiOrderline';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Bubidata} from '../model/bubi/Bubidata';
 import {MessageService} from 'primeng/api';
 
@@ -22,19 +22,47 @@ export class BubiOrderlineComponent implements OnInit {
 
   public showForm: boolean;
 
+  public loading: boolean;
+
   public bubiList: Bubidata[];
 
+  public fundList = [{fund: '55510-0-1200', name: 'Bestandserhaltung'}, {fund: '55510-0-1100', name: 'Einband'}];
+
+  public coverList = [
+    {
+      cover: 'GW', name: 'GW',
+    },
+    {
+      cover: 'GW   ED', name: 'GW   ED',
+    },
+    {
+      cover: 'StmPr', name: 'StmPr',
+    },
+    {
+      cover: 'StoPr', name: 'StoPr',
+    },
+    {
+      cover: 'StoPr  Dbl.a.V', name: 'StoPr  Dbl.a.V',
+    },
+    {
+      cover: 'StoPr  Dbl.u.F', name: 'StoPr  Dbl.u.F',
+    }
+  ];
+
+  public bindingList = [{binding: 'k', name: 'K'}, {binding: 'f', name: 'F'}];
+
   constructor(private route: ActivatedRoute,
+              private router: Router,
               public bubiService: BubiService,
               private messageService: MessageService) {
   }
 
   ngOnInit() {
     this.showForm = false;
+    this.loading = true;
     this.route.queryParams.subscribe(
       params => {
         const mode = params['mode'];
-        console.log(mode)
         if (mode === undefined) {
           this.showForm = true;
         } else if (mode === 'coredata') {
@@ -56,10 +84,17 @@ export class BubiOrderlineComponent implements OnInit {
     this.bubiService.getAllBubiData().subscribe(
       bubiData => this.bubiList = bubiData
     );
+
   }
 
   getFromBarcode() {
-    console.log(this.barcode);
+    this.bubiService.orderlineFromBarcode(this.barcode).subscribe(
+      data => {
+        this.bubiService.activeOrderline = data;
+        this.showForm = false;
+        this.loading = false;
+      }
+    );
   }
 
   saveOrderline() {
@@ -68,9 +103,13 @@ export class BubiOrderlineComponent implements OnInit {
         this.bubiService.activeOrderline = data;
         const message = 'Der Buchbinderauftrag wurde erfolgreich angelegt. Die Alma-Bestellpostennummer lautet: ' + data.almaPoLineId;
         this.messageService.add({severity: 'success', summary: 'Erfolg', detail: message});
+        this.router.navigate(['/bubi/orderlines']);
+      },
+      error => {
+        this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Auftrag konnte nicht gespeichert werden'});
+        console.log(error);
       }
-    )
-
+    );
   }
 
   getFromCoredata() {
@@ -78,6 +117,7 @@ export class BubiOrderlineComponent implements OnInit {
       data => {
         this.bubiService.activeOrderline = data;
         this.showForm = false;
+        this.loading = false;
       }
     );
 
@@ -88,7 +128,13 @@ export class BubiOrderlineComponent implements OnInit {
       data => {
         this.bubiService.activeOrderline = data;
         this.showForm = false;
+        this.loading = false;
       }
     );
+  }
+
+  reset() {
+    this.showForm = true;
+    this.bubiService.activeOrderline = null;
   }
 }
