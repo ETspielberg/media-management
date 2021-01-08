@@ -10,7 +10,6 @@ declare module '@angular/core' {
 const routes: Routes = [
   {path: '', redirectTo: 'start', pathMatch: 'full'},
   {path: 'start', loadChildren: 'app/start/start.module#StartModule'},
-  {path: 'reports', loadChildren: 'app/reports/reports.module#ReportsModule'},
   {path: 'counter', loadChildren: 'app/sushi/sushi.module#SushiModule'},
   {path: 'ebs', loadChildren: 'app/ebs/ebs.module#EbsModule'},
   {path: 'deletion', loadChildren: 'app/deletion/deletion.module#DeletionModule'},
