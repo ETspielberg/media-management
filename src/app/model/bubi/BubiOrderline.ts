@@ -1,6 +1,7 @@
 export class BubiOrderline {
 
   constructor(
+    public bubiOrderLineId: string,
     public collection: string,
     public shelfmark: string,
     public counter: number,

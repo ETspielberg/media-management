@@ -20,9 +20,11 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {BubiDataComponent} from './bubi.data.component';
 import {BubiOrderlineComponent} from './bubi.orderline.component';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import {BubiOrderlineOverviewComponent} from './bubi.orderline.overview.component';
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
-  declarations: [BubiComponent, BubiCoredataComponent, BubiDataComponent, BubiOrderlineComponent, BubiOrderlineComponent],
+  declarations: [BubiComponent, BubiCoredataComponent, BubiDataComponent, BubiOrderlineComponent, BubiOrderlineOverviewComponent],
   imports: [
     CommonModule,
     FileUploadModule,
@@ -37,6 +39,7 @@ import {InputSwitchModule} from 'primeng/inputswitch';
     InputTextModule,
     InputTextareaModule,
     TranslateModule,
+    ToastModule,
     bubiRoutes,
     FormsModule
   ],

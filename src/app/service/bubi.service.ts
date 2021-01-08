@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import * as appGlobals from '../app.globals';
 import {Bubidata} from '../model/bubi/Bubidata';
 import {BubiOrderline} from '../model/bubi/BubiOrderline';
+import {BubiOrder} from '../model/bubi/BubiOrder';
 
 @Injectable()
 export class BubiService {
@@ -13,10 +14,6 @@ export class BubiService {
   private coredataUrl = environment.almaConnectorAddress + '/coreData';
 
   private bubidataUrl = environment.almaConnectorAddress + '/bubiData';
-
-  private bubiOrderLineUrl = environment.almaConnectorAddress + '/bubiOrderLine';
-
-  private bubiOrderUrl = environment.almaConnectorAddress + '/bubiOrder';
 
   public activeBubidata: Bubidata;
 
@@ -48,11 +45,48 @@ export class BubiService {
     return this.http.get<BubiOrderline>(environment.almaConnectorAddress + '/bubi/orderline/fromShelfmark?shelfmark=' + shelfmark + '&collection=' + collection);
   }
 
+  orderlineFromBarcode(barcode: string): Observable<BubiOrderline> {
+    return this.http.get<BubiOrderline>(environment.almaConnectorAddress + '/bubi/orderline/fromBarcode?barcode=' + barcode);
+  }
+
   orderlineFromCoredata(): Observable<BubiOrderline> {
-    return this.http.get<BubiOrderline>(environment.almaConnectorAddress + '/bubi/orderline/fromShelfmark?shelfmark=' + this.activeCoredata.shelfmark + '&collection=' + this.activeCoredata.collection);
+    return this.http.get<BubiOrderline>(environment.almaConnectorAddress +
+      '/bubi/orderline/fromShelfmark?shelfmark=' + this.activeCoredata.shelfmark + '&collection=' +
+      this.activeCoredata.collection);
   }
 
   saveActiveOrderline() {
-    return this.http.post<BubiOrderline>(environment.almaConnectorAddress + '/bubi/orderline/save', JSON.stringify(this.activeOrderline), {headers: appGlobals.headers});
+    return this.http.post<BubiOrderline>(environment.almaConnectorAddress + '/bubi/orderline/save',
+      JSON.stringify(this.activeOrderline), {headers: appGlobals.headers});
+  }
+
+  saveOrderline(orderline: BubiOrderline) {
+    return this.http.post<BubiOrderline>(environment.almaConnectorAddress + '/bubi/orderline/save',
+      JSON.stringify(orderline), {headers: appGlobals.headers});
+  }
+
+  getActiveOrderlines(): Observable<BubiOrderline[]> {
+    return this.http.get<BubiOrderline[]>(environment.almaConnectorAddress + '/bubi/orderline/active');
+  }
+
+  getSentOrderlines(): Observable<BubiOrderline[]> {
+    return this.http.get<BubiOrderline[]>(environment.almaConnectorAddress + '/bubi/orderline/sent');
+  }
+
+  getWaitingOrderlines(): Observable<BubiOrderline[]> {
+    return this.http.get<BubiOrderline[]>(environment.almaConnectorAddress + '/bubi/orderline/waiting');
+  }
+
+  getAllOrderlines(): Observable<BubiOrderline[]> {
+    return this.http.get<BubiOrderline[]>(environment.almaConnectorAddress + '/bubi/orderline/all');
+  }
+
+  packBubiOrder(bubiOrder: BubiOrder): Observable<BubiOrder> {
+    return this.http.post<BubiOrder>(environment.almaConnectorAddress + '/bubi/order/save',
+      JSON.stringify(bubiOrder), {headers: appGlobals.headers});
+  }
+
+  getBubiOrderlines(bubi: string): Observable<BubiOrderline[]> {
+    return this.http.get<BubiOrderline[]>(environment.almaConnectorAddress + '/bubi/orderline/bubi/' + bubi);
   }
 }

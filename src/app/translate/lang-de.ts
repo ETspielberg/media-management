@@ -159,7 +159,6 @@ export const LANG_DE_TRANS = {
   'status': 'Status',
   'fund.journal': 'Einband',
   'fund.monograph': 'Bestandserhaltung',
-  'pack': 'Packen',
   'pack.success': 'Packen erfolgreich',
   'title': 'Titel',
   'D0001': 'Duisburg',
@@ -287,6 +286,14 @@ export const LANG_DE_TRANS = {
   'bubi.coredata.edit': 'Stammdaten bearbeiten',
   'bubi.coredata.for.item': 'Angaben zum Exemplar',
   'bubi.coredata.for.order': 'Angaben zum Auftrag',
+  'bubi.coredata.for.execution': 'Angaben zur Ausführung',
   'bubi.orderline.new': 'Neuen Buchbinderauftrag anlegen',
-  'bubi.orderline.new.short': 'Basierend auf den Stammdaten oder als Kopie eines existierenden einen neuen Auftragsposten anlegen.'
+  'bubi.orderline.new.short': 'Basierend auf den Stammdaten oder als Kopie eines existierenden einen neuen Auftragsposten anlegen.',
+  'bubi.orderline.pack': 'Die Aufträge packen',
+  'bubi.orderline.show.active': 'Aktiv',
+  'bubi.orderline.show.waiting': 'Wartend',
+  'bubi.orderline.show.sent': 'Beim Buchbinder',
+  'bubi.orderline.show.all': 'Alle',
+  'bubi.orderline.prepare': 'Bereitstellen',
+  'bubi.orderline.show.bubi': 'Für buchbinder'
 };

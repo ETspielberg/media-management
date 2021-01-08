@@ -1,0 +1,154 @@
+<p-toast></p-toast>
+
+<div class="jumbotron">
+  <h1>{{"bubi.orderline.overview" | translate}}</h1>
+  <p>{{"bubi.orderline.overview.short" | translate}}</p>
+</div>
+
+<div class="container-fluid">
+  <div class="tile">
+    <p-table #dt1 [value]="orderlines" dataKey="bubiOrderLineId"
+             [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+             styleClass="p-datatable-customers p-datatable-gridlines"
+             [paginator]="true"
+             currentPageReportTemplate="Zeige {first} bis {last} aller {totalRecords} Einträge"
+             [globalFilterFields]="['collection','shelfmark','fund','title', 'minting', 'vendorId']"
+             selectionMode="multiple" [(selection)]="selectedOrderlines" (onRowSelect)="calculateSelectedPrice()"
+             (onRowUnselect)="calculateSelectedPrice()">
+      <ng-template pTemplate="caption">
+        <div class="p-grid">
+          <div class="p-col-2" style="font-size: large;">
+            Preis Auswahl: {{selectedPrice}}
+          </div>
+          <div class="p-col-4">
+            <button [routerLink]="['/bubi/orderlines']" [queryParams]="{mode: 'active'}" pButton type="button" [label]="'bubi.orderline.show.active' | translate"
+                    class="btn btn-primary"></button>
+            <button [routerLink]="['/bubi/orderlines']" [queryParams]="{mode: 'waiting'}" pButton type="button" [label]="'bubi.orderline.show.waiting' | translate"
+                    class="btn btn-primary"></button>
+            <button [routerLink]="['/bubi/orderlines']" [queryParams]="{mode: 'sent'}" pButton type="button" [label]="'bubi.orderline.show.sent' | translate"
+                    class="btn btn-primary"></button>
+            <button [routerLink]="['/bubi/orderlines']" [queryParams]="{mode: 'all'}" pButton type="button" [label]="'bubi.orderline.show.all' | translate"
+                    class="btn btn-primary"></button>
+          </div>
+          <div class="p-col-4">
+            <input pInputText type="text" [(ngModel)]="bubi" placeholder="Buchbinder"/>
+            <button [routerLink]="['/bubi/orderlines']" [queryParams]="{mode: 'bubi', bubi: bubi}" pButton type="button" [label]="'bubi.orderline.show.bubi' | translate"
+                    class="btn btn-primary"></button>
+          </div>
+          <div class="p-col-2">
+          <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                           placeholder="Globale Suche"/>
+                </span>
+        </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Auftrag
+            </div>
+          </th>
+
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Titel
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Zähler
+              <p-columnFilter type="text" field="vendorId" display="menu"></p-columnFilter>
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Etat
+              <p-columnFilter type="text" field="fund" display="menu"></p-columnFilter>
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Preis
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Alma-Bestellposten-ID
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Status
+              <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-orderline>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="orderline"></p-tableCheckbox>
+          </td>
+          <td>
+            {{orderline.collection}}: {{orderline.shelfmark}} ({{orderline.counter}})
+          </td>
+          <td>
+            {{orderline.title}} ({{orderline.almaMmsId}})
+          </td>
+          <td>
+            {{orderline.vendorId}}
+          </td>
+          <td>
+            {{orderline.fund}}
+          </td>
+          <td>
+            {{orderline.price}}
+          </td>
+          <td>
+            {{orderline.almaPoLineId}}
+          </td>
+          <td>
+            {{orderline.status}}
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7">No customers found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<div class="p-grid">
+  <div class="p-col-10 p-offset-1">
+    <div class="tile centered">
+      <div class="p-grid">
+        <div class="p-col-2">
+          <button (click)="packSelected()" pButton type="button" [label]="'bubi.orderline.pack' | translate"
+                  class="btn btn-primary"></button>
+        </div>
+        <div class="p-col-2">
+          <button (click)="setWaiting()" pButton type="button" [label]="'bubi.orderline.prepare' | translate"
+                  class="btn btn-primary"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="p-grid">
+  <div class="p-col-10 p-offset-1">
+    <div class="tile centered">
+      <button [routerLink]="['/bubi/start']" pButton type="button" [label]="'back' | translate"
+              class="btn btn-primary"></button>
+    </div>
+  </div>
+</div>
