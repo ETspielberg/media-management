@@ -5,6 +5,12 @@
   <p>{{"bubi.orderline.overview.short" | translate}}</p>
 </div>
 
+<p-dialog header="Auftrag wird ausgeführt" [(visible)]="showDialog" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+          [draggable]="false" [resizable]="false">
+  <p class="p-m-0">Die Aufträge werden gepackt und in Alma eingespielt. Dies kann einen Moment dauern. Bitte warten.</p>
+  <img src="/img/loading.gif" alt="Loading..." style="width:304px;height:228px;">
+</p-dialog>
+
 <div class="container-fluid">
   <div class="tile">
     <p-table #dt1 [value]="orderlines" dataKey="bubiOrderLineId"
@@ -62,7 +68,7 @@
           </th>
           <th>
             <div class="p-d-flex p-jc-between p-ai-center">
-              Zähler
+              Buchbinder
               <p-columnFilter type="text" field="vendorId" display="menu"></p-columnFilter>
             </div>
           </th>
@@ -86,6 +92,11 @@
             <div class="p-d-flex p-jc-between p-ai-center">
               Status
               <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Aktionen
             </div>
           </th>
         </tr>
@@ -116,11 +127,15 @@
           <td>
             {{orderline.status}}
           </td>
+          <td>
+            <button (click)="edit(orderline)" pButton type="button" [label]="'edit' | translate"
+                    class="btn btn-warning"></button>
+          </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="7">No customers found.</td>
+          <td colspan="8">Keine Aufträge gefunden.</td>
         </tr>
       </ng-template>
     </p-table>
@@ -132,7 +147,7 @@
     <div class="tile centered">
       <div class="p-grid">
         <div class="p-col-2">
-          <button (click)="packSelected()" pButton type="button" [label]="'bubi.orderline.pack' | translate"
+          <button [disabled]="!(selectedOrderlines.length > 0)" (click)="packSelected()" pButton type="button" [label]="'bubi.orderline.pack' | translate"
                   class="btn btn-primary"></button>
         </div>
         <div class="p-col-2">

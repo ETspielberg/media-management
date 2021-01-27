@@ -74,6 +74,10 @@ export class BubiOrderlineComponent implements OnInit {
         } else if (mode === 'barcode') {
           this.barcode = params['barcode'];
           this.getFromBarcode();
+        } else if (mode === 'identifier') {
+          const id = params['identifier'];
+          this.getFromIdentifier(id);
+          this.loading = false;
         } else {
           this.collection = '';
           this.shelfmark = '';
@@ -89,6 +93,16 @@ export class BubiOrderlineComponent implements OnInit {
 
   getFromBarcode() {
     this.bubiService.orderlineFromBarcode(this.barcode).subscribe(
+      data => {
+        this.bubiService.activeOrderline = data;
+        this.showForm = false;
+        this.loading = false;
+      }
+    );
+  }
+
+  getFromIdentifier(identifier: string) {
+    this.bubiService.orderlineFromIdentifier(identifier).subscribe(
       data => {
         this.bubiService.activeOrderline = data;
         this.showForm = false;

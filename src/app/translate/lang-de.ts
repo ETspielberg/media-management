@@ -124,6 +124,7 @@ export const LANG_DE_TRANS = {
   'usage.per.month': 'Nutzung pro Monat',
   'view.data': 'Tabelle anzeigen',
   'bubi.inbox': 'Eingang',
+  'bubi.invoice': 'Rechnung bearbeiten',
   'sap': 'SAP',
   'sap.short': 'SAP Im- and Export',
   'sap.link': 'Zu den SAP-Funktionen',
@@ -295,5 +296,8 @@ export const LANG_DE_TRANS = {
   'bubi.orderline.show.sent': 'Beim Buchbinder',
   'bubi.orderline.show.all': 'Alle',
   'bubi.orderline.prepare': 'Bereitstellen',
-  'bubi.orderline.show.bubi': 'Für buchbinder'
+  'bubi.orderline.show.bubi': 'Für Buchbinder',
+  'bubi.orderline.overview': 'Buchbinderaufträge - Übersicht',
+  'bubi.orderline.overview.short': 'Hier werden können Buchbinderaufträge gesammelt angesehen und weiterverarbeitet werden.',
+  'bubi.invoice.amount.not.agree': 'Der Preis der Rechnung und des Auftrages stimmen nicht überein.'
 };

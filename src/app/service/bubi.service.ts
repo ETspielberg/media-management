@@ -21,6 +21,8 @@ export class BubiService {
 
   public activeOrderline: BubiOrderline;
 
+  public activeBubiOrder: BubiOrder;
+
   constructor(private http: HttpClient) {
   }
 
@@ -47,6 +49,10 @@ export class BubiService {
 
   orderlineFromBarcode(barcode: string): Observable<BubiOrderline> {
     return this.http.get<BubiOrderline>(environment.almaConnectorAddress + '/bubi/orderline/fromBarcode?barcode=' + barcode);
+  }
+
+  orderlineFromIdentifier(identifier: string): Observable<BubiOrderline> {
+    return this.http.get<BubiOrderline>(environment.almaConnectorAddress + '/bubi/orderline/fromIdentifier?identifier=' + identifier);
   }
 
   orderlineFromCoredata(): Observable<BubiOrderline> {
@@ -88,5 +94,14 @@ export class BubiService {
 
   getBubiOrderlines(bubi: string): Observable<BubiOrderline[]> {
     return this.http.get<BubiOrderline[]>(environment.almaConnectorAddress + '/bubi/orderline/bubi/' + bubi);
+  }
+
+  getActiveBubiOrders(): Observable<BubiOrder[]> {
+    return this.http.get<BubiOrder[]>(environment.almaConnectorAddress + '/bubi/order/active');
+  }
+
+  payActiveBubiOrder(): Observable<BubiOrder> {
+    return this.http.post<BubiOrder>(environment.almaConnectorAddress + '/bubi/order/pay',
+      JSON.stringify(this.activeBubiOrder), {headers: appGlobals.headers});
   }
 }

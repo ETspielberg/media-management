@@ -14,12 +14,8 @@
                   class="btn btn-primary">{{"bubi.order.line.new" | translate}}</button>
         </div>
         <div style="padding:10px;">
-          <button style="width: 100%" [routerLink]="['/bubi/orderlines']" type="button"
+          <button style="width: 100%" [routerLink]="['/bubi/orderlines']" [queryParams]="{mode: 'active'}" type="button"
                   class="btn btn-primary"> {{ "bubi.order.line.overview" | translate}}</button>
-        </div>
-        <div style="padding:10px;">
-          <button style="width: 100%" [routerLink]="['/bubi/orderlines/new']" [queryParams]="{status: 'NEW'}" type="button"
-                  class="btn btn-primary">{{ "bubi.new.order.open" | translate}}</button>
         </div>
       </div>
     </div>
@@ -28,7 +24,7 @@
         <h3 style="height: 1.2em;">{{ "bubi.inbox" | translate}}</h3>
         <p style="height: 3em;">{{ "bubi.inbox.short" | translate}}</p>
         <div style="padding:10px;">
-          <button style="width: 100%" [routerLink]="['/bubi/inbox']" type="button" class="btn btn-primary">{{ "bubi.inbox" | translate}}</button>
+          <button style="width: 100%" [routerLink]="['/bubi/order']" type="button" class="btn btn-primary">{{ "bubi.inbox" | translate}}</button>
         </div>
       </div>
     </div>

@@ -8,5 +8,5 @@ export const environment = {
   activeuser: '/assets/data/example_user.json',
   scriptServerAddress: 'http://localhost:5000'
   ,
-  almaConnectorAddress: 'http://thedoctor:Tard15@localhost:11889'
+  almaConnectorAddress: 'http://localhost:11889'
 };

@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {TranslateService} from '../translate';
-import {MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 import {BubiComponent} from './bubi.component';
 import {BubiService} from '../service/bubi.service';
 import {bubiRoutes} from './bubi.routing';
@@ -22,9 +22,16 @@ import {BubiOrderlineComponent} from './bubi.orderline.component';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {BubiOrderlineOverviewComponent} from './bubi.orderline.overview.component';
 import {ToastModule} from 'primeng/toast';
+import {BubiOrderComponent} from './bubi.order.component';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @NgModule({
-  declarations: [BubiComponent, BubiCoredataComponent, BubiDataComponent, BubiOrderlineComponent, BubiOrderlineOverviewComponent],
+  declarations: [BubiComponent,
+    BubiCoredataComponent,
+    BubiDataComponent,
+    BubiOrderlineComponent,
+    BubiOrderlineOverviewComponent,
+    BubiOrderComponent],
   imports: [
     CommonModule,
     FileUploadModule,
@@ -38,11 +45,13 @@ import {ToastModule} from 'primeng/toast';
     InputNumberModule,
     InputTextModule,
     InputTextareaModule,
+    ConfirmDialogModule,
     TranslateModule,
     ToastModule,
     bubiRoutes,
     FormsModule
   ],
-  providers: [BubiService, TranslateService, MessageService]
+  providers: [BubiService, TranslateService, MessageService, ConfirmationService]
 })
-export class BubiModule { }
+export class BubiModule {
+}
