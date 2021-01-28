@@ -6,7 +6,6 @@
 export const environment = {
   production: false,
   activeuser: '/assets/data/example_user.json',
-  scriptServerAddress: 'http://localhost:5000'
-  ,
-  almaConnectorAddress: 'http://localhost:11889'
+  scriptServerAddress: '//localhost:5000',
+  almaConnectorAddress: '//localhost:11889'
 };
