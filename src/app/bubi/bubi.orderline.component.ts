@@ -112,6 +112,7 @@ export class BubiOrderlineComponent implements OnInit {
   }
 
   saveOrderline() {
+    this.bubiService.activeOrderline.status = 'WAITING';
     this.bubiService.saveActiveOrderline().subscribe(
       data => {
         this.bubiService.activeOrderline = data;
