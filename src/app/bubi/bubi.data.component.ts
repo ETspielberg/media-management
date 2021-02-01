@@ -46,10 +46,17 @@ export class BubiDataComponent implements OnInit {
   saveBubidata(bubidata: Bubidata) {
     this.bubiService.saveBubidata(bubidata).subscribe(data => {
         this.messageService.add({severity: 'success', summary: 'Erfolg', detail: 'Stammdaten wurden gespeichert.'});
+        this.showEditor = false;
+        this.bubiService.getAllBubiData().subscribe(
+          bubiData => {
+            this.bubidataList = bubiData;
+            this.busy = false;
+          });
       },
       error => {
         console.log(error);
         this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Konnte Stammdaten nicht speichern.'});
+        this.showEditor = false;
       }
     );
   }
