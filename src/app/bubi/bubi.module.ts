@@ -24,6 +24,7 @@ import {BubiOrderlineOverviewComponent} from './bubi.orderline.overview.componen
 import {ToastModule} from 'primeng/toast';
 import {BubiOrderComponent} from './bubi.order.component';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [BubiComponent,
@@ -46,6 +47,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     InputTextModule,
     InputTextareaModule,
     ConfirmDialogModule,
+    SelectButtonModule,
     TranslateModule,
     ToastModule,
     bubiRoutes,

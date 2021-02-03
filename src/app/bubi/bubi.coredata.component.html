@@ -36,8 +36,8 @@
         <p-checkbox id="active" [(ngModel)]="bubiService.activeCoredata.active" [binary]="true"></p-checkbox>
       </div>
       <div class="p-field p-col">
-        <label for="isFf">{{"is.ff" | translate}}</label>
-        <p-checkbox id="isFf" [(ngModel)]="bubiService.activeCoredata.isFf" [binary]="true"></p-checkbox>
+        <label for="mediaType">{{"mediaType" | translate}}</label>
+        <p-selectButton id="mediaType" [options]="mediaTypes" [(ngModel)]="bubiService.activeCoredata.mediaType" optionLabel="name" optionValue="value"></p-selectButton>
       </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
@@ -117,7 +117,7 @@
     <div class="p-col-12">
       <div class="tile">
         <p-table #datatable [value]="coredataList" [paginator]="false"
-                 currentPageReportTemplate="Zeige {first} bis {last} von allen {totalRecords} Stammdaten"
+                 currentPageReportTemplate="Zeige {first} bis {last} von allen {totalRecords} Stammdaten" [loading]="busy"
                  [globalFilterFields]="['shelfmark','collection','vendorId','status']">
           <ng-template pTemplate="caption">
             <div class="p-grid">
@@ -142,7 +142,7 @@
               <th>{{"is.active" | translate}}</th>
               <th>{{"collection" | translate}}</th>
               <th>{{"shelfmark" | translate}}</th>
-              <th>{{"is.ff" | translate}}</th>
+              <th>{{"mediatype" | translate}}</th>
               <th>{{"minting" | translate}}</th>
               <th>{{"color" | translate}}</th>
               <th>{{"alma.mms.id" | translate}}</th>
@@ -160,9 +160,7 @@
 
               <td>{{coredata.collection}}</td>
               <td>{{coredata.shelfmark}}</td>
-              <td>
-                <p-checkbox [(ngModel)]="coredata.isFf" [binary]="true" (click)="saveCoredata(coredata)"></p-checkbox>
-              </td>
+              <td>{{coredata.mediaType | translate}}</td>
               <td>{{coredata.minting}}</td>
               <td>{{coredata.color}}</td>
               <td>{{coredata.almaMmsId}}</td>

@@ -21,6 +21,8 @@ export class BubiOrderline {
     public part: string,
     public comment: string,
     public isFf: boolean,
+    public mediaType: string,
+    public standard: boolean,
     public bindingsFollow: string,
     public almaMmsId: string,
     public almaHoldingId: string,

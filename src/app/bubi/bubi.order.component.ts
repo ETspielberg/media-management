@@ -2,6 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {BubiService} from '../service/bubi.service';
 import {BubiOrder} from '../model/bubi/BubiOrder';
 import {MessageService} from 'primeng/api';
+import {TranslateService} from '../translate';
+
+interface City {
+  name: string;
+  code: string;
+}
 
 @Component({
   selector: 'app-bubi-invoice',
@@ -26,11 +32,11 @@ export class BubiOrderComponent implements OnInit {
 
   public bubiOrders: BubiOrder[];
 
-  constructor(public bubiService: BubiService,
-              public messageService: MessageService) {
+  constructor(public bubiService: BubiService, public messageService: MessageService, private translateService: TranslateService) {
   }
 
   ngOnInit() {
+
     this.bubiService.getActiveBubiOrders().subscribe(
       data => this.bubiOrders = data,
       error => this.messageService.add({
@@ -41,7 +47,10 @@ export class BubiOrderComponent implements OnInit {
     );
   }
 
-  confirmPayment(bubiOrder: BubiOrder) {
+  confirmPayment(bubiOrder
+                   :
+                   BubiOrder
+  ) {
     this.bubiService.activeBubiOrder = bubiOrder;
     this.showPaymentDialog = true;
   }

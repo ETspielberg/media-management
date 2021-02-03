@@ -4,6 +4,7 @@ import {BubiOrderline} from '../model/bubi/BubiOrderline';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Bubidata} from '../model/bubi/Bubidata';
 import {MessageService} from 'primeng/api';
+import {TranslateService} from '../translate';
 
 @Component({
   selector: 'app-bubi-orderline-new',
@@ -49,15 +50,24 @@ export class BubiOrderlineComponent implements OnInit {
     }
   ];
 
+  private mediaTypesValues = ['journal', 'series', 'book'];
+
+  private defaultChoices = [{name: 'Standard', value: true}, {name: 'Speziell', value: false}];
+
+  public mediaTypes = [];
+
   public bindingList = [{binding: 'k', name: 'K'}, {binding: 'f', name: 'F'}];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               public bubiService: BubiService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
+    this.mediaTypesValues.forEach(
+      entry => this.mediaTypes.push({name: this.translateService.instant(entry), value: entry}));
     this.showForm = false;
     this.loading = true;
     this.route.queryParams.subscribe(
@@ -121,7 +131,11 @@ export class BubiOrderlineComponent implements OnInit {
         this.router.navigate(['/bubi/orderlines']);
       },
       error => {
-        this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Auftrag konnte nicht gespeichert werden'});
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Fehler',
+          detail: 'Auftrag konnte nicht gespeichert werden'
+        });
         console.log(error);
       }
     );
@@ -151,5 +165,9 @@ export class BubiOrderlineComponent implements OnInit {
   reset() {
     this.showForm = true;
     this.bubiService.activeOrderline = null;
+  }
+
+  resetStandard() {
+    this.bubiService.activeOrderline.standard = this.bubiService.activeOrderline.mediaType === 'book';
   }
 }

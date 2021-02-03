@@ -124,6 +124,8 @@ export class BubiOrderlineOverviewComponent implements OnInit {
         });
         this.showDialog = false;
         this.selectedOrderlines = [];
+        this.bubiService.activeBubiOrder = data;
+        this.getActiveOrderlines();
       }, error => {
         this.messageService.add({
           severity: 'error',

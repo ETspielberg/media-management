@@ -35,7 +35,7 @@ export class BubiService {
   }
 
   saveCoreData(coredata: Coredata): Observable<Coredata> {
-    return this.http.post<Coredata>(this.coredataUrl, JSON.stringify(coredata), {headers: appGlobals.headers});
+    return this.http.post<Coredata>(environment.almaConnectorAddress + '/bubi/coredata/save', JSON.stringify(coredata), {headers: appGlobals.headers});
   }
 
   saveBubidata(bubidata: Bubidata): Observable<Bubidata> {

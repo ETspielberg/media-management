@@ -3,6 +3,7 @@ import {Coredata} from '../model/bubi/Coredata';
 import {BubiService} from '../service/bubi.service';
 import {MessageService} from 'primeng/api';
 import {Bubidata} from '../model/bubi/Bubidata';
+import {TranslateService} from '../translate';
 
 @Component({
   selector: 'app-bubi-coredata',
@@ -19,14 +20,23 @@ export class BubiCoredataComponent implements OnInit {
 
   public showEditor = false;
 
-  constructor(public bubiService: BubiService, private messageService: MessageService) {
+  private mediaTypesValues = ['journal', 'series', 'book'];
+
+  public mediaTypes = [];
+
+  constructor(public bubiService: BubiService, private messageService: MessageService, private translateService: TranslateService) {
   }
 
   ngOnInit() {
+    this.mediaTypesValues.forEach(
+      entry => this.mediaTypes.push({name: this.translateService.instant(entry), value: entry}));
     this.busy = true;
     this.bubiService.getAllCoreData().subscribe(
       data => {
         this.coredataList = data;
+        if (this.coredataList.length > 0) {
+          this.bubiService.activeCoredata = this.coredataList[0];
+        }
         this.busy = false;
       },
       error => {
@@ -46,7 +56,18 @@ export class BubiCoredataComponent implements OnInit {
 
   saveCoredata(coredata: Coredata) {
     this.bubiService.saveCoreData(coredata).subscribe(data => {
-      this.messageService.add({severity: 'success', summary: 'Erfolg', detail: 'Stammdaten wurden gespeichert.'});
+        this.messageService.add({severity: 'success', summary: 'Erfolg', detail: 'Stammdaten wurden gespeichert.'});
+        this.showEditor = false;
+        this.bubiService.getAllCoreData().subscribe(
+          entries => {
+            this.coredataList = entries;
+            this.busy = false;
+          },
+          error => {
+            console.log(error);
+            this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Konnte Stammdaten nicht abrufen.'});
+          }
+        );
       },
       error => {
         console.log(error);
@@ -56,7 +77,7 @@ export class BubiCoredataComponent implements OnInit {
   }
 
   newCoredata() {
-    this.bubiService.activeCoredata = new Coredata('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', false, '', '', '', false, '', '');
+    this.bubiService.activeCoredata = new Coredata('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'journal', '', '', '', false, '', '');
     this.showEditor = true;
   }
 

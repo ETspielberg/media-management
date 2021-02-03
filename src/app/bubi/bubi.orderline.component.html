@@ -27,11 +27,11 @@
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
           <label for="almaMmsId">{{"alma.mms.id" | translate}}</label>
-          <input pInputText id="almaMmsId" type="text" [(ngModel)]="bubiService.activeOrderline.almaMmsId">
+          <input pInputText id="almaMmsId" type="text" [(ngModel)]="bubiService.activeOrderline.almaMmsId" disabled>
         </div>
         <div class="p-field p-col">
           <label for="almaHoldingId">{{"alma.holding.id" | translate}}</label>
-          <input pInputText id="almaHoldingId" type="text" [(ngModel)]="bubiService.activeOrderline.almaHoldingId">
+          <input pInputText id="almaHoldingId" type="text" [(ngModel)]="bubiService.activeOrderline.almaHoldingId" disabled>
         </div>
       </div>
       <h4>{{"bubi.coredata.for.order" | translate}}</h4>
@@ -54,9 +54,16 @@
                          inputId="stacked">
           </p-inputNumber>
         </div>
-        <div class="p-field p-col">
-          <label for="isFf">{{"is.ff" | translate}}</label>
-          <p-inputSwitch id="isFf" [(ngModel)]="bubiService.activeOrderline.isFf"></p-inputSwitch>
+      </div>
+      <h4>{{"bubi.orderline.mediatype" | translate}}</h4>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-6">
+          <label for="mediaType">{{"mediaType" | translate}}</label>
+          <p-selectButton id="mediaType" [options]="mediaTypes" [(ngModel)]="bubiService.activeOrderline.mediaType" optionLabel="name" optionValue="value" (onChange)="resetStandard()"></p-selectButton>
+        </div>
+        <div *ngIf="bubiService.activeOrderline.mediaType === 'book'" class="p-field p-col-6">
+          <label for="standard">{{"standard" | translate}}</label>
+          <p-selectButton id="standard" [options]="defaultChoices" [(ngModel)]="bubiService.activeOrderline.standard" optionLabel="name" optionValue="value"></p-selectButton>
         </div>
       </div>
       <h4>{{"bubi.coredata.for.execution" | translate}}</h4>
@@ -65,9 +72,8 @@
           <label for="minting">{{"minting" | translate}}</label>
           <input pInputText id="minting" [(ngModel)]="bubiService.activeOrderline.minting">
         </div>
-
       </div>
-      <div class="p-fluid p-formgrid p-grid">
+      <div *ngIf="!bubiService.activeOrderline.standard" class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
           <label for="color">{{"color" | translate}}</label>
           <input pInputText id="color" type="text" [(ngModel)]="bubiService.activeOrderline.color">
@@ -78,7 +84,7 @@
                       optionLabel="name" optionValue="binding"></p-dropdown>
         </div>
       </div>
-      <div class="p-fluid p-formgrid p-grid">
+      <div *ngIf="!bubiService.activeOrderline.standard" class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
           <label for="year">{{"year" | translate}}</label>
           <input pInputText id="year" type="text" [(ngModel)]="bubiService.activeOrderline.year">
@@ -88,7 +94,7 @@
           <input pInputText id="volume" type="text" [(ngModel)]="bubiService.activeOrderline.volume">
         </div>
       </div>
-      <div class="p-fluid p-formgrid p-grid">
+      <div  *ngIf="!bubiService.activeOrderline.standard"  class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
           <label for="issue">{{"issue" | translate}}</label>
           <input pInputText id="issue" type="text" [(ngModel)]="bubiService.activeOrderline.issue">
@@ -98,7 +104,7 @@
           <input pInputText id="edition" type="text" [(ngModel)]="bubiService.activeOrderline.edition">
         </div>
       </div>
-      <div class="p-fluid p-formgrid p-grid">
+      <div  *ngIf="!bubiService.activeOrderline.standard"  class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
           <label for="part">{{"part" | translate}}</label>
           <input pInputText id="part" type="text" [(ngModel)]="bubiService.activeOrderline.part">
@@ -108,7 +114,7 @@
           <input pInputText id="bindingsFollow" type="text" [(ngModel)]="bubiService.activeOrderline.bindingsFollow">
         </div>
       </div>
-      <div class="p-fluid p-formgrid p-grid">
+      <div  *ngIf="!bubiService.activeOrderline.standard"  class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
           <label for="cover">{{"cover" | translate}}</label>
           <p-dropdown id="cover" [options]="coverList" [(ngModel)]="bubiService.activeOrderline.cover"

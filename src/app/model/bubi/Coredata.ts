@@ -16,7 +16,7 @@ export class Coredata {
     public part: string,
     public volume: string,
     public comment: string,
-    public isFf: boolean,
+    public mediaType: string,
     public bindingsFollow: string,
     public almaMmsId: string,
     public almaHoldingId: string,
