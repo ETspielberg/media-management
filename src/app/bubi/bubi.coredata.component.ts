@@ -28,10 +28,10 @@ export class BubiCoredataComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.busy = true;
     this.mediaTypesValues.forEach(
       entry => this.mediaTypes.push({name: this.translateService.instant(entry), value: entry}));
-    this.busy = true;
-    this.bubiService.getAllCoreData().subscribe(
+    this.bubiService.getActiveCoreData().subscribe(
       data => {
         this.coredataList = data;
         if (this.coredataList.length > 0) {
@@ -54,6 +54,23 @@ export class BubiCoredataComponent implements OnInit {
     this.showEditor = true;
   }
 
+  loadAllCoreData() {
+    this.busy = true;
+    this.bubiService.getAllCoreData().subscribe(
+      data => {
+        this.coredataList = data;
+        if (this.coredataList.length > 0) {
+          this.bubiService.activeCoredata = this.coredataList[0];
+        }
+        this.busy = false;
+      },
+      error => {
+        console.log(error);
+        this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Konnte Stammdaten nicht abrufen.'});
+      }
+    );
+  }
+
   saveCoredata(coredata: Coredata) {
     this.bubiService.saveCoreData(coredata).subscribe(data => {
         this.messageService.add({severity: 'success', summary: 'Erfolg', detail: 'Stammdaten wurden gespeichert.'});
@@ -74,6 +91,10 @@ export class BubiCoredataComponent implements OnInit {
         this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Konnte Stammdaten nicht speichern.'});
       }
     );
+  }
+
+  delete(coredata: Coredata) {
+    this.bubiService.deleteCoredata(coredata);
   }
 
   newCoredata() {

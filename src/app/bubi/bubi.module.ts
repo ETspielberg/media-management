@@ -25,6 +25,7 @@ import {ToastModule} from 'primeng/toast';
 import {BubiOrderComponent} from './bubi.order.component';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
   declarations: [BubiComponent,
@@ -48,6 +49,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     InputTextareaModule,
     ConfirmDialogModule,
     SelectButtonModule,
+    CalendarModule,
     TranslateModule,
     ToastModule,
     bubiRoutes,

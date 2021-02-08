@@ -76,6 +76,16 @@
         </th>
         <th>
           <div class="p-d-flex p-jc-between p-ai-center">
+            Datum Abholung
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Datum zurück
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
             Bezahl-Status
             <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
           </div>
@@ -101,12 +111,18 @@
           {{order.status}}
         </td>
         <td>
+          <p-calendar [(ngModel)]="order.collectedOn"></p-calendar>
+        </td>
+        <td>
+          <p-calendar [(ngModel)]="order.returnedOn"></p-calendar>
+        </td>
+        <td>
           {{order.paymentStatus}}
         </td>
         <td>
-          <button pButton type="button" (click)="confirmPayment(order)" label="Bezahlt"></button>
-          <button pButton type="button" (click)="payBubiOrder()" label="eingetroffen"></button>
-          <button pButton type="button" (click)="payBubiOrder()" label="Bezahlt und eingetroffen"></button>
+          <button pButton type="button" (click)="confirmPayment(order)" label="Rechnungen anlegen"></button>
+          <button pButton type="button" (click)="payBubiOrder()" label="Eingetroffen"></button>
+          <button pButton type="button" (click)="payBubiOrder()" label="Eingetroffen und Rechnungen anlegen"></button>
         </td>
       </tr>
     </ng-template>

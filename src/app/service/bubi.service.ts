@@ -11,8 +11,6 @@ import {BubiOrder} from '../model/bubi/BubiOrder';
 @Injectable()
 export class BubiService {
 
-  private coredataUrl = environment.almaConnectorAddress + '/coreData';
-
   private bubidataUrl = environment.almaConnectorAddress + '/bubiData';
 
   public activeBubidata: Bubidata;
@@ -23,11 +21,17 @@ export class BubiService {
 
   public activeBubiOrder: BubiOrder;
 
+  public coredataUploadUrl = environment.almaConnectorAddress + '/bubi/coredata/import';
+
   constructor(private http: HttpClient) {
   }
 
   getAllCoreData(): Observable<Coredata[]> {
     return this.http.get<Coredata[]>(environment.almaConnectorAddress + '/bubi/coredata/all');
+  }
+
+  getActiveCoreData(): Observable<Coredata[]> {
+    return this.http.get<Coredata[]>(environment.almaConnectorAddress + '/bubi/coredata/active');
   }
 
   getAllBubiData(): Observable<Bubidata[]> {
@@ -36,6 +40,9 @@ export class BubiService {
 
   saveCoreData(coredata: Coredata): Observable<Coredata> {
     return this.http.post<Coredata>(environment.almaConnectorAddress + '/bubi/coredata/save', JSON.stringify(coredata), {headers: appGlobals.headers});
+  }
+
+  deleteCoredata(coredata: Coredata) {
   }
 
   saveBubidata(bubidata: Bubidata): Observable<Bubidata> {

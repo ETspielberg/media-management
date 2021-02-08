@@ -116,9 +116,9 @@
   <div class="p-grid">
     <div class="p-col-12">
       <div class="tile">
-        <p-table #datatable [value]="coredataList" [paginator]="false"
+        <p-table #datatable [value]="coredataList" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-customers p-datatable-gridlines"
                  currentPageReportTemplate="Zeige {first} bis {last} von allen {totalRecords} Stammdaten" [loading]="busy"
-                 [globalFilterFields]="['shelfmark','collection','vendorId','status']">
+                 [globalFilterFields]="['shelfmark','collection','vendorId']">
           <ng-template pTemplate="caption">
             <div class="p-grid">
               <div class="p-col">
@@ -126,6 +126,12 @@
                     <i class="pi pi-plus"></i>
                     <button pButton type="button" icon="fa-save" label="Neue Stammdaten anlegen"
                             (click)="newCoredata()"></button>
+                </span>
+              </div>
+              <div class="p-col">
+              <span class="p-input-icon-left p-ml-auto">
+                    <button pButton type="button" icon="fa-save" label="Auch inaktive Stammdaten laden"
+                            (click)="loadAllCoreData()"></button>
                 </span>
               </div>
               <div class="p-col">
@@ -148,8 +154,8 @@
               <th>{{"alma.mms.id" | translate}}</th>
               <th>{{"alma.holding.id" | translate}}</th>
               <th>{{"bubi" | translate}}</th>
+              <th>{{'actions' | translate}}</th>
               <th>{{"bubi.order.line.new" | translate}}</th>
-              <th></th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-coredata>
@@ -167,10 +173,12 @@
               <td>{{coredata.almaHoldingId}}</td>
               <td>{{coredata.vendorId}}</td>
               <td>
-                <button pButton type="button" class="btn btn-warning" (click)="editCoredata(coredata)"
+                <button pButton type="button" class="p-button-primary p-button-raised p-button-rounded" (click)="editCoredata(coredata)"
                         label="Bearbeiten"></button>
-                <button pButton type="button" class="btn btn-warning" (click)="fromExisting(coredata)"
+                <button pButton type="button" class="p-button-warning p-button-raised p-button-rounded" (click)="fromExisting(coredata)"
                         label="Klonen"></button>
+                <button pButton type="button" class="p-button-danger p-button-raised p-button-rounded" (click)="delete(coredata)"
+                        label="Löschen"></button>
               </td>
               <td>
                 <button (click)="this.bubiService.activeCoredata = coredata;" [routerLink]="['/bubi/orderline']" [queryParams]="{mode: 'coredata'}"
@@ -188,7 +196,7 @@
       <div class="tile">
         <h4>{{"bubi.coredata.upload" | translate}}</h4>
         <p>{{"bubi.coredata.upload.short" | translate}}</p>
-        <p-fileUpload name="almaCoredataUploadUrl}}" url="./upload.php"></p-fileUpload>
+        <p-fileUpload name="file" url="{{bubiService.coredataUploadUrl}}" mode="basic" [auto]="true" maxFileSize="1000000" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" chooseLabel="Browse"></p-fileUpload>
       </div>
     </div>
   </div>
