@@ -28,18 +28,11 @@
             <p>Anzahl Auswahl: {{selectedOrderlines.length}}</p>
           </div>
           <div class="p-col-4">
-            <button [routerLink]="['/bubi/orderlines']" [queryParams]="{mode: 'active'}" pButton type="button" [label]="'bubi.orderline.show.active' | translate"
-                    class="btn btn-primary"></button>
-            <button [routerLink]="['/bubi/orderlines']" [queryParams]="{mode: 'waiting'}" pButton type="button" [label]="'bubi.orderline.show.waiting' | translate"
-                    class="btn btn-primary"></button>
-            <button [routerLink]="['/bubi/orderlines']" [queryParams]="{mode: 'sent'}" pButton type="button" [label]="'bubi.orderline.show.sent' | translate"
-                    class="btn btn-primary"></button>
-            <button [routerLink]="['/bubi/orderlines']" [queryParams]="{mode: 'all'}" pButton type="button" [label]="'bubi.orderline.show.all' | translate"
-                    class="btn btn-primary"></button>
+            <p-dropdown [options]="modeSelect" [(ngModel)]="mode" optionLabel="desc" optionValue="value" (onChange)="getOrderlines()"></p-dropdown>
           </div>
           <div class="p-col-4">
             <input pInputText type="text" [(ngModel)]="bubi" placeholder="Buchbinder"/>
-            <button [routerLink]="['/bubi/orderlines']" [queryParams]="{mode: 'bubi', bubi: bubi}" pButton type="button" [label]="'bubi.orderline.show.bubi' | translate"
+            <button [routerLink]="['/bubi/orderlines']" [queryParams]="{mode: 'bubi', bubi: bubi}" pButton type="button" [label]="'bubi.orderline.status.bubi' | translate"
                     class="btn btn-primary"></button>
           </div>
           <div class="p-col-2">

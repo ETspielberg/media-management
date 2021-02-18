@@ -4,10 +4,6 @@ import {BubiOrder} from '../model/bubi/BubiOrder';
 import {MessageService} from 'primeng/api';
 import {TranslateService} from '../translate';
 
-interface City {
-  name: string;
-  code: string;
-}
 
 @Component({
   selector: 'app-bubi-invoice',
@@ -32,33 +28,47 @@ export class BubiOrderComponent implements OnInit {
 
   public bubiOrders: BubiOrder[];
 
+  public waysOfDistribution = ['distribute', 'adjust', 'single'];
+
+  public wayOfDistribution: string;
+
+  public orderlineToAdjust: string;
+
+  public invoiceNumber: string;
+
+  public distributionOptions = [];
+
   constructor(public bubiService: BubiService, public messageService: MessageService, private translateService: TranslateService) {
   }
 
   ngOnInit() {
-
-    this.bubiService.getActiveBubiOrders().subscribe(
+    this.showPaymentDialog = false;
+    this.waysOfDistribution.forEach(entry => this.distributionOptions.push({
+      name: this.translateService.instant('bubi.invoice.difference.' + entry),
+      value: entry
+    }));
+    this.bubiService.getBubiOrders('active').subscribe(
       data => this.bubiOrders = data,
-      error => this.messageService.add({
-        severity: 'error',
-        summary: 'Fehler',
-        detail: 'Konnte offene Buchbinderaufträge nicht abrufen.'
-      })
-    );
+      error => {
+        console.log(error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Fehler',
+          detail: 'Konnte offene Buchbinderaufträge nicht abrufen.'
+        });
+      });
   }
 
-  confirmPayment(bubiOrder
-                   :
-                   BubiOrder
-  ) {
+  confirmPayment(bubiOrder: BubiOrder) {
     this.bubiService.activeBubiOrder = bubiOrder;
     this.showPaymentDialog = true;
   }
 
   payActiveBubiOrder() {
-    if (this.invoiceAmount === this.bubiService.activeBubiOrder.totalAmount) {
+    if (this.isInvoiceComplete) {
       this.bubiService.payActiveBubiOrder().subscribe(
         data => {
+          this.showPaymentDialog = false;
           this.bubiService.activeBubiOrder = data;
           this.messageService.add({
             severity: 'success',
@@ -67,6 +77,7 @@ export class BubiOrderComponent implements OnInit {
           });
         },
         error => {
+          this.showPaymentDialog = false;
           console.log(error);
           this.messageService.add({
             severity: 'error',
@@ -75,12 +86,12 @@ export class BubiOrderComponent implements OnInit {
           });
         }
       );
-    }
+    } else if (this.wayOfDistribution === 'single') {
 
+    }
   }
 
   payAndReceiveBubiOrder() {
-
   }
 
 }

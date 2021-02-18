@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Coredata} from '../model/bubi/Coredata';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
@@ -59,7 +59,9 @@ export class BubiService {
   }
 
   orderlineFromIdentifier(identifier: string): Observable<BubiOrderline> {
-    return this.http.get<BubiOrderline>(environment.almaConnectorAddress + '/bubi/orderline/fromIdentifier?identifier=' + identifier);
+    let params = new HttpParams();
+    params = params.append('identifier', identifier);
+    return this.http.get<BubiOrderline>(environment.almaConnectorAddress + '/bubi/orderline/fromIdentifier', {params});
   }
 
   orderlineFromCoredata(): Observable<BubiOrderline> {
@@ -78,20 +80,10 @@ export class BubiService {
       JSON.stringify(orderline), {headers: appGlobals.headers});
   }
 
-  getActiveOrderlines(): Observable<BubiOrderline[]> {
-    return this.http.get<BubiOrderline[]>(environment.almaConnectorAddress + '/bubi/orderline/active');
-  }
-
-  getSentOrderlines(): Observable<BubiOrderline[]> {
-    return this.http.get<BubiOrderline[]>(environment.almaConnectorAddress + '/bubi/orderline/sent');
-  }
-
-  getWaitingOrderlines(): Observable<BubiOrderline[]> {
-    return this.http.get<BubiOrderline[]>(environment.almaConnectorAddress + '/bubi/orderline/waiting');
-  }
-
-  getAllOrderlines(): Observable<BubiOrderline[]> {
-    return this.http.get<BubiOrderline[]>(environment.almaConnectorAddress + '/bubi/orderline/all');
+  getOrderlines(mode: string): Observable<BubiOrderline[]> {
+    let params = new HttpParams();
+    params = params.append('mode', mode);
+    return this.http.get<BubiOrderline[]>(environment.almaConnectorAddress + '/bubi/orderline/retrieve', {params});
   }
 
   packBubiOrder(bubiOrder: BubiOrder): Observable<BubiOrder> {
@@ -103,8 +95,10 @@ export class BubiService {
     return this.http.get<BubiOrderline[]>(environment.almaConnectorAddress + '/bubi/orderline/bubi/' + bubi);
   }
 
-  getActiveBubiOrders(): Observable<BubiOrder[]> {
-    return this.http.get<BubiOrder[]>(environment.almaConnectorAddress + '/bubi/order/active');
+  getBubiOrders(mode: string) {
+    let params = new HttpParams();
+    params = params.append('mode', mode);
+    return this.http.get<BubiOrder[]>(environment.almaConnectorAddress + '/bubi/order/retrieve', {params});
   }
 
   payActiveBubiOrder(): Observable<BubiOrder> {

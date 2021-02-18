@@ -5,19 +5,55 @@
   <p>{{"bubi.invoice.short" | translate}}</p>
 </div>
 
-<p-dialog *ngIf="bubiService.activeCoredata" header="Stammdaten bearbeiten" [(visible)]="showPaymentDialog" [responsive]="true"
-          [style]="{width: '75vw', height: '90vh'}" [modal]="true">
+<p-dialog *ngIf="showPaymentDialog" header="Auftrag bezahlen" [(visible)]="showPaymentDialog" [responsive]="true"
+          [modal]="true">
   <h4>{{"bubi.coredata.for.item" | translate}}</h4>
   <div class="p-fluid p-formgrid p-grid">
-    <div class="p-field p-col">
+    <div class="p-field">
+      <label for="invoiceNumber">{{"bubi.invoice.number" | translate}}</label>
+      <input required id="invoiceNumber" type="text" pInputText [(ngModel)]="this.bubiService.activeBubiOrder.invoiceNumber"/>
+      <p-calendar required [(ngModel)]="this.bubiService.activeBubiOrder.invoiceDate"></p-calendar>
+    </div>
+  </div>
+  <div class="p-fluid p-formgrid p-grid">
+    <div class="p-field">
       <label for="isInvoiceComplete">{{"is.invoice.complete" | translate}}</label>
-      <p-checkbox id="isInvoiceComplete" [(ngModel)]="isInvoiceComplete" [binary]="true"></p-checkbox>
+      <p-toggleButton id="isInvoiceComplete" onLabel="{{'bubi.invoice.amount.agree' | translate}}"
+                      offLabel="{{'bubi.invoice.amount.disagree' | translate}}"
+                      onIcon="pi pi-check" offIcon="pi pi-times" [(ngModel)]="isInvoiceComplete"></p-toggleButton>
     </div>
-    <div class="p-field p-col">
+  </div>
+  <div *ngIf="!isInvoiceComplete" class="p-fluid">
+    <div class="p-grid">
       <label for="invoice_amount">{{"bubi.invoice.amount" | translate}}</label>
-      <input id="invoice_amount" type="text" pInputText [(ngModel)]="invoiceAmount"/>
+      <p-inputNumber id="invoice_amount" [(ngModel)]="invoiceAmount"></p-inputNumber>
     </div>
-    <p *ngIf="!(invoiceAmount === bubiService.activeBubiOrder.totalAmount)">{{'bubi.invoice.amount.not.agree' | translate}}</p>
+    <p>{{'bubi.invoice.adjust'}}</p>
+    <div class="p-grid">
+      <label for="actionOptions">{{"bubi.invoice.amount" | translate}}</label>
+      <p-dropdown id="actionOptions" [options]="distributionOptions" [(ngModel)]="wayOfDistribution" optionLabel="name"
+                  optionValue="value"></p-dropdown>
+    </div>
+    <div *ngIf="wayOfDistribution === 'distribute'" class="p-grid">
+      <p>
+        {{'bubi.invoice.difference.distribute.description' | translate}}
+      </p>
+    </div>
+    <div *ngIf="wayOfDistribution === 'single'" class="p-grid">
+      <p>
+        {{'bubi.invoice.difference.single.description' | translate}}
+      </p>
+      <div class="p-field">
+        <input id="orderlineToAdjust" type="text" pInputText [(ngModel)]="orderlineToAdjust"/>
+      </div>
+    </div>
+    <div *ngIf="wayOfDistribution === 'adjust'" class="p-grid">
+      <p>
+        {{'bubi.invoice.difference.adjust.description' | translate}}
+      </p>
+    </div>
+  </div>
+  <div class="p-grid">
     <button pButton type="button" icon="fa-save" label="Bezahlen"
             (click)="payActiveBubiOrder()"></button>
   </div>
@@ -29,108 +65,127 @@
     <p>{{"bubi.order.line.new.short" | translate}}</p>
     <h4>{{"bubi.order.line.new.from.collection" | translate}}</h4>
     <p-table #dt1 [value]="bubiOrders" dataKey="bubiOrderId"
-    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
-    styleClass="p-datatable-customers p-datatable-gridlines"
-    [paginator]="true"
-    currentPageReportTemplate="Zeige {first} bis {last} aller {totalRecords} Einträge"
-    [globalFilterFields]="['collection','shelfmark','fund','title', 'minting', 'vendorId']">
-    <ng-template pTemplate="caption">
-      <div class="p-grid">
-        <div class="p-col-2">
+             [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+             styleClass="p-datatable-customers p-datatable-gridlines"
+             [paginator]="true"
+             currentPageReportTemplate="Zeige {first} bis {last} aller {totalRecords} Einträge"
+             [globalFilterFields]="['collection','shelfmark','fund','title', 'minting', 'vendorId']">
+      <ng-template pTemplate="caption">
+        <div class="p-grid">
+          <div class="p-col-2">
           <span class="p-input-icon-left p-ml-auto">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
                            placeholder="Globale Suche"/>
                 </span>
+          </div>
         </div>
-      </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-      <tr>
-        <th>
-          <div class="p-d-flex p-jc-between p-ai-center">
-            Auftrag
-          </div>
-        </th>
-        <th>
-          <div class="p-d-flex p-jc-between p-ai-center">
-            Alma-Bestellnummer
-          </div>
-        </th>
-        <th>
-          <div class="p-d-flex p-jc-between p-ai-center">
-            Vom
-          </div>
-        </th>
-        <th>
-          <div class="p-d-flex p-jc-between p-ai-center">
-            Buchbinder
-            <p-columnFilter type="text" field="vendorId" display="menu"></p-columnFilter>
-          </div>
-        </th>
-        <th>
-          <div class="p-d-flex p-jc-between p-ai-center">
-            Status
-            <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
-          </div>
-        </th>
-        <th>
-          <div class="p-d-flex p-jc-between p-ai-center">
-            Datum Abholung
-          </div>
-        </th>
-        <th>
-          <div class="p-d-flex p-jc-between p-ai-center">
-            Datum zurück
-          </div>
-        </th>
-        <th>
-          <div class="p-d-flex p-jc-between p-ai-center">
-            Bezahl-Status
-            <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
-          </div>
-        </th>
-        <th></th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-order>
-      <tr>
-        <td>
-          {{order.bubiOrderId}}
-        </td>
-        <td>
-          {{order.almaOrderId}}
-        </td>
-        <td>
-          {{order.created}}
-        </td>
-        <td>
-          {{order.vendorId}}
-        </td>
-        <td>
-          {{order.status}}
-        </td>
-        <td>
-          <p-calendar [(ngModel)]="order.collectedOn"></p-calendar>
-        </td>
-        <td>
-          <p-calendar [(ngModel)]="order.returnedOn"></p-calendar>
-        </td>
-        <td>
-          {{order.paymentStatus}}
-        </td>
-        <td>
-          <button pButton type="button" (click)="confirmPayment(order)" label="Rechnungen anlegen"></button>
-          <button pButton type="button" (click)="payBubiOrder()" label="Eingetroffen"></button>
-          <button pButton type="button" (click)="payBubiOrder()" label="Eingetroffen und Rechnungen anlegen"></button>
-        </td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="emptymessage">
-      <tr>
-        <td colspan="7">No customers found.</td>
-      </tr>
-    </ng-template>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Auftrag
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Alma-Bestellnummer
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Auftragspreis
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Vom
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Buchbinder
+              <p-columnFilter type="text" field="vendorId" display="menu"></p-columnFilter>
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Status
+              <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Anzahl aufträge
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Datum Abholung
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Datum zurück
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Bezahl-Status
+              <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+            </div>
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-order>
+        <tr>
+          <td>
+            {{order.bubiOrderId}}
+          </td>
+          <td>
+            {{order.almaOrderId}}
+          </td>
+          <td>
+            {{order.totalAmount}}
+          </td>
+          <td>
+            {{order.created}}
+          </td>
+          <td>
+            {{order.vendorId}}
+          </td>
+          <td>
+            {{order.status}}
+          </td>
+          <td>
+            {{order.bubiOrderLines.length}}
+          </td>
+          <td>
+            <p-calendar [(ngModel)]="order.collectedOn"></p-calendar>
+          </td>
+          <td>
+            <p-calendar [(ngModel)]="order.returnedOn"></p-calendar>
+            <button pButton class="p-button-success p-button-raised p-button-rounded" type="button"
+                    (click)="return(order)" label="Rechnungen anlegen"></button>
+          </td>
+          <td>
+            {{order.paymentStatus}}
+            <button *ngIf="order.paymentStatus !== 'PAID'" pButton class="p-button-success p-button-raised p-button-rounded" type="button"
+                    (click)="confirmPayment(order)" label="Rechnungen anlegen"></button>
+          </td>
+          <td>
+            <button pButton type="button" (click)="returnAndPay(order)"
+                    label="Eingetroffen und Rechnungen anlegen"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7">No customers found.</td>
+        </tr>
+      </ng-template>
     </p-table>
   </div>
 </div>

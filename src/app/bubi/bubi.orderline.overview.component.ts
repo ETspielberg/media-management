@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Bubidata} from '../model/bubi/Bubidata';
 import {MessageService} from 'primeng/api';
 import {BubiOrder} from '../model/bubi/BubiOrder';
+import {TranslateService} from '../translate';
 
 @Component({
   selector: 'app-bubi-orderline-overview',
@@ -25,43 +26,54 @@ export class BubiOrderlineOverviewComponent implements OnInit {
 
   public showDialog = false;
 
+  public mode: string;
+
+  public modes = ['active', 'waiting', 'packed', 'sent', 'closed', 'all'];
+
+  public modeSelect = [];
+
   constructor(private route: ActivatedRoute,
               public bubiService: BubiService,
               private messageService: MessageService,
-              private router: Router) {
+              private router: Router,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
+    this.modes.forEach(entry => this.modeSelect.push(
+      {
+        value: entry,
+        desc: this.translateService.instant('bubi.orderline.status.' + entry)
+      }
+    ));
     this.loading = true;
     this.selectedOrderlines = [];
+    this.mode = 'active';
     this.route.queryParams.subscribe(
       params => {
-        const mode = params['mode'];
-        if (mode === undefined) {
-          this.getActiveOrderlines();
-        } else if (mode === 'active') {
-          this.getActiveOrderlines();
-        } else if (mode === 'all') {
-          this.getAllOrderlines();
-        } else if (mode === 'waiting') {
-          this.getAllWaitingOrderlines();
-        } else if (mode === 'sent') {
-          this.getAllSentOrderlines();
-        } else if (mode === 'bubi') {
-          this.bubi = params['bubi'];
-          this.getBubiOrderlines(this.bubi);
-        } else {
-          this.getActiveOrderlines();
+        this.mode = params['mode'];
+        if (this.mode === undefined) {
+          this.mode = 'active';
         }
-      }
-    );
+        if (this.mode === 'bubi') {
+          this.bubi = params['bubi'];
+          this.getBubiOrderlines();
+        } else {
+          this.getOrderlines();
+        }
+      });
   }
 
-  getAllWaitingOrderlines() {
-    this.bubiService.getWaitingOrderlines().subscribe(
+  getOrderlines() {
+    this.bubiService.getOrderlines(this.mode).subscribe(
       data => {
         this.orderlines = data;
         this.loading = false;
+      },
+      error => {
+        console.log(error);
+        const message = 'Daten konnten nicht abgerufen werden. Bitte Browser-Log auf Fehler prüfen.';
+        this.messageService.add({severity: 'error', summary: 'Fehler', detail: message});
       }
     );
   }
@@ -74,6 +86,7 @@ export class BubiOrderlineOverviewComponent implements OnInit {
         this.bubiService.saveOrderline(entry).subscribe(
           data => successfull = successfull + 1,
           error => {
+            console.log(error);
             const message = 'Auftrag konnte nicht verarbeitet werden: ' + entry.bubiOrderLineId;
             this.messageService.add({severity: 'error', summary: 'Fehler', detail: message});
           }
@@ -94,27 +107,9 @@ export class BubiOrderlineOverviewComponent implements OnInit {
     );
   }
 
-  getAllSentOrderlines() {
-    this.bubiService.getSentOrderlines().subscribe(
-      data => {
-        this.orderlines = data;
-        this.loading = false;
-      }
-    );
-  }
-
-  getActiveOrderlines() {
-    this.bubiService.getActiveOrderlines().subscribe(
-      data => {
-        this.orderlines = data;
-        this.loading = false;
-      }
-    );
-  }
-
   packSelected() {
     this.showDialog = true;
-    const bubiOrder = new BubiOrder('', '', 'NEW', 'OPEN', this.selectedOrderlines, '', new Date(), new Date(), 0, new Date(), null);
+    const bubiOrder = new BubiOrder('', '', 'NEW', 'OPEN', this.selectedOrderlines, '', new Date(), new Date(), 0, new Date(), null, '', new Date());
     this.bubiService.packBubiOrder(bubiOrder).subscribe(
       data => {
         this.messageService.add({
@@ -125,7 +120,7 @@ export class BubiOrderlineOverviewComponent implements OnInit {
         this.showDialog = false;
         this.selectedOrderlines = [];
         this.bubiService.activeBubiOrder = data;
-        this.getActiveOrderlines();
+        this.getOrderlines();
       }, error => {
         this.messageService.add({
           severity: 'error',
@@ -138,27 +133,28 @@ export class BubiOrderlineOverviewComponent implements OnInit {
     );
   }
 
-  getAllOrderlines() {
-    this.bubiService.getAllOrderlines().subscribe(
+  getBubiOrderlines() {
+    this.bubiService.getBubiOrderlines(this.bubi).subscribe(
       data => {
         this.orderlines = data;
         this.loading = false;
-      }
-    );
-  }
-
-  getBubiOrderlines(bubi: string) {
-    this.bubiService.getBubiOrderlines(bubi).subscribe(
-      data => {
-        this.orderlines = data;
-        this.loading = false;
+      },
+      error => {
+        console.log(error);
+        const message = 'Daten konnten nicht abgerufen werden. Bitte Browser-Log auf Fehler prüfen.';
+        this.messageService.add({severity: 'error', summary: 'Fehler', detail: message});
       }
     );
   }
 
   edit(bubiOrderline: BubiOrderline) {
     this.bubiService.activeOrderline = bubiOrderline;
-    this.router.navigate(['/bubi/orderline'], {queryParams: {mode: 'identifier', identifier: bubiOrderline.bubiOrderLineId}});
+    this.router.navigate(['/bubi/orderline'], {
+      queryParams: {
+        mode: 'identifier',
+        identifier: bubiOrderline.bubiOrderLineId
+      }
+    });
   }
 
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Coredata} from '../model/bubi/Coredata';
 import {BubiService} from '../service/bubi.service';
-import {MessageService} from 'primeng/api';
+import {MenuItem, MessageService} from 'primeng/api';
 import {Bubidata} from '../model/bubi/Bubidata';
 import {TranslateService} from '../translate';
 
@@ -23,6 +23,8 @@ export class BubiCoredataComponent implements OnInit {
   private mediaTypesValues = ['journal', 'series', 'book'];
 
   public mediaTypes = [];
+
+  public menuItems: MenuItem[];
 
   constructor(public bubiService: BubiService, private messageService: MessageService, private translateService: TranslateService) {
   }

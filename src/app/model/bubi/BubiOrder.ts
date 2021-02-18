@@ -13,7 +13,9 @@ export class BubiOrder {
     public lastChange: Date,
     public totalAmount: number,
     public collectedOn: Date,
-    public returnedOn: Date
+    public returnedOn: Date,
+    public invoiceNumber: string,
+    public invoiceDate: Date
   ) {
   }
 }
